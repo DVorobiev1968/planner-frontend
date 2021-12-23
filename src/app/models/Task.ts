@@ -1,6 +1,6 @@
 import {Category} from "./Category";
 import {Employee} from "./Employee";
-import {Prority} from "./Prority";
+import {Priority} from "./Priority";
 import {DocumentModel} from "./DocumentModel";
 import {User} from "./User";
 
@@ -11,7 +11,7 @@ export interface Task{
   date:Date;
   note:string;
   documents:DocumentModel[];
-  priority:Prority;
+  priority:Priority;
   employee:Employee;
   category:Category;
   user:User;
