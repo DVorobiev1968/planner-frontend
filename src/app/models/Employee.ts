@@ -1,7 +1,7 @@
 export interface Employee{
   id?:number;
-  firstName:string;
-  lastName:string;
+  firstname:string;
+  lastname:string;
   patronymic:string;
   initial:string;
 }

@@ -1,0 +1,30 @@
+<body>
+<h1>Оперативный план работ</h1>
+<div *ngIf="isTaskLoaded && isUserDataLoaded">
+  <!--  <div class="table-responsive container">-->
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">N</th>
+      <th scope="col">Наименование работ</th>
+      <th scope="col">Ответственное подразделение</th>
+      <th scope="col">Ответственный исполнитель</th>
+      <th scope="col">Срок исполнения</th>
+      <th scope="col">Редактирование</th>
+      <th scope="col">Удаление</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="{{task.priority.color}}" *ngFor="let task of tasks; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{task.title}}</td>
+      <td>&nbsp;</td>
+      <td>{{task.employee.lastname}}&nbsp;{{task.employee.initial}}</td>
+      <td>{{task.dateControl}}</td>
+      <td class="info"><a class="btn btn-warning"  href="#">Редактировать</a></td>
+      <td class="info"><a class="btn btn-warning"  href="#">Удалить</a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>

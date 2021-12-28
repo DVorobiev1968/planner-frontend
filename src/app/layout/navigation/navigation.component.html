@@ -1,9 +1,22 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal">Turbopneumatic</h5>
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" routerLink="/">Главная</a>
-    <a class="p-2 text-dark" routerLink="#">Сотрудники</a>
-    <a class="p-2 text-dark" routerLink="#">Настройка</a>
-    <a class="btn btn-outline-primary" href="/login">Войти</a>
-  </nav>
-</div>
+<mat-toolbar color="primary">
+  <span routerLink="/main" style="cursor: pointer;margin-left: 20px;"></span>
+
+  <span class="spacer"></span>
+
+  <button *ngIf="!isLoggedIn" matTooltip="Login" routerLink="/login" mat-icon-button class="example-icon favorite-icon">
+    <mat-icon>login</mat-icon>
+  </button>
+
+
+  <h3 *ngIf="isDataLoaded">{{this.user.firstname}} {{this.user.lastname}}</h3>
+
+  <button *ngIf="isLoggedIn" [matMenuTriggerFor]="menu" matTooltip="Tasks" mat-icon-button>
+    <mat-icon color="accent">Tasks</mat-icon>
+  </button>
+  <mat-menu id="menu-item" #menu="matMenu">
+    <button mat-menu-item routerLink="/tasks">Tasks</button>
+    <button (click)="logout()" mat-menu-item>
+      Logout
+    </button>
+  </mat-menu>
+</mat-toolbar>

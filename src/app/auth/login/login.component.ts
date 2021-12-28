@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     }).subscribe(data => {
-      debugger
       console.log(data);
 
       this.tokenStorage.saveToken(data.token);
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
       window.location.reload();
     }, error => {
-      console.log(error);
+      console.log(error.message);
       this.notificationService.showSnackBar(error.message);
     });
   }

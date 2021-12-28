@@ -8,10 +8,12 @@ export interface Task{
   id:number;
   title:string;
   completed:number;
-  date:Date;
+  dateControl:String;
   note:string;
   documents:DocumentModel[];
+  priorityId:number;
   priority:Priority;
+  employeeId:number;
   employee:Employee;
   category:Category;
   user:User;
