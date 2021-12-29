@@ -18,8 +18,8 @@ export class ListTaskComponent implements OnInit {
   user: User;
 
   constructor(private taskService: TaskService,
-              private priorityService: PriorityService,
               private employeeService: EmployeeService,
+              private priorityService: PriorityService,
               private userService: UserService) {
 
   }
@@ -28,7 +28,10 @@ export class ListTaskComponent implements OnInit {
     this.taskService.listTask().subscribe(data => {
       console.log(data);
       this.tasks = data;
-      this.getInfoTask(this.tasks);
+      this.taskService.listTask()
+        .subscribe(data=>{
+          console.log(data);
+        });
       this.isTaskLoaded = true;
     });
 
