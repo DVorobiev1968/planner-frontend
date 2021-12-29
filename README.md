@@ -1,6 +1,6 @@
-## Install
+# Install
 Instruction <https://ccbill.com/kb/install-angular-on-windows>
-# Step 1: Install Node.js
+## Step 1: Install Node.js
 Angular bases its build environments on Node.js, and many of its features depend on NMP packages. Conveniently, the Node Package Manager (NPM) client is part of the default Node.js package.
 
 To install Node.js:
@@ -14,7 +14,7 @@ To verify the NPM version, use the following command:
 
 npm -v
 
-# Step 2: Install TypeScript (Optional)
+## Step 2: Install TypeScript (Optional)
 TypeScript makes JavaScript easier to maintain and understand. You can install TypeScript as an NPM package. The installation is optional, as it is not a prerequisite for developing an Angular application.
 
 1.. Access the Windows Command Prompt and install TypeScript with the following command:
@@ -31,7 +31,7 @@ https-proxy=https://user:pass@proxy.company.com:8080
 registry=http://registry.npmjs.org/
 strict-ssl=false
 
-# Step 3: Install Angular CLI
+## Step 3: Install Angular CLI
 The Angular command-line interface (CLI) tool allows you to initialize, develop, and manage your Angular applications. You can use the NPM package manager to install the Angular CLI.
 
 1. Access the Windows Command Prompt and enter the following command:
