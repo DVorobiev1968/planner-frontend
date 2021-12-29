@@ -15,6 +15,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { IndexComponent } from './layout/index/index.component';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { ListTaskComponent } from './task/list-task/list-task.component';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ListTaskComponent } from './task/list-task/list-task.component';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSliderModule
   ],
   providers: [
     authInterceptorProviders,
