@@ -14,7 +14,7 @@
 
 <button mat-button [matMenuTriggerFor]="logsMenu">Войти</button>
 <mat-menu #logsMenu="matMenu" yPosition="below">
-  <button *ngIf="!isLoggedIn" mat-menu-item routerLink="register">Регистрация</button>
+  <button *ngIf="isLoggedIn" mat-menu-item routerLink="register">Регистрация</button>
   <button *ngIf="isLoggedIn" mat-menu-item routerLink="logout">Выход</button>
   <button *ngIf="!isLoggedIn" mat-menu-item routerLink="login">Вход</button>
 </mat-menu>
