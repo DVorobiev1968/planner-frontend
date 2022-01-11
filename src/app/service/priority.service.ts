@@ -14,4 +14,7 @@ export class PriorityService {
     return this.http.get(PRIORITY_API + 'id/' + id);
   }
 
+  listPriority():Observable<any>{
+    return this.http.get(PRIORITY_API+'all');
+  }
 }

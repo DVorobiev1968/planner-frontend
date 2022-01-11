@@ -11,11 +11,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'main', component: IndexComponent, canActivate: [AuthGuardService]},
-  {
-    path: 'tasks', component: ListTaskComponent, canActivate: [AuthGuardService], children: [
-      {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuardService]}
-    ]
-  },
+  {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuardService]},
+  {path: 'tasks', component: ListTaskComponent, canActivate: [AuthGuardService]},
   {path: '', redirectTo: 'main', pathMatch: 'full'},
   {path: 'logout', redirectTo: 'login', pathMatch: 'full'}
 ];
