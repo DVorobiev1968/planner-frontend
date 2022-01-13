@@ -22,7 +22,6 @@ import {Observable} from "rxjs";
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-  taskForm: FormGroup;
   _taskForm: FormGroup;
 
   isUserDataLoaded = false;
@@ -67,16 +66,12 @@ export class AddTaskComponent implements OnInit {
       });
     this.dateControl=new Date();
     this.newTask="Новое мероприятие";
-    // this._createTaskForm();
     this._createTaskFormBuilder();
   }
 
   ngOnInit(): void {
-    // this.dateControl=new Date();
-    // this.newTask="Новое мероприятие";
-    // this.taskForm=this.createTaskForm();
-
   }
+
   private _createTaskFormBuilder(){
     this._taskForm=this.fb.group({
       newTask: [this.newTask, Validators.required],
@@ -84,31 +79,6 @@ export class AddTaskComponent implements OnInit {
       priority: [this.priorities, Validators.required],
       dateControl: [this.dateControl, Validators.required]
     })
-  }
-  private _createTaskForm(){
-    this._taskForm=new FormGroup({
-      newTask: new FormControl(Validators.required),
-      employee: new FormControl(Validators.required),
-      priority: new FormControl( Validators.required),
-      dateControl: new FormControl(Validators.required)
-    })
-  }
-  createTaskForm():FormGroup {
-    return this.fb.group({
-      newTask: new FormControl({value: this.newTask},Validators.required),
-      employee: new FormControl({value: this.employees}, Validators.required),
-      priority: new FormControl({value: this.priorities}, Validators.required),
-      dateControl: new FormControl({value: this.dateControl}, Validators.required)
-    });
-  }
-
-  createTaskFormOld():FormGroup {
-    return this.fb.group({
-      newTask: [this.newTask, Validators.compose([Validators.required, Validators.maxLength(256)])],
-      employee: [this.employees, Validators.compose([Validators.required])],
-      priority: [this.priorities, Validators.compose([Validators.required])],
-      dateControl: [this.dateControl, Validators.compose([Validators.required])]
-    });
   }
 
   submit():void {
