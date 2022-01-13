@@ -5,15 +5,16 @@ import {DocumentModel} from "./DocumentModel";
 import {User} from "./User";
 
 export interface Task{
-  id:number;
+  id?:number;
   title:string;
-  completed:number;
-  strDateControl:String;
-  note:string;
-  documents:DocumentModel[];
-  priorityId?:number;
+  completed?:number;
+  strDateControl?:String;
+  dateControl:Date;
+  note?:string;
+  documents?:DocumentModel[];
+  priorityId:number;
   priority:Priority;
-  employeeId?:number;
+  employeeId:number;
   employee:Employee;
   category:Category;
   user:User;

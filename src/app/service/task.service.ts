@@ -11,7 +11,23 @@ export class TaskService {
 
   constructor(private http:HttpClient) { }
 
-  createTask(task: any):Observable<any>{
+  public createTask(task:{
+    title: any;
+    employeeId: any;
+    priorityId: any;
+    categoryId: any;
+    dateControl: any;
+  }): Observable<any> {
+    return this.http.post(TASK_API + "add", {
+      title:task.title,
+      employeeId:task.employeeId,
+      priorityId:task.priorityId,
+      categoryId:task.categoryId,
+      dateControl:task.dateControl
+    });
+  }
+
+  public createTaskOld(task: any): Observable<any>{
     return this.http.post(TASK_API+"add",task);
   }
   listTask(): Observable<any> {

@@ -7,6 +7,12 @@ import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
 import {Employee} from "../../models/Employee";
 import {CategoryService} from "../../service/category.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {NotificationService} from "../../service/notification.service";
+import {Router} from "@angular/router";
+import {Task} from "../../models/Task";
+import {Observable} from "rxjs";
+
 // import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 // import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
@@ -16,7 +22,8 @@ import {CategoryService} from "../../service/category.service";
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-  public  taskForm: FormGroup;
+  taskForm: FormGroup;
+  _taskForm: FormGroup;
 
   isUserDataLoaded = false;
   isEmployeesLoaded = false;
@@ -27,43 +34,100 @@ export class AddTaskComponent implements OnInit {
   newTask: string;
   employees: Employee[];
   priorities: Priority[];
-
-  private fb: FormBuilder
+  task: Observable<Task>;
 
   constructor(private taskService: TaskService,
               private employeeService: EmployeeService,
               private priorityService: PriorityService,
               private categoryService: CategoryService,
-              private userService: UserService) { }
-
-  ngOnInit(): void {
+              private userService: UserService,
+              private notificationService: NotificationService,
+              private fb: FormBuilder,
+              private router: Router
+              ) {
     this.userService.getCurrentUser()
       .subscribe(data => {
         console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
-      })
-    this.dateControl=new Date();
-    this.newTask="Новое мероприятие";
+      });
 
     this.employeeService.listEmployee()
       .subscribe(data =>{
         console.log(data);
         this.employees=data;
         this.isEmployeesLoaded=true;
-      })
+      });
 
     this.priorityService.listPriority()
       .subscribe(data =>{
         console.log(data);
         this.priorities=data;
         this.isPriorityLoaded=true;
-      })
+      });
+    this.dateControl=new Date();
+    this.newTask="Новое мероприятие";
+    // this._createTaskForm();
+    this._createTaskFormBuilder();
+  }
 
+  ngOnInit(): void {
+    // this.dateControl=new Date();
+    // this.newTask="Новое мероприятие";
+    // this.taskForm=this.createTaskForm();
+
+  }
+  private _createTaskFormBuilder(){
+    this._taskForm=this.fb.group({
+      newTask: [this.newTask, Validators.required],
+      employee: [this.employees, Validators.required],
+      priority: [this.priorities, Validators.required],
+      dateControl: [this.dateControl, Validators.required]
+    })
+  }
+  private _createTaskForm(){
+    this._taskForm=new FormGroup({
+      newTask: new FormControl(Validators.required),
+      employee: new FormControl(Validators.required),
+      priority: new FormControl( Validators.required),
+      dateControl: new FormControl(Validators.required)
+    })
   }
   createTaskForm():FormGroup {
     return this.fb.group({
+      newTask: new FormControl({value: this.newTask},Validators.required),
+      employee: new FormControl({value: this.employees}, Validators.required),
+      priority: new FormControl({value: this.priorities}, Validators.required),
+      dateControl: new FormControl({value: this.dateControl}, Validators.required)
+    });
+  }
 
-    })
+  createTaskFormOld():FormGroup {
+    return this.fb.group({
+      newTask: [this.newTask, Validators.compose([Validators.required, Validators.maxLength(256)])],
+      employee: [this.employees, Validators.compose([Validators.required])],
+      priority: [this.priorities, Validators.compose([Validators.required])],
+      dateControl: [this.dateControl, Validators.compose([Validators.required])]
+    });
+  }
+
+  submit():void {
+    console.log(this._taskForm.value);
+
+    this.taskService.createTask({
+      title: this._taskForm.value.newTask,
+      employeeId: this._taskForm.value.employee,
+      priorityId: this._taskForm.value.priority,
+      categoryId: 1,
+      dateControl: this._taskForm.value.dateControl
+    }).subscribe(data=>{
+      console.log(data);
+      this.notificationService.showSnackBar('Данные были успешно записаны');
+      this.router.navigate(['tasks']);
+      // window.location.reload();
+    },error => {
+      console.log(error.message);
+      this.notificationService.showSnackBar(error.message);
+    });
   }
 }
