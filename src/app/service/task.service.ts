@@ -17,29 +17,42 @@ export class TaskService {
     priorityId: any;
     categoryId: any;
     dateControl: any;
+    note: any;
   }): Observable<any> {
     return this.http.post(TASK_API + "add", {
       title:task.title,
       employeeId:task.employeeId,
       priorityId:task.priorityId,
       categoryId:task.categoryId,
-      dateControl:task.dateControl
+      dateControl:task.dateControl,
+      note:task.note
     });
   }
 
-  public createTaskOld(task: any): Observable<any>{
-    return this.http.post(TASK_API+"add",task);
+  public updateTask(task:{
+    title: any;
+    employeeId: any;
+    priorityId: any;
+    categoryId: any;
+    dateControl: any;
+    note: any;
+  }): Observable<any> {
+    return this.http.post(TASK_API + "update", {
+      title:task.title,
+      employeeId:task.employeeId,
+      priorityId:task.priorityId,
+      categoryId:task.categoryId,
+      dateControl:task.dateControl,
+      note:task.note
+    });
   }
+
   listTask(): Observable<any> {
     return this.http.get(TASK_API + 'all');
   }
 
   getTaskById(id: number): Observable<any> {
     return this.http.get(TASK_API + 'id/' + id);
-  }
-
-  updateTask(task: any): Observable<any> {
-    return this.http.post(TASK_API + 'update', task);
   }
 
   deleteTask(id: number): Observable<any> {

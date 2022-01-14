@@ -17,5 +17,6 @@ export interface Task{
   employeeId:number;
   employee:Employee;
   category:Category;
+  categoryId:number;
   user:User;
 }

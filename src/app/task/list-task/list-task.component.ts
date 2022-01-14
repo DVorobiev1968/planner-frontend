@@ -5,6 +5,9 @@ import {UserService} from "../../service/user.service";
 import {User} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
 import {EmployeeService} from "../../service/employee.service";
+import {DialogComponent} from "../dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'list-task',
@@ -14,13 +17,19 @@ import {EmployeeService} from "../../service/employee.service";
 export class ListTaskComponent implements OnInit {
   isTaskLoaded = false;
   isUserDataLoaded = false;
+  task:Task;
   tasks: Task[];
   user: User;
+  action: string;
+  deleteIdTask:number;
+  indexTask:number;
 
   constructor(private taskService: TaskService,
               private employeeService: EmployeeService,
               private priorityService: PriorityService,
-              private userService: UserService) {
+              private userService: UserService,
+              private notificationService: NotificationService,
+              public dialog: MatDialog) {
 
   }
 
@@ -77,5 +86,48 @@ export class ListTaskComponent implements OnInit {
     }
     return 'data:image/jpeg;base64,' + img;
   }
+
+  editTask(index:number,id:number):void{
+    console.log("Edit task ID:"+id);
+    this.task=this.tasks[index];
+    this.taskService.updateTask(this.task)
+      .subscribe(data=>{
+        console.log(data);
+        this.notificationService.showSnackBar('Данные были успешно удалены');
+        window.location.reload();
+      }), error=> {
+      console.log(error.message);
+      this.notificationService.showSnackBar(error.message);
+    }
+  }
+
+  openDialog(index:number, id:number): void {
+    this.indexTask=index;
+    this.deleteIdTask=id;
+    console.log("Delete task ID:"+this.deleteIdTask.toString());
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '450px',
+      data: {title: this.tasks[index].title, action: this.action},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.action = result;
+      if (this.action) {
+        this.taskService.deleteTask(this.deleteIdTask)
+          .subscribe(data=>{
+            console.log(data);
+            this.notificationService.showSnackBar('Данные были успешно удалены');
+            window.location.reload();
+          }), error=>{
+          console.log(error.message);
+          this.notificationService.showSnackBar(error.message);
+        }
+        console.log(this.tasks[index].title + 'was deleted');
+      }
+      else
+        console.log('Task not delete');
+    });
+  }
+
 
 }

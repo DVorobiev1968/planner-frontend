@@ -16,6 +16,10 @@ import { IndexComponent } from './layout/index/index.component';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { ListTaskComponent } from './task/list-task/list-task.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { DeleteTaskComponent } from './task/delete-task/delete-task.component';
+import { DialogComponent } from './task/dialog/dialog.component';
+import { MomentPipe } from './service/moment.pipe';
+import { EditTaskComponent } from './task/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { MatSliderModule } from '@angular/material/slider';
     NavigationComponent,
     IndexComponent,
     AddTaskComponent,
-    ListTaskComponent
+    ListTaskComponent,
+    DeleteTaskComponent,
+    DialogComponent,
+    MomentPipe,
+    EditTaskComponent
   ],
   imports: [
     AppRoutingModule,
