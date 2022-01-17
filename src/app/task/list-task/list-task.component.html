@@ -23,7 +23,7 @@
       <td>{{task.category.title}}</td>
       <td>{{task.employee.fio}}</td>
       <td>{{task.strDateControl}}</td>
-      <td class="info"><a class="btn btn-warning"  href="#">Редактировать</a></td>
+      <td class="info"><a class="btn btn-warning"  (click)="editTask(i,task.id)">Редактировать</a></td>
       <td class="info"><a class="btn btn-warning"  (click)="openDialog(i, task.id)">Удалить</a></td>
     </tr>
     </tbody>

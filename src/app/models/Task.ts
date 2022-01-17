@@ -5,13 +5,13 @@ import {DocumentModel} from "./DocumentModel";
 import {User} from "./User";
 
 export interface Task{
-  id?:number;
+  id:number;
   title:string;
   completed?:number;
   strDateControl?:String;
   dateControl:Date;
-  note?:string;
-  documents?:DocumentModel[];
+  note:string;
+  documents:DocumentModel[];
   priorityId:number;
   priority:Priority;
   employeeId:number;
@@ -19,4 +19,23 @@ export interface Task{
   category:Category;
   categoryId:number;
   user:User;
+}
+
+export class CurrentTask implements Task{
+  category: Category;
+  categoryId: number;
+  dateControl: Date;
+  documents: DocumentModel[];
+  employee: Employee;
+  employeeId: number;
+  id: number;
+  note: string;
+  priority: Priority;
+  priorityId: number;
+  title: string;
+  user: User;
+
+  constructor() {
+    this.id=1;
+  }
 }

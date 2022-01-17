@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'main', component: IndexComponent, canActivate: [AuthGuardService]},
   {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuardService]},
-  {path: 'app-edit-task', component: EditTaskComponent, canActivate: [AuthGuardService]},
+  {path: 'edit-task', component: EditTaskComponent, canActivate: [AuthGuardService]},
   {path: 'tasks', component: ListTaskComponent, canActivate: [AuthGuardService]},
   {path: 'delete-task',component: DeleteTaskComponent,canActivate:[AuthGuardService]},
   {path: 'app-dialog', component: DialogComponent, canActivate:[AuthGuardService]},

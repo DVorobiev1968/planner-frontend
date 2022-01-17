@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {CurrentTask, Task} from "../models/Task";
 
 const TASK_API = 'http://localhost:8090/api/task/';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
 
-  constructor(private http:HttpClient) { }
+export class TaskService {
+  currentTask:CurrentTask;
+
+  constructor(private http:HttpClient) {
+    this.currentTask=new CurrentTask();
+  }
 
   public createTask(task:{
     title: any;
@@ -59,4 +64,11 @@ export class TaskService {
     return this.http.get(TASK_API + 'delete/' + id);
   }
 
+  setCurrentTaskId(id:number):void{
+    this.currentTask.id=id;
+  }
+
+  getCurrentTask():CurrentTask{
+    return this.currentTask;
+  }
 }

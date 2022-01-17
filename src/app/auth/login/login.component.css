@@ -2,7 +2,14 @@
   text-align: center;
   margin-top: 10rem;
 }
+.login-form{
+  width: 500px;
+  width: 100%;
+  margin: 2rem;
+  border: black;
+  border-width: 1px;
 
+}
 #controls {
   display: block;
   margin: 0 auto;

@@ -8,6 +8,7 @@ import {EmployeeService} from "../../service/employee.service";
 import {DialogComponent} from "../dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {NotificationService} from "../../service/notification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'list-task',
@@ -17,7 +18,7 @@ import {NotificationService} from "../../service/notification.service";
 export class ListTaskComponent implements OnInit {
   isTaskLoaded = false;
   isUserDataLoaded = false;
-  task:Task;
+  public task:Task;
   tasks: Task[];
   user: User;
   action: string;
@@ -29,6 +30,7 @@ export class ListTaskComponent implements OnInit {
               private priorityService: PriorityService,
               private userService: UserService,
               private notificationService: NotificationService,
+              private router: Router,
               public dialog: MatDialog) {
 
   }
@@ -90,15 +92,8 @@ export class ListTaskComponent implements OnInit {
   editTask(index:number,id:number):void{
     console.log("Edit task ID:"+id);
     this.task=this.tasks[index];
-    this.taskService.updateTask(this.task)
-      .subscribe(data=>{
-        console.log(data);
-        this.notificationService.showSnackBar('Данные были успешно удалены');
-        window.location.reload();
-      }), error=> {
-      console.log(error.message);
-      this.notificationService.showSnackBar(error.message);
-    }
+    this.taskService.setCurrentTaskId(id);
+    this.router.navigate(['edit-task']);
   }
 
   openDialog(index:number, id:number): void {
