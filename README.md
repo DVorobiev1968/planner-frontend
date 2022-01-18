@@ -1,4 +1,23 @@
-# Install
+# Install for Ubuntu
+## Step 1 – Installing Node.js
+NVM is a command line tool for installing and managing node.js on Linux system. So first we need to install nvm on our system. Login to system with user for which you need to install Node.js, then execute below command to install nvm:
+
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+After that, you can install any version of node on your system. You can also install multiple node versions on single system. Execute below commands to load environment and install latest node.js version:
+
+source ~/.bashrc
+nvm install node
+The above command will display the version of node and npm installed on your system.
+## Step 2 – Installing Angular CLI
+After installing the node.js and npm on your system, use following commands to install Angular cli tool on your system.
+### latest version
+npm install -g @angular/cli
+### previous version
+npm install -g @angular/cli@8        #Angular 8
+npm install -g @angular/cli@9        #Angular 9
+npm install -g @angular/cli@10       #Angular 10
+
+# Install for Windows
 Instruction <https://ccbill.com/kb/install-angular-on-windows>
 ## Step 1: Install Node.js
 Angular bases its build environments on Node.js, and many of its features depend on NMP packages. Conveniently, the Node Package Manager (NPM) client is part of the default Node.js package.
