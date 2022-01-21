@@ -1,4 +1,4 @@
-<div *ngIf="isUserDataLoaded && isTaskDataLoaded" class="task-form">
+<div *ngIf="isUserDataLoaded && isEmployeesLoaded && isPriorityLoaded && isTaskDataLoaded" class="task-form">
   <hi>Редактирование мероприятия</hi>
   <h2>Инициатор: {{user.lastname}}&nbsp;{{user.initial}}</h2>
   <h3>Роль в системе: </h3>
@@ -6,11 +6,16 @@
     <mat-form-field class="task-full-width" appearance="fill">
       <mat-label>Наименование мероприятия:</mat-label>
       <input matInput #message  formControlName="title" type="text" maxlength="256">
-<!--      <mat-hint align="start"><strong>Наименование ограничено по вводу символов</strong> </mat-hint>-->
-<!--      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>-->
-<!--      <button *ngIf="title" matSuffix mat-icon-button aria-label="Clear" (click)="title=''">-->
-<!--        <mat-icon>close</mat-icon>-->
-<!--      </button>-->
+      <mat-hint align="start"><strong>Наименование ограничено по вводу символов</strong> </mat-hint>
+      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      <button *ngIf="title" matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="task-note" appearance="fill">
+      <mat-label>Содержание работ:</mat-label>
+      <textarea matInput formControlName="reference"></textarea>
     </mat-form-field>
 
     <mat-form-field class="task-note" appearance="fill">
@@ -18,14 +23,30 @@
       <textarea matInput formControlName="note"></textarea>
     </mat-form-field>
 
-    <h5>Укажите исполнителя</h5>
+    <h5>Исполнители</h5>
     <mat-form-field>
-      <mat-label>Исполнители</mat-label>
-      <mat-select formControlName="employee" disabled={{!isEmployeesLoaded}}>
-        <mat-option  *ngFor="let employee of employees" [value]="employee.id" >
-          {{employee.fio}}
-        </mat-option>
-      </mat-select>
+      <table class="table" width="200%" >
+        <thead>
+          <tr>
+            <th scope="col">Существующий</th>
+            <th scope="col">Новый</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td width="50%">
+            <input matinput readonly formControlName="employeeFio">
+          </td>
+          <td width="50%">
+            <mat-select formControlName="employee">
+              <mat-option  *ngFor="let employee of employees" [value]="employee.id" >
+                {{employee.fio}}
+              </mat-option>
+            </mat-select>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </mat-form-field>
 
     <h5>Укажите приоритет исполнения</h5>
@@ -41,7 +62,7 @@
     <h5>Задайте контрольную дату</h5>
     <mat-form-field appearance="fill">
       <mat-label>Дата исполнения</mat-label>
-      <input matInput [matDatepicker]="dateControl" formControlName="strDateControl" value="strDateControl">
+      <input matInput [matDatepicker]="dateControl" formControlName="dateControl">
       <mat-datepicker-toggle matSuffix [for]="dateControl"></mat-datepicker-toggle>
       <mat-datepicker #dateControl></mat-datepicker>
     </mat-form-field>

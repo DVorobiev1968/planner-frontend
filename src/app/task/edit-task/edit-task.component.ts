@@ -11,12 +11,15 @@ import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
 import {PriorityService} from "../../service/priority.service";
 import {CategoryService} from "../../service/category.service";
+import {Observable} from "rxjs";
+import {variable} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'edit-task',
   templateUrl: './edit-task.component.html',
   styleUrls: ['./edit-task.component.css']
 })
+
 export class EditTaskComponent implements OnInit {
   _taskEditForm: FormGroup;
   isUserDataLoaded = false;
@@ -29,6 +32,7 @@ export class EditTaskComponent implements OnInit {
   currentTask: CurrentTask;
   task: Task;
   title: string;
+  reference: string;
   note: string;
   dateControl: Date;
   strDateControl: String;
@@ -43,6 +47,11 @@ export class EditTaskComponent implements OnInit {
               private notificationService: NotificationService,
               private fb: FormBuilder,
               private router: Router) {
+    this.title="";
+    this.note="";
+  }
+
+  ngOnInit(): void {
     this.userService.getCurrentUser()
       .subscribe(data => {
         console.log(data);
@@ -63,44 +72,25 @@ export class EditTaskComponent implements OnInit {
         this.priorities = data;
         this.isPriorityLoaded = true;
       });
-
-    this.currentTask = this.taskService.getCurrentTask();
-    this.taskService.getTaskById(this.currentTask.id)
-      .subscribe(data => {
-        this.task = data;
-        this.isTaskDataLoaded = true;
-        console.log(this.currentTask.id);
-        console.log(this.task);
-      }), error => {
-      console.log(error.message);
-      this.notificationService.showSnackBar(error.message);
-      this.router.navigate(['tasks']);
-    }
-
-  }
-
-  ngOnInit(): void {
-    if (this.isTaskDataLoaded){
-      this.title = this.task.title;
-      this.note = this.task.note;
-      this.dateControl = this.task.dateControl;
-      this.strDateControl = this.task.strDateControl;
-      this._editTaskFormBuilder();
-    }
+    console.log(this.taskService.task);
+    this.isTaskDataLoaded=this.taskService.isLoadData;
+    this._editTaskFormBuilder();
   }
 
   private _editTaskFormBuilder() {
     // console.log(this.currentTask);
     this._taskEditForm = this.fb.group({
-      title: [this.title, Validators.required],
+      title: [this.taskService.task.title, Validators.required],
+      reference: [this.taskService.task.reference, Validators.required],
+      employeeFio:[this.taskService.task.employee.fio],
       employee: [this.employees, Validators.required],
-      employeeId: [this.task.employeeId],
+      // employeeId: [this.taskService.task.employeeId],
       priority: [this.priorities, Validators.required],
-      priorityId: [this.task.priorityId],
+      // priorityId: [this.taskService.task.priorityId],
       categoryId: 1,
-      dateControl: [this.dateControl, Validators.required],
-      strDateControl: [this.strDateControl],
-      note: [this.note]
+      dateControl: [this.taskService.task.dateControl, Validators.required],
+      strDateControl: [this.taskService.task.strDateControl],
+      note: [this.taskService.task.note]
     })
   }
 
@@ -108,7 +98,9 @@ export class EditTaskComponent implements OnInit {
     console.log(this._taskEditForm.value);
 
     this.taskService.updateTask({
+      id: this.taskService.task.id,
       title: this._taskEditForm.value.title,
+      reference: this._taskEditForm.value.reference,
       employeeId: this._taskEditForm.value.employee,
       priorityId: this._taskEditForm.value.priority,
       categoryId: this._taskEditForm.value.categoryId,

@@ -7,8 +7,9 @@ import {User} from "./User";
 export interface Task{
   id:number;
   title:string;
-  completed?:number;
-  strDateControl?:String;
+  reference:string;
+  completed:number;
+  strDateControl:String;
   dateControl:Date;
   note:string;
   documents:DocumentModel[];
@@ -33,9 +34,24 @@ export class CurrentTask implements Task{
   priority: Priority;
   priorityId: number;
   title: string;
+  reference: string;
+  completed:number;
+  strDateControl:String;
   user: User;
 
-  constructor() {
-    this.id=1;
+  constructor(category: Category, categoryId: number, dateControl: Date, documents: DocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, user: User) {
+    this.category = category;
+    this.categoryId = categoryId;
+    this.dateControl = dateControl;
+    this.documents = documents;
+    this.employee = employee;
+    this.employeeId = employeeId;
+    this.id = id;
+    this.note = note;
+    this.priority = priority;
+    this.priorityId = priorityId;
+    this.title = title;
+    this.reference = reference;
+    this.user = user;
   }
 }

@@ -3,8 +3,8 @@
   max-width: 600px;
   width: 100%;
   margin: 2rem;
-  border: black;
-  border-width: 1px;
+  border: 1px dashed black;
+  padding: 1rem 1rem;
 }
 
 .task-full-width {

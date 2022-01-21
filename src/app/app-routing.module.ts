@@ -11,7 +11,7 @@ import {DialogComponent} from "./task/dialog/dialog.component";
 import {EditTaskComponent} from "./task/edit-task/edit-task.component";
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  {path: 'app-login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'main', component: IndexComponent, canActivate: [AuthGuardService]},
   {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuardService]},
@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'delete-task',component: DeleteTaskComponent,canActivate:[AuthGuardService]},
   {path: 'app-dialog', component: DialogComponent, canActivate:[AuthGuardService]},
   {path: '', redirectTo: 'main', pathMatch: 'full'},
-  {path: 'logout', redirectTo: 'login', pathMatch: 'full'}
+  {path: 'logout', redirectTo: 'app-login'}
 ];
 
 @NgModule({

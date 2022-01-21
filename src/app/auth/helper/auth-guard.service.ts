@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate{
       return true;
     }
     // перенаправляем на Login-страницу
-    this.router.navigate(['/login'],{queryParams:{returnUrl:state.url}});
+    this.router.navigate(['/app-login'],{queryParams:{returnUrl:state.url}});
     return false;
   }
 

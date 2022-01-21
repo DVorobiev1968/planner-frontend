@@ -26,6 +26,7 @@ export class AddTaskComponent implements OnInit {
   user: User;
   dateControl: Date;
   newTask: string;
+  reference: string;
   employees: Employee[];
   priorities: Priority[];
   note: string;
@@ -64,6 +65,7 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.dateControl=new Date();
     this.newTask="Новое мероприятие";
+    this.reference="Подробно о мероприятии";
     this.note="Пояснения"
     this._createTaskFormBuilder();
   }
@@ -71,6 +73,7 @@ export class AddTaskComponent implements OnInit {
   private _createTaskFormBuilder(){
     this._taskForm=this.fb.group({
       newTask: [this.newTask, Validators.required],
+      reference: [this.reference, Validators.required],
       employee: [this.employees, Validators.required],
       priority: [this.priorities, Validators.required],
       dateControl: [this.dateControl, Validators.required],
@@ -83,6 +86,7 @@ export class AddTaskComponent implements OnInit {
 
     this.taskService.createTask({
       title: this._taskForm.value.newTask,
+      reference:this._taskForm.value.reference,
       employeeId: this._taskForm.value.employee,
       priorityId: this._taskForm.value.priority,
       categoryId: 1,

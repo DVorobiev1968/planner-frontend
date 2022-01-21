@@ -18,6 +18,7 @@ import {Router} from "@angular/router";
 export class ListTaskComponent implements OnInit {
   isTaskLoaded = false;
   isUserDataLoaded = false;
+  isAdmin = false;
   public task:Task;
   tasks: Task[];
   user: User;
@@ -89,10 +90,18 @@ export class ListTaskComponent implements OnInit {
     return 'data:image/jpeg;base64,' + img;
   }
 
+  setCurrentTask(index:number,id:number):void{
+    console.log("Set task ID:"+id);
+    this.task=this.tasks[index];
+    this.taskService.setTask(this.task);
+    this.router.navigate(['edit-task']);
+  }
+
   editTask(index:number,id:number):void{
     console.log("Edit task ID:"+id);
     this.task=this.tasks[index];
     this.taskService.setCurrentTaskId(id);
+    this.taskService.getTaskById(this.taskService.currentTaskId);
     this.router.navigate(['edit-task']);
   }
 
