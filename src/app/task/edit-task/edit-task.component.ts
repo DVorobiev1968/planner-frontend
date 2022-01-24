@@ -26,18 +26,16 @@ export class EditTaskComponent implements OnInit {
   isTaskDataLoaded = false;
   isEmployeesLoaded = false;
   isPriorityLoaded = false;
+  isLogs = false;
 
   user: User;
-  taskId: number;
-  currentTask: CurrentTask;
-  task: Task;
   title: string;
   reference: string;
   note: string;
   dateControl: Date;
-  strDateControl: String;
   employees: Employee[];
   priorities: Priority[];
+  logs: Object;
 
   constructor(private taskService: TaskService,
               private employeeService: EmployeeService,
@@ -47,8 +45,8 @@ export class EditTaskComponent implements OnInit {
               private notificationService: NotificationService,
               private fb: FormBuilder,
               private router: Router) {
-    this.title="";
-    this.note="";
+    this.title = "";
+    this.note = "";
   }
 
   ngOnInit(): void {
@@ -73,8 +71,9 @@ export class EditTaskComponent implements OnInit {
         this.isPriorityLoaded = true;
       });
     console.log(this.taskService.task);
-    this.isTaskDataLoaded=this.taskService.isLoadData;
+    this.isTaskDataLoaded = this.taskService.isLoadData;
     this._editTaskFormBuilder();
+    this.logs = "Loggin back-enf request..."
   }
 
   private _editTaskFormBuilder() {
@@ -82,7 +81,7 @@ export class EditTaskComponent implements OnInit {
     this._taskEditForm = this.fb.group({
       title: [this.taskService.task.title, Validators.required],
       reference: [this.taskService.task.reference, Validators.required],
-      employeeFio:[this.taskService.task.employee.fio],
+      employeeFio: [this.taskService.task.employee.fio],
       employee: [this.employees, Validators.required],
       // employeeId: [this.taskService.task.employeeId],
       priority: [this.priorities, Validators.required],
@@ -96,7 +95,7 @@ export class EditTaskComponent implements OnInit {
 
   submit(): void {
     console.log(this._taskEditForm.value);
-
+    this.logs = this._taskEditForm.value;
     this.taskService.updateTask({
       id: this.taskService.task.id,
       title: this._taskEditForm.value.title,

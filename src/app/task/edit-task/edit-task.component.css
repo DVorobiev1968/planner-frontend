@@ -1,1 +1,8 @@
 @import "../add-task/add-task.component.css";
+.logging {
+  width: 800px;
+  height: 400px;
+  margin: 1rem;
+  border: 1px dashed black;
+  padding: 1rem 1rem;
+}

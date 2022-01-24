@@ -1,1 +1,15 @@
-<h1 *ngIf="isUserDataLoaded">Hello: {{this.user.firstname}} {{this.user.lastname}}</h1>
+<div *ngIf="isUserDataLoaded">
+  <h1>Здравствуйте: {{user.lastname}} {{user.firstname}} {{user.patronymic}}</h1>
+
+  <button mat-button [disabled]="!isUserDataLoaded" (click)="ngOmLoad()">
+    Показать/Обновить роли в системе
+  </button>
+  <div *ngIf="isRolesLoaded">
+    <h2>Ваши роли в системе: </h2>
+    <ol>
+      <li>Пользователь: {{isUser ? "Да":"Нет"}}</li>
+      <li>Администратор: {{isAdmin ? "Да":"Нет"}}</li>
+    </ol>
+  </div>
+
+</div>

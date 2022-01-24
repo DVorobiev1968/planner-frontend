@@ -19,12 +19,14 @@ export class ListTaskComponent implements OnInit {
   isTaskLoaded = false;
   isUserDataLoaded = false;
   isAdmin = false;
-  public task:Task;
+  isUser = false;
+  isRolesLoaded = false;
+  public task: Task;
   tasks: Task[];
   user: User;
   action: string;
-  deleteIdTask:number;
-  indexTask:number;
+  deleteIdTask: number;
+  indexTask: number;
 
   constructor(private taskService: TaskService,
               private employeeService: EmployeeService,
@@ -33,7 +35,6 @@ export class ListTaskComponent implements OnInit {
               private notificationService: NotificationService,
               private router: Router,
               public dialog: MatDialog) {
-
   }
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class ListTaskComponent implements OnInit {
       console.log(data);
       this.tasks = data;
       this.taskService.listTask()
-        .subscribe(data=>{
+        .subscribe(data => {
           console.log(data);
         });
       this.isTaskLoaded = true;
@@ -53,6 +54,8 @@ export class ListTaskComponent implements OnInit {
         this.user = data;
         this.isUserDataLoaded = true;
       })
+    // this.userService.setUser(this.user);
+    // this.isAdmin=this.userService.isAdmin(this.user.roles);
 
   }
 
@@ -74,9 +77,9 @@ export class ListTaskComponent implements OnInit {
           task.priority = data;
         });
       this.employeeService.getEmployeeById(task.employeeId)
-        .subscribe(data=>{
+        .subscribe(data => {
           console.log(data);
-          task.employee=data;
+          task.employee = data;
         });
     });
   }
@@ -90,25 +93,25 @@ export class ListTaskComponent implements OnInit {
     return 'data:image/jpeg;base64,' + img;
   }
 
-  setCurrentTask(index:number,id:number):void{
-    console.log("Set task ID:"+id);
-    this.task=this.tasks[index];
+  setCurrentTask(index: number, id: number): void {
+    console.log("Set task ID:" + id);
+    this.task = this.tasks[index];
     this.taskService.setTask(this.task);
     this.router.navigate(['edit-task']);
   }
 
-  editTask(index:number,id:number):void{
-    console.log("Edit task ID:"+id);
-    this.task=this.tasks[index];
+  editTask(index: number, id: number): void {
+    console.log("Edit task ID:" + id);
+    this.task = this.tasks[index];
     this.taskService.setCurrentTaskId(id);
     this.taskService.getTaskById(this.taskService.currentTaskId);
     this.router.navigate(['edit-task']);
   }
 
-  openDialog(index:number, id:number): void {
-    this.indexTask=index;
-    this.deleteIdTask=id;
-    console.log("Delete task ID:"+this.deleteIdTask.toString());
+  openDialog(index: number, id: number): void {
+    this.indexTask = index;
+    this.deleteIdTask = id;
+    console.log("Delete task ID:" + this.deleteIdTask.toString());
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '450px',
       data: {title: this.tasks[index].title, action: this.action},
@@ -118,19 +121,25 @@ export class ListTaskComponent implements OnInit {
       this.action = result;
       if (this.action) {
         this.taskService.deleteTask(this.deleteIdTask)
-          .subscribe(data=>{
+          .subscribe(data => {
             console.log(data);
             this.notificationService.showSnackBar('Данные были успешно удалены');
             window.location.reload();
-          }), error=>{
+          }), error => {
           console.log(error.message);
           this.notificationService.showSnackBar(error.message);
         }
         console.log(this.tasks[index].title + 'was deleted');
-      }
-      else
+      } else
         console.log('Task not delete');
     });
+  }
+
+  ngOmLoad(): void {
+    this.userService.setUser(this.user);
+    this.isAdmin = this.userService.isAdmin(this.user.roles);
+    this.isUser = this.userService.isUser(this.user.roles);
+    this.isRolesLoaded = true;
   }
 
 

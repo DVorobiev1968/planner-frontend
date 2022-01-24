@@ -1,5 +1,13 @@
 <body>
 <h2>Оперативный план работ</h2>
+<div *ngIf="!isRolesLoaded">
+  <button mat-button [disabled]="!isUserDataLoaded" (click)="ngOmLoad()">
+    Режим администратора
+  </button>
+</div>
+<div *ngIf="isAdmin">
+  <p>Работа в режиме Администратора системы</p>
+</div>
 <div *ngIf="isTaskLoaded && isUserDataLoaded">
   <!--  <div class="table-responsive container">-->
   <table class="table table-hover">

@@ -1,3 +1,5 @@
+import {ERole} from "./ERole";
+
 export interface User {
   id: number;
   email: string;
@@ -6,4 +8,5 @@ export interface User {
   lastname: string;
   patronymic: string;
   initial:string;
+  roles:ERole[];
 }

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {map} from 'rxjs/operators';
 import {CurrentTask, Task} from "../models/Task";
 
 const TASK_API = 'http://localhost:8090/api/task/';
@@ -11,7 +10,6 @@ const TASK_API = 'http://localhost:8090/api/task/';
 })
 
 export class TaskService {
-  public currentTask: CurrentTask;
   task: Task;
   currentTaskId: number;
   isLoadData: boolean;
@@ -85,9 +83,5 @@ export class TaskService {
 
   getTask(): Task {
     return this.task;
-  }
-
-  getCurrentTask(): number {
-    return this.currentTaskId;
   }
 }
