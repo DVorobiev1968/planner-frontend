@@ -33,11 +33,17 @@ export class UserService {
   }
 
   isUser(roles: any): boolean {
-    return roles.indexOf("ROLE_USER") > -1 ? true:true;
+    if (roles !=null)
+      return roles.indexOf("ROLE_USER") > -1 ? true:true;
+    else
+      return false;
   }
 
   isAdmin(roles: any): boolean {
-    return roles.indexOf("ROLE_ADMIN") > -1 ? true : false;
+    if (roles != null)
+      return roles.indexOf("ROLE_ADMIN") > -1 ? true : false;
+    else
+      return false;
   }
 
 }

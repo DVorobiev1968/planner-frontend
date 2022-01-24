@@ -1,7 +1,6 @@
 <div *ngIf="isUserDataLoaded && isEmployeesLoaded && isPriorityLoaded && isTaskDataLoaded" class="task-form">
   <hi>Редактирование мероприятия</hi>
   <h2>Инициатор: {{user.lastname}}&nbsp;{{user.initial}}</h2>
-  <h3>Роли в системе: {{userService.isAdmin()}}</h3>
   <form [formGroup]="_taskEditForm">
     <mat-form-field class="task-full-width" appearance="fill">
       <mat-label>Наименование мероприятия:</mat-label>
