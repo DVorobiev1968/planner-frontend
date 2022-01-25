@@ -9,36 +9,43 @@
   <p>Работа в режиме Администратора системы</p>
 </div>
 <div *ngIf="isTaskLoaded && isUserDataLoaded">
-  <!--  <div class="table-responsive container">-->
-  <table class="table table-hover">
+  <div class="table-wrapper content">
+  <table class="table-bordered">
     <thead>
     <tr>
-      <th scope="col">N</th>
-      <th scope="col">Наименование работ</th>
-      <th scope="col">Содержание работ</th>
-      <th scope="col">Примечание</th>
-      <th scope="col">Ответственное подразделение</th>
-      <th scope="col">Ответственный исполнитель</th>
-      <th scope="col">Срок исполнения</th>
-      <th *ngIf="isAdmin" scope="col">Редактирование</th>
-      <th scope="col">Исполнение</th>
-      <th *ngIf="isAdmin" scope="col">Удаление</th>
+      <th scope="col" width="3%">N</th>
+      <th scope="col" width="10%">Наименование работ</th>
+      <th scope="col" width="20%">Содержание работ</th>
+      <th scope="col" width="20%">Примечание</th>
+      <th scope="col" width="8%">Ответственное подразделение</th>
+      <th scope="col" width="8%">Ответственный исполнитель</th>
+      <th scope="col" width="8%">Срок исполнения</th>
+      <th scope="col" width="8%">Руководитель</th>
+      <th *ngIf="isAdmin" scope="col" width="5%">Редактирование</th>
+      <th scope="col" width="5%">Исполнение</th>
+      <th *ngIf="isAdmin" scope="col" width="5%">Удаление</th>
     </tr>
     </thead>
+  </table>
+  </div>
+  <div class="table-body-wrapper" style="position: relative; overflow: visible;">
+  <table class="table table-hover table-bordered">
     <tbody>
     <tr class="{{task.priority.color}}" *ngFor="let task of tasks; let i = index">
-      <th scope="row">{{i+1}}</th>
-      <td>{{task.title}}</td>
-      <td>{{task.reference}}</td>
-      <td>{{task.note}}</td>
-      <td>{{task.category.title}}</td>
-      <td>{{task.employee.fio}}</td>
-      <td>{{task.strDateControl}}</td>
-      <td class="info" *ngIf="isAdmin"><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)">Редактировать</a></td>
-      <td class="info" ><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)" title="Просмотр задачи, отправка на согласование">Отправить</a></td>
-      <td class="info" *ngIf="isAdmin"><a class="btn btn-warning"  (click)="openDialog(i, task.id)">Удалить</a></td>
+      <th scope="row" width="3%">{{i+1}}</th>
+      <td width="10%">{{task.title}}</td>
+      <td width="20%">{{task.reference}}</td>
+      <td width="20%">{{task.note}}</td>
+      <td width="8%">{{task.category.title}}</td>
+      <td width="8%">{{task.employee.fio}}</td>
+      <td width="8%">{{task.strDateControl}}</td>
+      <td width="8%">&nbsp;</td>
+      <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)">Редактировать</a></td>
+      <td class="info" width="5%"><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)" title="Просмотр задачи, отправка на согласование">Отправить</a></td>
+      <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"  (click)="openDialog(i, task.id)">Удалить</a></td>
     </tr>
     </tbody>
   </table>
+  </div>
 </div>
 </body>

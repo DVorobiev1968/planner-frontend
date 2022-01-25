@@ -1,3 +1,25 @@
 h2{
   font-size: 16px;
 }
+.stick {
+  position: fixed;
+  top: 55px;
+}
+
+thead {
+  position: fixed;
+  margin-left: 1rem;
+  z-index: 2;
+}
+
+tbody {
+  position: absolute;
+  margin-top: 3rem;
+  margin-left: 1rem;
+  z-index: 1;
+}
+
+td {
+  text-align: left;
+}
+

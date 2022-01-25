@@ -20,6 +20,7 @@ import { DeleteTaskComponent } from './task/delete-task/delete-task.component';
 import { DialogComponent } from './task/dialog/dialog.component';
 import { MomentPipe } from './service/moment.pipe';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
+import { StickyDirective } from './directive/sticky.directive';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EditTaskComponent } from './task/edit-task/edit-task.component';
     DeleteTaskComponent,
     DialogComponent,
     MomentPipe,
-    EditTaskComponent
+    EditTaskComponent,
+    StickyDirective
   ],
   imports: [
     AppRoutingModule,
