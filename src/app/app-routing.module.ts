@@ -9,6 +9,8 @@ import {AddTaskComponent} from "./task/add-task/add-task.component";
 import {DeleteTaskComponent} from "./task/delete-task/delete-task.component";
 import {DialogComponent} from "./task/dialog/dialog.component";
 import {EditTaskComponent} from "./task/edit-task/edit-task.component";
+import {ListDocumentsComponent} from "./documents/list-documents/list-documents.component";
+import { AddDocumentComponent } from './documents/add-document/add-document.component';
 
 const routes: Routes = [
   {path: 'app-login', component: LoginComponent},
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: 'tasks', component: ListTaskComponent, canActivate: [AuthGuardService]},
   {path: 'delete-task',component: DeleteTaskComponent,canActivate:[AuthGuardService]},
   {path: 'app-dialog', component: DialogComponent, canActivate:[AuthGuardService]},
+  {path: 'app-list-documents', component: ListDocumentsComponent, canActivate:[AuthGuardService]},
+  {path: 'app-add-document', component: AddDocumentComponent, canActivate:[AuthGuardService]},
   {path: '', redirectTo: 'main', pathMatch: 'full'},
   {path: 'logout', redirectTo: 'app-login'}
 ];

@@ -1,0 +1,25 @@
+<div>
+  <h2>Add document</h2>
+  <form [formGroup]="_docForm">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput
+             formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Note</mat-label>
+      <input matInput
+             formControlName="note">
+    </mat-form-field>
+
+    <div class="row">
+      <button (click)="closeDialog()" class="w-50"
+              mat-button mat-dialog-close disableRipple>
+        Cancel
+      </button>
+      <button color="primary" class="w-50" [disabled]="_docForm.invalid" (click)="submit()" mat-button disableRipple>
+        Update
+      </button>
+    </div>
+  </form>
+</div>

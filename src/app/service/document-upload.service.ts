@@ -24,10 +24,16 @@ export class DocumentUploadService {
     return this.http.post(UPLOAD_API + taskId + '/upload', uploadData);
   }
 
-  getDocumentToTask(taskId: number): any {
+  getDocumentsToTask(taskId: number): any {
     return this.http.get(UPLOAD_API + taskId + '/documents');
   }
 
+  getDocument(id: number):Observable<any>{
+    return this.http.get(UPLOAD_API+id+'/document')
+  }
 
+  addDocument(docModel:any):Observable<any>{
+    return this.http.post(UPLOAD_API+'/add',docModel);
+  }
 
 }

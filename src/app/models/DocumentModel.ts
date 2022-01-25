@@ -1,7 +1,8 @@
 export interface DocumentModel{
-  id?:number;
+  id:number;
   name:string;
   document:File;
-  taskId?:number;
-  employeeId?:number;
+  date:Date;
+  taskId:number;
+  employeeId:number;
 }

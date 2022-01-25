@@ -21,6 +21,8 @@ import { DialogComponent } from './task/dialog/dialog.component';
 import { MomentPipe } from './service/moment.pipe';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
 import { StickyDirective } from './directive/sticky.directive';
+import { ListDocumentsComponent } from './documents/list-documents/list-documents.component';
+import { AddDocumentComponent } from './documents/add-document/add-document.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { StickyDirective } from './directive/sticky.directive';
     DialogComponent,
     MomentPipe,
     EditTaskComponent,
-    StickyDirective
+    StickyDirective,
+    ListDocumentsComponent,
+    AddDocumentComponent
   ],
   imports: [
     AppRoutingModule,
