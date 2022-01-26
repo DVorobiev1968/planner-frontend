@@ -9,6 +9,7 @@ import {DialogComponent} from "../dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
+import * as XLSX from "xlsx";
 
 @Component({
   selector: 'list-task',
@@ -27,6 +28,7 @@ export class ListTaskComponent implements OnInit {
   action: string;
   deleteIdTask: number;
   indexTask: number;
+  fileNameExcel: string;
 
   constructor(private taskService: TaskService,
               private employeeService: EmployeeService,
@@ -56,6 +58,7 @@ export class ListTaskComponent implements OnInit {
       })
     // this.userService.setUser(this.user);
     // this.isAdmin=this.userService.isAdmin(this.user.roles);
+    this.fileNameExcel="Plan.xlsx";
 
   }
 
@@ -142,5 +145,17 @@ export class ListTaskComponent implements OnInit {
     this.isRolesLoaded = true;
   }
 
+  exportexcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('list-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'task');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileNameExcel);
+  }
 }

@@ -7,16 +7,7 @@ h2{
 }
 
 thead {
-  position: fixed;
-  margin-left: 1rem;
-  z-index: 2;
-}
-
-tbody {
-  position: absolute;
-  margin-top: 3rem;
-  margin-left: 1rem;
-  z-index: 1;
+  /*position: fixed;*/
 }
 
 td {
