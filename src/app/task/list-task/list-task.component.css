@@ -1,6 +1,10 @@
-h2{
-  font-size: 16px;
+header{
+  padding: 1rem 2rem;
 }
+h2{
+  font-size: 14px;
+}
+
 .stick {
   position: fixed;
   top: 55px;

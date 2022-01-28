@@ -1,25 +1,35 @@
-<div>
-  <h2>Add document</h2>
+<div *ngIf="isDataLoaded">
+  <h2>Добавление документа</h2>
   <form [formGroup]="_docForm">
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput
-             formControlName="name">
+    <mat-form-field class="task-full-width" appearance="fill">
+      <mat-label>Наименование:</mat-label>
+      <input matInput #message  formControlName="name" type="text" maxlength="256">
+      <mat-hint align="start"><strong>Наименование ограничено по вводу символов</strong> </mat-hint>
+      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      <button *ngIf="_docForm.value.name" matSuffix mat-icon-button aria-label="Clear" (click)=_docForm.value.name=''>
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Note</mat-label>
-      <input matInput
-             formControlName="note">
-    </mat-form-field>
-
     <div class="row">
-      <button (click)="closeDialog()" class="w-50"
-              mat-button mat-dialog-close disableRipple>
-        Cancel
-      </button>
-      <button color="primary" class="w-50" [disabled]="_docForm.invalid" (click)="submit()" mat-button disableRipple>
-        Update
-      </button>
-    </div>
+        <button (click)="closeDialog()" class="w-50"
+                mat-button mat-dialog-close disableRipple>
+          Отмена
+        </button>
+        <button color="primary" class="w-50" [disabled]="_docForm.invalid" (click)="submit()" mat-button disableRipple>
+          Сохранить
+        </button>
+      </div>
   </form>
+
+  <mat-label>Файл:</mat-label>
+  <input matInput  formControlName="nameFile" type="text" readonly>
+    <input type="file"
+           style="display: none"
+           #fileInput
+           (change)="onFileSelected($event)">
+
+    <img class="profile-image" [src]="previewImgURL || formatImage(data.docService.previewImgURL)" alt="Preview loaded document">
+
+    <button mat-button *ngIf="isAddDocument" (click)="fileInput.click()">Выбрать</button>
+    <button mat-button *ngIf="selectedFile" (click)="onUpload()">Upload</button>
 </div>

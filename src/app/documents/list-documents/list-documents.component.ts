@@ -39,45 +39,9 @@ export class ListDocumentsComponent implements OnInit {
       .subscribe(data =>{
         console.log(data);
         this.docs=data;
+        this.isDocsLoaded=true;
         },error => {
                this.notificationService.showSnackBar("Прикрепленные документы отсутствуют");
         });
   }
-
-  onFileSelected(event): void {
-    this.selectedFile = event.target.files[0];
-
-    const reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
-    // перед загрузкой файла покажем preview
-    reader.onload = () => {
-      this.previewImgURL = reader.result;
-    };
-  }
-
-//   openEditDialog(): void {
-//     const dialogUserEditConfig = new MatDialogConfig();
-//     dialogUserEditConfig.width = '400px';
-//     dialogUserEditConfig.data = {
-//       user: this.user
-//     };
-//     this.dialog.open(EditUserComponent, dialogUserEditConfig);
-//   }
-
-  formatImage(img: any): any {
-    if (img == null) {
-      return null;
-    }
-    return 'data:image/jpeg;base64,' + img;
-  }
-  // агрузка файла
-  onUpload(): void {
-    if (this.selectedFile != null) {
-      this.docsService.uploadDocumentToTask(this.selectedFile,this.taskId)
-        .subscribe(() => {
-          this.notificationService.showSnackBar('Document updated successfully');
-        });
-    }
-  }
-
 }

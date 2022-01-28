@@ -1,0 +1,16 @@
+.profile-image {
+  width: 450px;
+  height: 350px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+.name-field{
+  width: 100%;
+  border-width: 1px;
+  border-color: black;
+}
+.task-full-width {
+  width: 100%;
+}

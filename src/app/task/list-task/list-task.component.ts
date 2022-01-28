@@ -10,6 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import * as XLSX from "xlsx";
+import {DateService} from "../../service/date.service";
 
 @Component({
   selector: 'list-task',
@@ -30,7 +31,8 @@ export class ListTaskComponent implements OnInit {
   indexTask: number;
   fileNameExcel: string;
 
-  constructor(private taskService: TaskService,
+  constructor(public dateService: DateService,
+              private taskService: TaskService,
               private employeeService: EmployeeService,
               private priorityService: PriorityService,
               private userService: UserService,
@@ -58,7 +60,7 @@ export class ListTaskComponent implements OnInit {
       })
     // this.userService.setUser(this.user);
     // this.isAdmin=this.userService.isAdmin(this.user.roles);
-    this.fileNameExcel="Plan.xlsx";
+    this.fileNameExcel = "Plan.xlsx";
 
   }
 
@@ -100,7 +102,7 @@ export class ListTaskComponent implements OnInit {
     console.log("Set task ID:" + id);
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
-    this.router.navigate(['edit-task']);
+    this.router.navigate(['app-send-task']);
   }
 
   editTask(index: number, id: number): void {
@@ -145,11 +147,10 @@ export class ListTaskComponent implements OnInit {
     this.isRolesLoaded = true;
   }
 
-  exportexcel(): void
-  {
+  exportexcel(): void {
     /* pass here the table id */
     let element = document.getElementById('list-table');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();

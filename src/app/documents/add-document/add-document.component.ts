@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { DocumentModel } from "../../models/DocumentModel";
+import {DocumentModel} from "../../models/DocumentModel";
 import {DocumentUploadService} from "../../service/document-upload.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
@@ -14,57 +14,90 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./add-document.component.css']
 })
 export class AddDocumentComponent implements OnInit {
-  isUserDataLoaded = false;
-  user: User;
+  isDataLoaded = false;
+  isAddDocument = false;
+  nameFile: string;
   selectedFile: File;
-  previewImgURL:any;
+  previewImgURL: any;
   public _docForm: FormGroup;
 
-  constructor(  private dialogRef: MatDialogRef<AddDocumentComponent>,
-                private docsService: DocumentUploadService,
-                private userService: UserService,
-                @Inject(MAT_DIALOG_DATA) public data,
-                private notificationService: NotificationService,
-                private fb: FormBuilder,
-                private router: Router) {
+  constructor(private dialogRef: MatDialogRef<AddDocumentComponent>,
+              @Inject(MAT_DIALOG_DATA) public data,
+              private notificationService: NotificationService,
+              private fb: FormBuilder,
+              private router: Router) {
   }
+
   ngOnInit(): void {
-    this.userService.getCurrentUser()
-      .subscribe(data => {
-        this.user = data;
-        this.isUserDataLoaded = true;
-      });
-    this._docForm=this._createDocForm();
-
+    this.data.docService.docModel.taskId = this.data.task.id;
+    this.data.docService.docModel.employeeId = this.data.task.employeeId;
+    this.data.docService.docModel.userId = this.data.user.id;
+    this.isDataLoaded = true;
+    this._docForm = this._createDocForm();
   }
 
-  _createDocForm(): FormGroup{
-    return this._docForm=this.fb.group({
-      name: [
-      Validators.compose([Validators.required])
-      ],
-      note: [
-      Validators.compose([Validators.required])
-      ]
+  _createDocForm(): FormGroup {
+    return this._docForm = this.fb.group({
+      name: [this.data.docService.docModel.name, Validators.required],
+      nameFile: [this.data.docService.docModel.nameFile, Validators.required],
+      file: [Validators.required]
     });
   }
 
-  submit():void{
-    this.docsService.addDocument(this.addDoc())
-      .subscribe(()=>{
-        this.notificationService.showSnackBar('User updated successfully');
-        this.dialogRef.close();
-      });
+  onFileSelected(event): void {
+    this.selectedFile = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    // перед загрузкой файла сохраним в переменной preview docService
+    reader.onload = () => {
+      this.previewImgURL = reader.result;
+      this.data.docService.previewImgURL = this.previewImgURL;
+    };
   }
 
-  private addDoc():DocumentModel{
-    this.data.name=this._docForm.value.name;
-    this.data.note=this._docForm.value.note;
-    return this.data;
+  // Заполняем объект для передавчи контроллеру
+  onUpload(): void {
+    if (this.selectedFile != null) {
+      this.data.docService.docModel.nameFile = this.selectedFile.name;
+      this.data.docService.docModel.file = this.selectedFile;
+      this._docForm.value.nameFile = this.selectedFile.name;
+      this.nameFile = this.selectedFile.name;
+      console.log(this.data.docService.docModel);
+      this.data.docService.uploadDocument(this.data.docService.docModel)
+        .subscribe(() => {
+          this.notificationService.showSnackBar('Документ загружен успешно');
+          this.dialogRef.close();
+          this.router.navigate(['app-send-task']);
+        }, error => {
+          console.log(error.message);
+          this.notificationService.showSnackBar(error.message);
+        });
+    }
+  }
+
+  submit(): void {
+    this.data.docService.docModel.name=this._docForm.value.name;
+    this.data.docService.addDocument(this.data.docService.docModel)
+      .subscribe(data => {
+        console.log(data);
+        this.notificationService.showSnackBar('Данные вложенного документа были внесены успешно');
+        this.data.docService.docModel.id=data.id;
+        this.isAddDocument = true;
+      }, error => {
+        this.notificationService.showSnackBar("Данные не были внесены");
+      });
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  formatImage(img: any): any {
+    if (img == null) {
+      return null;
+    }
+    return 'data:image/jpeg;base64,' + img;
   }
 
 }

@@ -1,14 +1,16 @@
 <body>
-<h2>Оперативный план работ на </h2>
-<div *ngIf="!isRolesLoaded">
-  <button mat-button [disabled]="!isUserDataLoaded" (click)="ngOmLoad()">
-    Режим администратора
-  </button>
-</div>
-<div *ngIf="isAdmin">
-  <p>Работа в режиме Администратора системы </p>
-  <button class="btn btn-warning" (click)="exportexcel()">Export to Excel</button>
-</div>
+<header>
+  <h2>Оперативный план работ на {{dateService.date | async | moment}}</h2>
+  <div *ngIf="!isRolesLoaded">
+    <button mat-button [disabled]="!isUserDataLoaded" (click)="ngOmLoad()">
+      Режим администратора
+    </button>
+  </div>
+  <div *ngIf="isAdmin">
+    <p>Работа в режиме Администратора системы </p>
+    <button class="btn btn-warning" (click)="exportexcel()">Export to Excel</button>
+  </div>
+</header>
 <div *ngIf="isTaskLoaded && isUserDataLoaded">
   <div class="table-wrapper content">
     <table id="list-table" class="table table-hover table-bordered">

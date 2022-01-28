@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment';
+import * as moment from "moment";
 
 @Pipe({
   name: 'moment',
@@ -7,8 +7,8 @@ import * as moment from 'moment';
 })
 export class MomentPipe implements PipeTransform {
 
-  transform(m: moment.Moment, format: string = 'DD.MMM.YYYY'): string {
-    return m.format(format)
+  transform(m:moment.Moment, format:string='DD.MM.YYYY'):string{
+    return m.format(format);
   }
 
 }

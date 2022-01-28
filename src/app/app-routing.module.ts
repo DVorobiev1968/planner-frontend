@@ -11,6 +11,7 @@ import {DialogComponent} from "./task/dialog/dialog.component";
 import {EditTaskComponent} from "./task/edit-task/edit-task.component";
 import {ListDocumentsComponent} from "./documents/list-documents/list-documents.component";
 import { AddDocumentComponent } from './documents/add-document/add-document.component';
+import {SendTaskComponent} from "./task/send-task/send-task.component";
 
 const routes: Routes = [
   {path: 'app-login', component: LoginComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'main', component: IndexComponent, canActivate: [AuthGuardService]},
   {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuardService]},
   {path: 'edit-task', component: EditTaskComponent, canActivate: [AuthGuardService]},
+  {path: 'app-send-task', component: SendTaskComponent, canActivate: [AuthGuardService]},
   {path: 'tasks', component: ListTaskComponent, canActivate: [AuthGuardService]},
   {path: 'delete-task',component: DeleteTaskComponent,canActivate:[AuthGuardService]},
   {path: 'app-dialog', component: DialogComponent, canActivate:[AuthGuardService]},

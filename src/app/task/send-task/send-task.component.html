@@ -1,0 +1,34 @@
+<div *ngIf="taskService.isLoadData">
+  <h1>Отправка задачи на согласование</h1>
+  <h2>Мероприятие:{{taskService.task.title}}</h2>
+  <h2>Подробно:{{taskService.task.reference}}</h2>
+  <h2>Примечание:{{taskService.task.note}}</h2>
+  <h1>Документы</h1>
+  <div class="table-wrapper content">
+    <table id="docs-table" class="table table-hover table-bordered">
+      <thead>
+      <tr>
+        <th scope="col" width="3%">N</th>
+        <th scope="col" width="30%">Наименование</th>
+        <th scope="col" width="20%">Файл</th>
+        <th scope="col" width="5%">Просмотр</th>
+        <th scope="col" width="5%">Удаление</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let document of documents; let i = index">
+        <th scope="row" width="3%">{{i+1}}</th>
+        <td width="30%">{{document.name}}</td>
+        <td width="20%">{{document.nameFile}}</td>
+        <td width="10">
+          <button mat-flat-button color="primary" (click)="viewDocument(document.id)">Просмотр</button>
+        </td>
+        <td width="10">
+          <button mat-flat-button color="warn" (click)="deleteDocument(document.id)">Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button mat-flat-button color="accent" (click)="openEditDialog()" >Добавить</button>
+  </div>
+</div>
