@@ -1,0 +1,45 @@
+<div *ngIf="isUsersDataLoaded" class="route-form">
+  <hi>Создание маршрута для согласования</hi>
+  <form [formGroup]="routeForm" >
+    <h5>От:</h5>
+    <mat-form-field>
+      <mat-label>Исполнители</mat-label>
+      <mat-select formControlName="start">
+        <mat-option  *ngFor="let startUser of startUsers" [value]="startUser.id" >
+          {{startUser.lastname}}&nbsp;{{startUser.initial}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h5>Кому:</h5>
+    <mat-form-field>
+      <mat-label>Согласующие</mat-label>
+      <mat-select formControlName="start">
+        <mat-option  *ngFor="let destUser of destUsers" [value]="destUser.id" >
+          {{destUser.lastname}}&nbsp;{{destUser.initial}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h5>Тип:</h5>
+    <mat-form-field>
+      <mat-label>Тип согласования</mat-label>
+      <mat-select formControlName="state">
+        <mat-option  *ngFor="let state of states" [value]="state.id">
+          {{state.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="route-note" appearance="fill">
+      <mat-label>Примечание:</mat-label>
+      <textarea matInput formControlName="note"></textarea>
+    </mat-form-field>
+    <p>Task({{taskService.task.id}}):{{taskService.task.title}}</p>
+    <br>
+    <div class="mat-button">
+      <button mat-button [disabled]="routeForm.invalid" (click)="agreement()">
+        Направить
+      </button>
+    </div>
+  </form>
+</div>

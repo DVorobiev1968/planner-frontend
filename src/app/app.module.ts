@@ -24,6 +24,7 @@ import { StickyDirective } from './directive/sticky.directive';
 import { ListDocumentsComponent } from './documents/list-documents/list-documents.component';
 import { AddDocumentComponent } from './documents/add-document/add-document.component';
 import { SendTaskComponent } from './task/send-task/send-task.component';
+import { AddRouteComponent } from './route/add-route/add-route.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SendTaskComponent } from './task/send-task/send-task.component';
     ListDocumentsComponent,
     AddDocumentComponent,
     MomentPipe,
-    SendTaskComponent
+    SendTaskComponent,
+    AddRouteComponent
   ],
   imports: [
     AppRoutingModule,

@@ -11,7 +11,6 @@ const USER_API = 'http://localhost:8090/api/user/';
 })
 export class UserService {
   user: User;
-  isLoadedData: boolean;
 
   constructor(private http: HttpClient) {
   }
@@ -33,8 +32,8 @@ export class UserService {
   }
 
   isUser(roles: any): boolean {
-    if (roles !=null)
-      return roles.indexOf("ROLE_USER") > -1 ? true:true;
+    if (roles != null)
+      return roles.indexOf("ROLE_USER") > -1 ? true : true;
     else
       return false;
   }
@@ -46,4 +45,7 @@ export class UserService {
       return false;
   }
 
+  getAll():Observable<any>{
+    return this.http.get(USER_API+"all")
+  }
 }

@@ -12,6 +12,7 @@ import {EditTaskComponent} from "./task/edit-task/edit-task.component";
 import {ListDocumentsComponent} from "./documents/list-documents/list-documents.component";
 import { AddDocumentComponent } from './documents/add-document/add-document.component';
 import {SendTaskComponent} from "./task/send-task/send-task.component";
+import {AddRouteComponent} from "./route/add-route/add-route.component";
 
 const routes: Routes = [
   {path: 'app-login', component: LoginComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'app-dialog', component: DialogComponent, canActivate:[AuthGuardService]},
   {path: 'app-list-documents', component: ListDocumentsComponent, canActivate:[AuthGuardService]},
   {path: 'app-add-document', component: AddDocumentComponent, canActivate:[AuthGuardService]},
+  {path: 'app-add-route', component: AddRouteComponent},
   {path: '', redirectTo: 'main', pathMatch: 'full'},
   {path: 'logout', redirectTo: 'app-login'}
 ];
