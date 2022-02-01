@@ -26,8 +26,7 @@ export class AddRouteComponent implements OnInit {
               private taskService: TaskService,
               private notificationService: NotificationService,
               private fb: FormBuilder,
-              private router: Router
-  ) {
+              private router: Router) {
     this.userService.getAll()
       .subscribe(data => {
         console.log(data);
@@ -57,23 +56,22 @@ export class AddRouteComponent implements OnInit {
     return this.routeForm = this.fb.group({
       start: [this.startUsers, Validators.required],
       destination: [this.destUsers, Validators.required],
-      note: [this.routeService.routeTask.note],
       state: [this.states, Validators.required],
-      taskId: [this.taskService.task.id]
+      note: [this.routeService.routeTask.note]
     })
   }
 
   agreement(): void {
     this.routeService.createRouteTask({
-      taskId: this.routeForm.value.taskId,
+      taskId: this.taskService.task.id,
       startId: this.routeForm.value.start,
       destinationId: this.routeForm.value.destination,
       note: this.routeForm.value.note,
       state: this.routeForm.value.state
     }).subscribe(data => {
-      console.log(data);
-      // TODO вычислить ноиманование и вписать
-      this.notificationService.showSnackBar("Данные направлены на:...");
+      const errMessage=("Задаче установлен признак: "+this.states[this.routeForm.value.state].title);
+      this.notificationService.showSnackBar(errMessage);
+      this.router.navigate(['tasks']);
     }, error => {
       console.log(error.message);
       this.notificationService.showSnackBar(error.message);
