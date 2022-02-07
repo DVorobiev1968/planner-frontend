@@ -1,5 +1,7 @@
 <div *ngIf="isUsersDataLoaded" class="route-form">
-  <hi>Создание маршрута для согласования</hi>
+  <hi>Создание маршрута по задаче:</hi>
+  <p>{{taskService.task.title}}</p>
+
   <form [formGroup]="routeForm" >
     <h5>От:</h5>
     <mat-form-field>
@@ -14,7 +16,7 @@
     <h5>Кому:</h5>
     <mat-form-field>
       <mat-label>Согласующие</mat-label>
-      <mat-select formControlName="start">
+      <mat-select formControlName="destination">
         <mat-option  *ngFor="let destUser of destUsers" [value]="destUser.id" >
           {{destUser.lastname}}&nbsp;{{destUser.initial}}
         </mat-option>
@@ -34,7 +36,6 @@
       <mat-label>Примечание:</mat-label>
       <textarea matInput formControlName="note"></textarea>
     </mat-form-field>
-    <p>Task({{taskService.task.id}}):{{taskService.task.title}}</p>
     <br>
     <div class="mat-button">
       <button mat-button [disabled]="routeForm.invalid" (click)="agreement()">

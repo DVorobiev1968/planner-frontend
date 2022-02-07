@@ -11,3 +11,9 @@
   height: 500%;
   scroll-margin: 2rem;
 }
+h1{
+  font-size: 14px;
+}
+p{
+  font-size: 12px;
+}
