@@ -1,0 +1,30 @@
+<h2>Текущие задания:</h2>
+<button mat-button [disabled]="!isUserDataLoaded" (click)="getRouteTask()">
+  Показать
+</button>
+<div *ngIf="isRouteTaskLoaded">
+  <div class="table-wrapper content">
+    <table id="list-table" class="table table-hover table-bordered">
+      <thead>
+      <tr>
+        <th scope="col" width="3%">N</th>
+        <th scope="col" width="20%">Задача</th>
+        <th scope="col" width="5%">Дата</th>
+        <th scope="col" width="10%">Тип</th>
+        <th scope="col" width="20%">Адресат</th>
+        <th scope="col" width="20%">Примечание</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let routeTask of routeTaskList; let i = index">
+        <th scope="row" width="3%">{{i+1}}</th>
+        <td width="20%">{{routeTask.taskTitle}}</td>
+        <td width="5%">{{routeTask.date}}</td>
+        <td width="10%">{{routeTask.stateMessage}}</td>
+        <td width="20%">{{routeTask.destionationUserFIO}}</td>
+        <td width="20%">{{routeTask.note}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

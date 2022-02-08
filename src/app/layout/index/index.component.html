@@ -11,26 +11,5 @@
       <li>Администратор: {{isAdmin ? "Да":"Нет"}}</li>
     </ol>
   </div>
-  <h2>Текущие задания:</h2>
-  <button mat-button [disabled]="!isUserDataLoaded" (click)="getRouteTask()">
-    Показать
-  </button>
-  <div *ngIf="isRouteTaskLoaded">
-    <div class="table-wrapper content">
-      <table id="list-table" class="table table-hover table-bordered">
-        <thead>
-        <tr>
-          <th scope="col" width="3%">N</th>
-          <th scope="col" width="10%">Дата</th>
-          <th scope="col" width="20%">Тип</th>
-          <th scope="col" width="20%">Адресат</th>
-          <th scope="col" width="20%">Примечание</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-  </div>
-  </div>
-
 </div>
+<app-list-route></app-list-route>

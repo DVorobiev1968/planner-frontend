@@ -56,7 +56,7 @@ export class AddDocumentComponent implements OnInit {
     };
   }
 
-  // Заполняем объект для передавчи контроллеру
+  // Заполняем объект для передачи контроллеру
   onUpload(): void {
     if (this.selectedFile != null) {
       this.data.docService.docModel.nameFile = this.selectedFile.name;
@@ -65,8 +65,8 @@ export class AddDocumentComponent implements OnInit {
       this.nameFile = this.selectedFile.name;
       console.log(this.data.docService.docModel);
       this.data.docService.uploadDocument(this.data.docService.docModel)
-        .subscribe(() => {
-          this.notificationService.showSnackBar('Документ загружен успешно');
+        .subscribe((data) => {
+          this.notificationService.showSnackBar(data);
           this.dialogRef.close();
           this.router.navigate(['app-send-task']);
         }, error => {

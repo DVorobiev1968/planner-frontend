@@ -13,7 +13,7 @@ export class RouteService {
   isLoadData:boolean;
 
   constructor(private http:HttpClient) {
-    this.routeTask=new RouteTask(0,"Создан новый маршрут",0,0);
+    this.routeTask=new RouteTask(0,"Создан новый маршрут",1,1);
     this.isLoadData = false;
   }
 
@@ -61,6 +61,10 @@ export class RouteService {
 
   getRouteTaskByStartId(id:number):Observable<any>{
     return this.http.get(ROUTE_TASK_API+"all_to_start/"+id);
+  }
+
+  getRouteTaskByDestinationId(id:number):Observable<any>{
+    return this.http.get(ROUTE_TASK_API+"all_to_dest/"+id);
   }
 
   delete(id:number):Observable<any>{

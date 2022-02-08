@@ -3,49 +3,55 @@ import {User,UserClass} from "./User";
 export interface IRouteTask{
   id:number;
   startId:number;
+  startUserFIO: string
   destinationId:number;
+  destinationUserFIO:string;
   taskId:number;
+  taskTitle:string;
+  taskReference:string;
   date:Date;
   state:number;
+  stateMessage:string;
   note:string;
 }
 
 export enum ERouteTask{
-  PROCESS,
-  SEND_AGREEMENT,
-  SEND_EMAIL,
-  REJECT,
-  AGREEMENT
+    PROCESS,
+    SEND_AGREEMENT,
+    SEND_EMAIL,
+    REJECT,
+    AGREEMENT,
+    TERMINATE,
+    CANCELED
 }
 
 export class RouteTask implements IRouteTask{
-  date: Date;
-  destinationUser: UserClass;
-  destinationId: number;
-  id: number;
-  note: string;
-  startUser: UserClass;
-  startId: number;
-  state: number;
-  taskName: string;
-  taskId: number;
+  id:number;
+  startId:number;
+  startUserFIO: string
+  destinationId:number;
+  destinationUserFIO:string;
+  taskId:number;
+  taskTitle:string;
+  taskReference:string;
+  date:Date;
+  state:number;
+  stateMessage:string;
+  note:string;
 
   constructor(destinationId: number, note: string, startId: number,taskId: number) {
     this.date =new Date();
-    this.destinationUser=new UserClass(0, "", "", "", "", "", "")
     this.destinationId = destinationId;
+    this.destinationUserFIO="";
     this.note = note;
-    this.startUser=new UserClass(0, "", "", "", "", "", "")
     this.startId = startId;
+    this.startUserFIO="";
     this.state = ERouteTask.PROCESS;
-    this.taskName="";
+    this.taskId=taskId;
+    this.taskTitle="";
+    this.taskReference="";
     this.taskId = taskId;
-  }
-  getTaskName():string{
-    return this.taskName;
-  }
-  setTaskName(val:string):void{
-    this.taskName=val;
+    this.stateMessage="";
   }
 }
 export interface IState{
