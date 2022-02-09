@@ -59,22 +59,10 @@
             },
             "development": {
               "buildOptimizer": false,
-              "optimization": {
-                "scripts": true,
-                "styles": {
-                  "minify": true,
-                  "inlineCritical": false
-                },
-                "fonts": { "inline": true }
-              },
+              "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": {
-                "scripts": true,
-                "styles": false,
-                "hidden": true,
-                "vendor": true
-              },
+              "sourceMap": true,
               "namedChunks": true
             }
           },
