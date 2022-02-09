@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ERole} from "../models/ERole";
-import {User} from "../models/User";
+import {IUser} from "../models/User";
 
 const USER_API = 'http://localhost:8090/api/user/';
 
@@ -10,11 +10,18 @@ const USER_API = 'http://localhost:8090/api/user/';
   providedIn: 'root'
 })
 export class UserService {
-  user: User;
+  user: IUser;
 
   constructor(private http: HttpClient) {
   }
 
+  getUser():IUser{
+    return this.user;
+  }
+
+  getUserFIO():string{
+    return this.user.lastname+" "+this.user.initial;
+  }
   getUserById(id: number): Observable<any> {
     return this.http.get(USER_API + id);
   }
@@ -27,7 +34,7 @@ export class UserService {
     return this.http.post(USER_API + 'update', user);
   }
 
-  setUser(user: User): void {
+  setUser(user: IUser): void {
     this.user = user;
   }
 

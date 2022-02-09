@@ -4,7 +4,7 @@ import {DocumentUploadService} from "../../service/document-upload.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 
 @Component({
   selector: 'app-list-documents',
@@ -15,7 +15,7 @@ export class ListDocumentsComponent implements OnInit {
   isDocsLoaded = false;
   isUserDataLoaded = false;
   docs: DocumentModel[];
-  user: User;
+  user: IUser;
   taskId:number;
   selectedFile: File;
   previewImgURL:any;

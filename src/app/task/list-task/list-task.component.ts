@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Task} from "../../models/Task";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
 import {EmployeeService} from "../../service/employee.service";
 import {DialogComponent} from "../dialog/dialog.component";
@@ -25,7 +25,7 @@ export class ListTaskComponent implements OnInit {
   isRolesLoaded = false;
   public task: Task;
   tasks: Task[];
-  user: User;
+  user: IUser;
   action: string;
   deleteIdTask: number;
   indexTask: number;

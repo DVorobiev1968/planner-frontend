@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/User";
+import {Component, Input, OnInit} from '@angular/core';
+import {IUser} from "../../models/User";
 import {UserService} from "../../service/user.service";
 import {State} from "../../models/RouteTask";
 import {RouteService} from "../../service/route.service";
@@ -15,14 +15,14 @@ import {TaskService} from "../../service/task.service";
 })
 
 export class AddRouteComponent implements OnInit {
-  user: User;
+  user:IUser;
   isUserDataLoaded = false;
   isAdmin = false;
   isUser = false;
   isRolesLoaded = false;
 
-  startUsers: User[];
-  destUsers: User[];
+  startUsers: IUser[];
+  destUsers: IUser[];
   isUsersDataLoaded: boolean;
   routeForm: FormGroup;
   states: Array<State>;
@@ -51,14 +51,7 @@ export class AddRouteComponent implements OnInit {
       {"id": 4, "title": "Согласовано"},
       {"id": 5, "title": "Снять с контроля"},
       {"id": 6, "title": "Завершить"}
-    ]
-    this.userService.getCurrentUser()
-      .subscribe(data => {
-        console.log(data);
-        this.user = data;
-        this.isUserDataLoaded = true;
-      });
-
+    ];
   }
 
   ngOnInit(): void {
@@ -66,7 +59,7 @@ export class AddRouteComponent implements OnInit {
   }
 
   ngOmLoad(): void {
-    this.userService.setUser(this.user);
+    this.user=this.userService.getUser();
     this.isAdmin = this.userService.isAdmin(this.user.roles);
     this.isUser = this.userService.isUser(this.user.roles);
     this.isRolesLoaded = true;
@@ -75,7 +68,7 @@ export class AddRouteComponent implements OnInit {
   private _createFormBuilder(): FormGroup {
     this.ngOmLoad();
     return this.routeForm = this.fb.group({
-      start: this.isAdmin ? [this.startUsers, Validators.required] : [this.user],
+      start: (this.isAdmin ? [this.startUsers, Validators.required] : [this.userService.getUserFIO()]),
       destination: [this.destUsers, Validators.required],
       state: [this.states, Validators.required],
       note: [this.routeService.routeTask.note]

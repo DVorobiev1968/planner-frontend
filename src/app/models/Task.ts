@@ -2,7 +2,7 @@ import {Category} from "./Category";
 import {Employee} from "./Employee";
 import {Priority} from "./Priority";
 import {DocumentModel} from "./DocumentModel";
-import {User} from "./User";
+import {IUser} from "./User";
 
 export interface Task{
   id:number;
@@ -19,7 +19,7 @@ export interface Task{
   employee:Employee;
   category:Category;
   categoryId:number;
-  user:User;
+  user:IUser;
 }
 
 export class CurrentTask implements Task{
@@ -37,9 +37,9 @@ export class CurrentTask implements Task{
   reference: string;
   completed:number;
   strDateControl:String;
-  user: User;
+  user: IUser;
 
-  constructor(category: Category, categoryId: number, dateControl: Date, documents: DocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, user: User) {
+  constructor(category: Category, categoryId: number, dateControl: Date, documents: DocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, user: IUser) {
     this.category = category;
     this.categoryId = categoryId;
     this.dateControl = dateControl;

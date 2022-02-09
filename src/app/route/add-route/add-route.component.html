@@ -13,8 +13,8 @@
           </mat-option>
         </mat-select>
       </div>
-      <div *ngIf="isUser">
-        <input mat-input formControlName="start" [value]="user.lastname" readonly>
+      <div *ngIf="!isAdmin">
+        <input matInput formControlName="start" [value]="user.lastname" readonly type="text">
       </div>
     </mat-form-field>
 

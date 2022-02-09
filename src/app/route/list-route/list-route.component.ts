@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {RouteService} from "../../service/route.service";
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 import {IRouteTask} from "../../models/RouteTask";
 
 @Component({
@@ -12,7 +12,7 @@ import {IRouteTask} from "../../models/RouteTask";
 export class ListRouteComponent implements OnInit {
   isUserDataLoaded = false;
   isRouteTaskLoaded = false;
-  user:User;
+  user:IUser;
   routeTaskList:IRouteTask[];
 
   constructor(private routeService: RouteService,

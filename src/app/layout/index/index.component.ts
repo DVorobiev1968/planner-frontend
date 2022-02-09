@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {RouteService} from "../../service/route.service";
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 
 @Component({
   selector: 'app-index',
@@ -11,7 +11,7 @@ import {User} from "../../models/User";
 export class IndexComponent implements OnInit {
   isUserDataLoaded = false;
   isRouteTaskLoaded = false;
-  user:User;
+  user:IUser;
   isAdmin=false;
   isUser=false;
   isRolesLoaded=false;

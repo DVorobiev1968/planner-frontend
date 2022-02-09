@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 import {Employee} from "../../models/Employee";
 import {Priority} from "../../models/Priority";
 import {TaskService} from "../../service/task.service";
@@ -21,7 +21,7 @@ import {DocumentModel} from "../../models/DocumentModel";
   styleUrls: ['./send-task.component.css']
 })
 export class SendTaskComponent implements OnInit {
-  user: User;
+  user: IUser;
   isUserDataLoaded = false;
   documents: DocumentModel;
 
@@ -72,6 +72,7 @@ export class SendTaskComponent implements OnInit {
   }
 
   sendTask(taskId:number):void{
+    this.userService.setUser(this.user);
     this.router.navigate(['app-add-route']);
   }
 }

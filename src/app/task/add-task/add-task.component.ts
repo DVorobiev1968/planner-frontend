@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
 import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
@@ -23,7 +23,7 @@ export class AddTaskComponent implements OnInit {
   isEmployeesLoaded = false;
   isPriorityLoaded = false;
 
-  user: User;
+  user: IUser;
   dateControl: Date;
   newTask: string;
   reference: string;

@@ -1,6 +1,6 @@
 import {ERole} from "./ERole";
 
-export interface User {
+export interface IUser {
   id: number;
   email: string;
   username: string;
@@ -10,7 +10,7 @@ export interface User {
   initial:string;
   roles?:ERole[];
 }
-export class UserClass implements User{
+export class User implements IUser{
   id: number;
   email: string;
   username: string;

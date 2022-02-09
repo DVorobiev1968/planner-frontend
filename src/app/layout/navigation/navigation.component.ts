@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/User";
+import {IUser} from "../../models/User";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {UserService} from "../../service/user.service";
 import {Router} from "@angular/router";
@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 export class NavigationComponent implements OnInit {
   isLoggedIn = false;
   isDataLoaded = false;
-  user: User;
+  user: IUser;
 
   constructor(private tokenService: TokenStorageService,
               private userService: UserService,

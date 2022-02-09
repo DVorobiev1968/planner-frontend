@@ -1,4 +1,4 @@
-import {User,UserClass} from "./User";
+import {IUser,User} from "./User";
 
 export interface IRouteTask{
   id:number;
