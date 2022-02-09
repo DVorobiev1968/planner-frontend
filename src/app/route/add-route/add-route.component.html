@@ -6,11 +6,16 @@
     <h5>От:</h5>
     <mat-form-field>
       <mat-label>Исполнители</mat-label>
-      <mat-select formControlName="start">
-        <mat-option  *ngFor="let startUser of startUsers" [value]="startUser.id" >
-          {{startUser.lastname}}&nbsp;{{startUser.initial}}
-        </mat-option>
-      </mat-select>
+      <div *ngIf="isAdmin">
+        <mat-select formControlName="start">
+          <mat-option  *ngFor="let startUser of startUsers" [value]="startUser.id" >
+            {{startUser.lastname}}&nbsp;{{startUser.initial}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div *ngIf="isUser">
+        <input mat-input formControlName="start" [value]="user.lastname" readonly>
+      </div>
     </mat-form-field>
 
     <h5>Кому:</h5>

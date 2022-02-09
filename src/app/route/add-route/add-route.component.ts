@@ -15,6 +15,12 @@ import {TaskService} from "../../service/task.service";
 })
 
 export class AddRouteComponent implements OnInit {
+  user: User;
+  isUserDataLoaded = false;
+  isAdmin = false;
+  isUser = false;
+  isRolesLoaded = false;
+
   startUsers: User[];
   destUsers: User[];
   isUsersDataLoaded: boolean;
@@ -38,23 +44,38 @@ export class AddRouteComponent implements OnInit {
       this.startUsers = null;
       this.destUsers = null;
     };
-    this.states=[
-      {"id":0,"title":"В процессе"},
-      {"id":1,"title":"Направить на согласование"},
-      {"id":3,"title":"Отклонить"},
-      {"id":4,"title":"Согласовано"},
-      {"id":5,"title":"Снять с контроля"},
-      {"id":6,"title":"Завершить"}
+    this.states = [
+      {"id": 0, "title": "В процессе"},
+      {"id": 1, "title": "Направить на согласование"},
+      {"id": 3, "title": "Отклонить"},
+      {"id": 4, "title": "Согласовано"},
+      {"id": 5, "title": "Снять с контроля"},
+      {"id": 6, "title": "Завершить"}
     ]
+    this.userService.getCurrentUser()
+      .subscribe(data => {
+        console.log(data);
+        this.user = data;
+        this.isUserDataLoaded = true;
+      });
+
   }
 
   ngOnInit(): void {
     this._createFormBuilder();
   }
 
+  ngOmLoad(): void {
+    this.userService.setUser(this.user);
+    this.isAdmin = this.userService.isAdmin(this.user.roles);
+    this.isUser = this.userService.isUser(this.user.roles);
+    this.isRolesLoaded = true;
+  }
+
   private _createFormBuilder(): FormGroup {
+    this.ngOmLoad();
     return this.routeForm = this.fb.group({
-      start: [this.startUsers, Validators.required],
+      start: this.isAdmin ? [this.startUsers, Validators.required] : [this.user],
       destination: [this.destUsers, Validators.required],
       state: [this.states, Validators.required],
       note: [this.routeService.routeTask.note]
@@ -69,7 +90,7 @@ export class AddRouteComponent implements OnInit {
       note: this.routeForm.value.note,
       state: this.routeForm.value.state
     }).subscribe(data => {
-      const errMessage=("Задаче установлен признак: "+this.states[this.routeForm.value.state].title);
+      const errMessage = ("Задаче установлен признак: " + this.states[this.routeForm.value.state].title);
       this.notificationService.showSnackBar(errMessage);
       this.router.navigate(['tasks']);
     }, error => {

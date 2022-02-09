@@ -70,4 +70,8 @@ export class SendTaskComponent implements OnInit {
       console.log(data);
     })
   }
+
+  sendTask(taskId:number):void{
+    this.router.navigate(['app-add-route']);
+  }
 }
