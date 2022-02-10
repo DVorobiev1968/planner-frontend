@@ -1,5 +1,6 @@
-<div *ngIf="isUsersDataLoaded" class="route-form">
+<div *ngIf="isUsersDataLoaded" class="route-form button_row">
   <hi>Создание маршрута по задаче:</hi>
+  <p>{{dateService.date | async | moment}}</p>
   <p>{{taskService.task.title}}</p>
 
   <form [formGroup]="routeForm" >
@@ -14,7 +15,9 @@
         </mat-select>
       </div>
       <div *ngIf="!isAdmin">
-        <input matInput formControlName="start" [value]="user.lastname" readonly type="text">
+        <mat-select formControlName="start" [disabled]="isAdmin">
+          <mat-option value={{user.id}}>{{user.lastname}} {{user.initial}}</mat-option>
+        </mat-select>
       </div>
     </mat-form-field>
 
@@ -31,7 +34,7 @@
     <h5>Тип:</h5>
     <mat-form-field>
       <mat-label>Тип согласования</mat-label>
-      <mat-select formControlName="state">
+      <mat-select formControlName="state" (selectionChange)="inputHandler($event)">
         <mat-option  *ngFor="let state of states" [value]="state.id">
           {{state.title}}
         </mat-option>
@@ -39,11 +42,11 @@
     </mat-form-field>
     <mat-form-field class="route-note" appearance="fill">
       <mat-label>Примечание:</mat-label>
-      <textarea matInput formControlName="note"></textarea>
+      <textarea matInput formControlName="note" [value]="routeService.routeTask.note"></textarea>
     </mat-form-field>
     <br>
     <div class="mat-button">
-      <button mat-button [disabled]="routeForm.invalid" (click)="agreement()">
+      <button mat-button color="primary" [disabled]="routeForm.invalid" (click)="agreement()">
         Направить
       </button>
     </div>

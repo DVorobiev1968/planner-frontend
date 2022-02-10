@@ -17,3 +17,6 @@ h1{
 p{
   font-size: 12px;
 }
+.button_row{
+  margin: 1rem;
+}

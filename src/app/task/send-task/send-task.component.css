@@ -4,3 +4,9 @@ h1{
 h2{
   font-size: 14px;
 }
+.button_row{
+  margin: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+

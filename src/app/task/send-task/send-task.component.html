@@ -1,10 +1,10 @@
-<div *ngIf="taskService.isLoadData">
+<div *ngIf="taskService.isLoadData" class="button_row">
   <h1>Отправка задачи на согласование</h1>
   <h2>Мероприятие:{{taskService.task.title}}</h2>
   <h2>Подробно:{{taskService.task.reference}}</h2>
   <h2>Примечание:{{taskService.task.note}}</h2>
   <h1>Документы</h1>
-  <div class="table-wrapper content">
+  <div class="table-wrapper content button_row">
     <table id="docs-table" class="table table-hover table-bordered">
       <thead>
       <tr>
@@ -30,7 +30,7 @@
       </tbody>
     </table>
     <button mat-flat-button color="accent" (click)="openEditDialog()" >Добавить</button>
-    <button mat-flat-button color="accent" (click)="sendTask()" >Направить на согласование</button>
+    <button mat-flat-button color="primary" (click)="sendTask()" >Направить на согласование</button>
   </div>
 </div>
 <!--<app-add-route></app-add-route>-->

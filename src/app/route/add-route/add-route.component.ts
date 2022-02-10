@@ -7,6 +7,7 @@ import {NotificationService} from "../../service/notification.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {TaskService} from "../../service/task.service";
+import {DateService} from "../../service/date.service";
 
 @Component({
   selector: 'app-add-route',
@@ -28,6 +29,7 @@ export class AddRouteComponent implements OnInit {
   states: Array<State>;
 
   constructor(private userService: UserService,
+              public dateService: DateService,
               private routeService: RouteService,
               private taskService: TaskService,
               private notificationService: NotificationService,
@@ -68,7 +70,7 @@ export class AddRouteComponent implements OnInit {
   private _createFormBuilder(): FormGroup {
     this.ngOmLoad();
     return this.routeForm = this.fb.group({
-      start: (this.isAdmin ? [this.startUsers, Validators.required] : [this.userService.getUserFIO()]),
+      start: [this.startUsers, Validators.required],
       destination: [this.destUsers, Validators.required],
       state: [this.states, Validators.required],
       note: [this.routeService.routeTask.note]
@@ -90,5 +92,17 @@ export class AddRouteComponent implements OnInit {
       console.log(error.message);
       this.notificationService.showSnackBar(error.message);
     });
+  }
+
+  inputHandler(event:any){
+    // var currentDate=new Date();
+    var currentDate=this.dateService.date.getValue().format("DD.MM.YYYY");
+
+    const noteReact="Задача сформирована: "+currentDate+", статус: "+this.getState(this.routeForm.value.state);
+    this.routeService.routeTask.note=noteReact;
+    this.routeForm.value.note=noteReact;
+  }
+  getState(id:number):string{
+    return this.states[id].title;
   }
 }

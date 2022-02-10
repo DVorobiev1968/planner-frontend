@@ -63,6 +63,7 @@ export class SendTaskComponent implements OnInit {
       console.log(data);
       this.notificationService.showSnackBar(data.message);
     });
+    this.router.navigate(["app-send-task"]);
   }
 
   viewDocument(id:number):void{
@@ -71,7 +72,7 @@ export class SendTaskComponent implements OnInit {
     })
   }
 
-  sendTask(taskId:number):void{
+  sendTask():void{
     this.userService.setUser(this.user);
     this.router.navigate(['app-add-route']);
   }
