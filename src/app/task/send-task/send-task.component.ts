@@ -1,19 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {IUser} from "../../models/User";
-import {Employee} from "../../models/Employee";
-import {Priority} from "../../models/Priority";
 import {TaskService} from "../../service/task.service";
-import {EmployeeService} from "../../service/employee.service";
-import {PriorityService} from "../../service/priority.service";
-import {CategoryService} from "../../service/category.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AddDocumentComponent} from "../../documents/add-document/add-document.component";
 import {DocumentUploadService} from "../../service/document-upload.service";
-import {DocumentModel} from "../../models/DocumentModel";
+import {IDocumentModel} from "../../models/DocumentModel";
 
 @Component({
   selector: 'app-send-task',
@@ -23,11 +17,11 @@ import {DocumentModel} from "../../models/DocumentModel";
 export class SendTaskComponent implements OnInit {
   user: IUser;
   isUserDataLoaded = false;
-  documents: DocumentModel;
+  documents: IDocumentModel;
 
   constructor(public taskService: TaskService,
               private userService: UserService,
-              private docService:DocumentUploadService,
+              private docService: DocumentUploadService,
               private dialog: MatDialog,
               private notificationService: NotificationService,
               private router: Router) {
@@ -38,9 +32,9 @@ export class SendTaskComponent implements OnInit {
         this.isUserDataLoaded = true;
       });
     this.docService.getDocumentsToTask(taskService.task.id)
-      .subscribe(data =>{
+      .subscribe(data => {
         console.log(data);
-        this.documents=data;
+        this.documents = data;
       });
   }
 
@@ -58,21 +52,21 @@ export class SendTaskComponent implements OnInit {
     this.dialog.open(AddDocumentComponent, dialogAddDocConfig);
   }
 
-  deleteDocument(id:number):void{
-    this.docService.deleteDocument(id).subscribe(data=>{
+  deleteDocument(id: number): void {
+    this.docService.deleteDocument(id).subscribe(data => {
       console.log(data);
       this.notificationService.showSnackBar(data.message);
     });
     this.router.navigate(["app-send-task"]);
   }
 
-  viewDocument(id:number):void{
-    this.docService.getDocument(id).subscribe(data=>{
+  viewDocument(id: number): void {
+    this.docService.getDocument(id).subscribe(data => {
       console.log(data);
     })
   }
 
-  sendTask():void{
+  sendTask(): void {
     this.userService.setUser(this.user);
     this.router.navigate(['app-add-route']);
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentModel } from "../../models/DocumentModel";
+import { IDocumentModel } from "../../models/DocumentModel";
 import {DocumentUploadService} from "../../service/document-upload.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
@@ -14,7 +14,7 @@ import {IUser} from "../../models/User";
 export class ListDocumentsComponent implements OnInit {
   isDocsLoaded = false;
   isUserDataLoaded = false;
-  docs: DocumentModel[];
+  docs: IDocumentModel[];
   user: IUser;
   taskId:number;
   selectedFile: File;

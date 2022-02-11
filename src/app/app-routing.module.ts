@@ -14,6 +14,7 @@ import { AddDocumentComponent } from './documents/add-document/add-document.comp
 import { SendTaskComponent } from "./task/send-task/send-task.component";
 import { AddRouteComponent } from "./route/add-route/add-route.component";
 import { ListRouteComponent } from './route/list-route/list-route.component';
+import {ListReactDocsComponent} from "./documents/list-react-docs/list-react-docs.component";
 
 const routes: Routes = [
   {path: 'app-login', component: LoginComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'delete-task',component: DeleteTaskComponent,canActivate:[AuthGuardService]},
   {path: 'app-dialog', component: DialogComponent, canActivate:[AuthGuardService]},
   {path: 'app-list-documents', component: ListDocumentsComponent, canActivate:[AuthGuardService]},
+  {path: 'app-list-react-docs', component: ListReactDocsComponent, canActivate:[AuthGuardService]},
   {path: 'app-add-document', component: AddDocumentComponent, canActivate:[AuthGuardService]},
   {path: 'app-add-route', component: AddRouteComponent},
   {path: 'app-list-route',component:ListRouteComponent},

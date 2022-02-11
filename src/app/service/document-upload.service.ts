@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {DocumentClass, DocumentModel} from "../models/DocumentModel";
+import {DocumentModel, IDocumentModel} from "../models/DocumentModel";
 import {TaskService} from "./task.service";
 
 const UPLOAD_API = 'http://localhost:8090/api/docs/';
@@ -10,19 +10,19 @@ const UPLOAD_API = 'http://localhost:8090/api/docs/';
   providedIn: 'root'
 })
 export class DocumentUploadService {
-  docModel:DocumentClass;
+  docModel:DocumentModel;
   previewImgURL:any;
   documentImage: File;
+  iDocModel:IDocumentModel;
 
   constructor(private taskService:TaskService,
               private http:HttpClient) {
-    this.docModel=new DocumentClass(0,0,null,"Новый документ",
-      "Файл еще не выбран",0,0);
+    this.docModel=new DocumentModel(1,1,null,"Новый документ","Файл еще не выбран",1,1);
     this.previewImgURL=null;
     this.documentImage=null;
   }
 
-  public addDocument(document:DocumentClass): Observable<any> {
+  public addDocument(document:DocumentModel): Observable<any> {
     return this.http.post(UPLOAD_API + "add", {
       name: document.name,
       file: document.file,
@@ -32,10 +32,10 @@ export class DocumentUploadService {
     });
   }
 
-  public uploadDocument(document:DocumentClass):Observable<any>{
+  public uploadDocument(document:DocumentModel):Observable<any>{
     const uploadData = new FormData();
     uploadData.append('file', document.file);
-    return this.http.post(UPLOAD_API +document.id.toString()+ "/upload", uploadData);
+    return this.http.post(UPLOAD_API +document.id+ "/upload", uploadData);
   }
 
   deleteDocument(id:number):Observable<any>{

@@ -26,6 +26,7 @@ import { AddDocumentComponent } from './documents/add-document/add-document.comp
 import { SendTaskComponent } from './task/send-task/send-task.component';
 import { AddRouteComponent } from './route/add-route/add-route.component';
 import { ListRouteComponent } from './route/list-route/list-route.component';
+import { ListReactDocsComponent } from './documents/list-react-docs/list-react-docs.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ListRouteComponent } from './route/list-route/list-route.component';
     MomentPipe,
     SendTaskComponent,
     AddRouteComponent,
-    ListRouteComponent
+    ListRouteComponent,
+    ListReactDocsComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../models/User";
-import {CurrentTask, Task} from "../../models/Task";
+import {CurrentTask, ITask} from "../../models/Task";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";

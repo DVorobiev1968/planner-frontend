@@ -1,10 +1,10 @@
 import {Category} from "./Category";
 import {Employee} from "./Employee";
 import {Priority} from "./Priority";
-import {DocumentModel} from "./DocumentModel";
+import {IDocumentModel} from "./DocumentModel";
 import {IUser} from "./User";
 
-export interface Task{
+export interface ITask {
   id:number;
   title:string;
   reference:string;
@@ -12,7 +12,7 @@ export interface Task{
   strDateControl:String;
   dateControl:Date;
   note:string;
-  documents:DocumentModel[];
+  documents:IDocumentModel[];
   priorityId:number;
   priority:Priority;
   employeeId:number;
@@ -22,11 +22,11 @@ export interface Task{
   user:IUser;
 }
 
-export class CurrentTask implements Task{
+export class CurrentTask implements ITask{
   category: Category;
   categoryId: number;
   dateControl: Date;
-  documents: DocumentModel[];
+  documents: IDocumentModel[];
   employee: Employee;
   employeeId: number;
   id: number;
@@ -39,7 +39,7 @@ export class CurrentTask implements Task{
   strDateControl:String;
   user: IUser;
 
-  constructor(category: Category, categoryId: number, dateControl: Date, documents: DocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, user: IUser) {
+  constructor(category: Category, categoryId: number, dateControl: Date, documents: IDocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, user: IUser) {
     this.category = category;
     this.categoryId = categoryId;
     this.dateControl = dateControl;

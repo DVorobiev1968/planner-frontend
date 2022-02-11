@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DocumentModel} from "../../models/DocumentModel";
+import {DocumentModel, IDocumentModel} from "../../models/DocumentModel";
 import {DocumentUploadService} from "../../service/document-upload.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
@@ -56,6 +56,18 @@ export class AddDocumentComponent implements OnInit {
     };
   }
 
+  renderTableAdd(){
+    var itemDataSource=new DocumentModel(this.data.docService.docModel.id,
+      this.data.docService.docModel.employeeId,
+      null,
+      this.data.docService.docModel.name,
+      this.data.docService.docModel.nameFile,
+      this.data.docService.docModel.taskId,
+      this.data.docService.docModel.userId);
+    this.data.dataSource.push(itemDataSource);
+    this.data.table.renderRows();
+  }
+
   // Заполняем объект для передачи контроллеру
   onUpload(): void {
     if (this.selectedFile != null) {
@@ -66,9 +78,10 @@ export class AddDocumentComponent implements OnInit {
       console.log(this.data.docService.docModel);
       this.data.docService.uploadDocument(this.data.docService.docModel)
         .subscribe((data) => {
-          this.notificationService.showSnackBar(data);
+          this.notificationService.showSnackBar('Файл'+this.data.docService.docModel.nameFile+' загружен успешно');
           this.dialogRef.close();
-          this.router.navigate(['app-send-task']);
+          this.renderTableAdd();
+          // this.router.navigate(['app-send-task']);
         }, error => {
           console.log(error.message);
           this.notificationService.showSnackBar(error.message);
@@ -81,8 +94,9 @@ export class AddDocumentComponent implements OnInit {
     this.data.docService.addDocument(this.data.docService.docModel)
       .subscribe(data => {
         console.log(data);
-        this.notificationService.showSnackBar('Данные вложенного документа были внесены успешно');
         this.data.docService.docModel.id=data.id;
+        this.notificationService.showSnackBar('Данные вложенного документа были внесены успешно (id:'
+          +this.data.docService.docModel.id+'). Выберите нужный файл.');
         this.isAddDocument = true;
       }, error => {
         this.notificationService.showSnackBar("Данные не были внесены");

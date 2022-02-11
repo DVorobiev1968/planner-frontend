@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from "../../models/Task";
+import {ITask} from "../../models/Task";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
 import {IUser} from "../../models/User";
@@ -23,8 +23,8 @@ export class ListTaskComponent implements OnInit {
   isAdmin = false;
   isUser = false;
   isRolesLoaded = false;
-  public task: Task;
-  tasks: Task[];
+  public task: ITask;
+  tasks: ITask[];
   user: IUser;
   action: string;
   deleteIdTask: number;
@@ -64,7 +64,7 @@ export class ListTaskComponent implements OnInit {
 
   }
 
-  getPriority(tasks: Task[]): void {
+  getPriority(tasks: ITask[]): void {
     tasks.forEach(task => {
       this.priorityService.getPriorityById(task.priorityId)
         .subscribe(data => {
@@ -74,7 +74,7 @@ export class ListTaskComponent implements OnInit {
     });
   }
 
-  getInfoTask(tasks: Task[]): void {
+  getInfoTask(tasks: ITask[]): void {
     tasks.forEach(task => {
       this.priorityService.getPriorityById(task.priorityId)
         .subscribe(data => {
