@@ -10,6 +10,11 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
+    <mat-form-field class="doc-note" appearance="fill">
+      <mat-label>Примечание:</mat-label>
+      <textarea matInput formControlName="note"></textarea>
+    </mat-form-field>
+
     <div class="row">
         <button (click)="closeDialog()" class="w-50"
                 mat-button mat-dialog-close disableRipple>
@@ -31,5 +36,5 @@
     <img class="profile-image" [src]="previewImgURL || formatImage(data.docService.previewImgURL)" alt="Preview loaded document">
 
     <button mat-button *ngIf="isAddDocument" (click)="fileInput.click()">Выбрать</button>
-    <button mat-button *ngIf="selectedFile" (click)="onUpload()">Upload</button>
+    <button mat-button *ngIf="selectedFile" (click)="onUpload()">Загрузить и выйти</button>
 </div>

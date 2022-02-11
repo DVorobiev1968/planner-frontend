@@ -14,3 +14,8 @@
 .task-full-width {
   width: 100%;
 }
+.doc-note{
+  width: 100%;
+  height: 500%;
+  scroll-margin: 2rem;
+}

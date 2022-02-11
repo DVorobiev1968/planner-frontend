@@ -17,9 +17,10 @@ import {AddDocumentComponent} from "../add-document/add-document.component";
 })
 export class ListReactDocsComponent implements OnInit {
   taskId=1;
-  displayedColumns: string[] = ['id', 'name', 'nameFile', 'date'];
+  displayedColumns: string[] = ['id', 'name', 'nameFile','note','date'];
   dataSource: DocumentModel[];
-  itemDataSourse:DocumentModel;
+  isDataSourceLoaded=false;
+  itemDataSource:DocumentModel;
   @ViewChild(MatTable) table: MatTable<IDocumentModel>;
 
   user: IUser;
@@ -61,6 +62,7 @@ export class ListReactDocsComponent implements OnInit {
       this.docService.getDocumentsToTask(this.taskService.task.id)
         .subscribe(data => {
           this.dataSource = data;
+          this.isDataSourceLoaded=true;
           console.log(this.dataSource);
         });
     }
@@ -74,7 +76,7 @@ export class ListReactDocsComponent implements OnInit {
       docService: this.docService,
       user: this.user,
       table: this.table,
-      itemDataSourse:this.itemDataSourse,
+      itemDataSource:this.itemDataSource,
       dataSource:this.dataSource
     };
     this.dialog.open(AddDocumentComponent, dialogAddDocConfig);

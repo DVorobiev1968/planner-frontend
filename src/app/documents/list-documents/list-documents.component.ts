@@ -24,7 +24,7 @@ export class ListDocumentsComponent implements OnInit {
                 private userService: UserService,
                 private notificationService: NotificationService,
                 private router: Router) {
-                this.taskId=99;
+                this.taskId=1;
   }
 
   ngOnInit(): void {

@@ -22,15 +22,24 @@
 }
 
 .mat-column-name {
+  width: 200px;
   text-align: left;
   padding-left: 16px;
   font-size: 16px;
 }
 
 .mat-column-nameFile {
+  width: 100px;
   text-align: left;
   font-style: italic;
   font-size: 16px;
+}
+
+.mat-column-note {
+  width: 400px;
+  text-align: left;
+  font-style: italic;
+  font-size: 14px;
 }
 
 .mat-column-date {

@@ -32,6 +32,7 @@ export class AddDocumentComponent implements OnInit {
     this.data.docService.docModel.taskId = this.data.task.id;
     this.data.docService.docModel.employeeId = this.data.task.employeeId;
     this.data.docService.docModel.userId = this.data.user.id;
+    this.data.docService.docModel.note="Примечание к документу ID:";
     this.isDataLoaded = true;
     this._docForm = this._createDocForm();
   }
@@ -40,6 +41,7 @@ export class AddDocumentComponent implements OnInit {
     return this._docForm = this.fb.group({
       name: [this.data.docService.docModel.name, Validators.required],
       nameFile: [this.data.docService.docModel.nameFile, Validators.required],
+      note: [this.data.docService.docModel.note],
       file: [Validators.required]
     });
   }
@@ -62,6 +64,7 @@ export class AddDocumentComponent implements OnInit {
       null,
       this.data.docService.docModel.name,
       this.data.docService.docModel.nameFile,
+      this.data.docService.docModel.note,
       this.data.docService.docModel.taskId,
       this.data.docService.docModel.userId);
     this.data.dataSource.push(itemDataSource);
@@ -91,6 +94,7 @@ export class AddDocumentComponent implements OnInit {
 
   submit(): void {
     this.data.docService.docModel.name=this._docForm.value.name;
+    this.data.docService.docModel.note=this._docForm.value.note;
     this.data.docService.addDocument(this.data.docService.docModel)
       .subscribe(data => {
         console.log(data);

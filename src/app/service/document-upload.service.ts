@@ -17,7 +17,7 @@ export class DocumentUploadService {
 
   constructor(private taskService:TaskService,
               private http:HttpClient) {
-    this.docModel=new DocumentModel(1,1,null,"Новый документ","Файл еще не выбран",1,1);
+    this.docModel=new DocumentModel(1,1,null,"Новый документ","Файл еще не выбран","",1,1);
     this.previewImgURL=null;
     this.documentImage=null;
   }
@@ -28,7 +28,8 @@ export class DocumentUploadService {
       file: document.file,
       employeeId: document.employeeId,
       taskId: document.taskId,
-      userId: document.userId
+      userId: document.userId,
+      note:document.note
     });
   }
 

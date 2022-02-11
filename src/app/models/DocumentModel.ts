@@ -8,6 +8,7 @@ export interface IDocumentModel {
   date: Date;
   taskId: number;
   employeeId: number;
+  note: string;
 }
 
 export class DocumentModel implements IDocumentModel {
@@ -19,21 +20,25 @@ export class DocumentModel implements IDocumentModel {
   nameFile: string;
   taskId: number;
   userId: number;
+  note: string;
 
-  constructor(id:number,
+  constructor(id: number,
               employeeId: number,
               file: File,
               name: string,
               nameFile: string,
+              note: string,
               taskId: number,
-              userId:number) {
-    this.id=id;
+              userId: number) {
+    this.id = id;
     this.employeeId = employeeId;
     this.file = file;
     this.name = name;
     this.nameFile = nameFile;
+    this.note = note;
     this.taskId = taskId;
-    this.date=new Date();
-    this.userId=userId;
+    this.date = new Date();
+    this.userId = userId;
   }
+
 }

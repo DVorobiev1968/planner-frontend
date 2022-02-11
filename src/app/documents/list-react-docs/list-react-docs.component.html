@@ -9,14 +9,14 @@
   </button>
   <button
     mat-raised-button
-    [disabled]="!dataSource.length"
+    [disabled]="!isDataSourceLoaded"
     (click)="addFromDialog()"
     class="docs-button">
     Добавить
   </button>
   <button
     mat-raised-button
-    [disabled]="!dataSource.length"
+    [disabled]="!dataSource.length && !isDataSourceLoaded"
     (click)="removeData()"
     class="docs-button">
     Удалить
@@ -24,25 +24,26 @@
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 docs-table">
-  <!-- Position Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>id</th>
     <td mat-cell *matCellDef="let element">{{element.id}}</td>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Наименование</th>
     <td mat-cell *matCellDef="let element">{{element.name}}</td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="nameFile">
     <th mat-header-cell *matHeaderCellDef>Файл</th>
     <td mat-cell *matCellDef="let element">{{element.nameFile}}</td>
   </ng-container>
 
-  <!-- Symbol Column -->
+  <ng-container matColumnDef="note">
+    <th mat-header-cell *matHeaderCellDef>Промечание</th>
+    <td mat-cell *matCellDef="let element">{{element.note}}</td>
+  </ng-container>
+
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef>Дата</th>
     <td mat-cell *matCellDef="let element">{{element.date}}</td>
