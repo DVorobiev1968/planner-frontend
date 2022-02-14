@@ -9,6 +9,7 @@ import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {IUser} from "../../models/User";
 import {AddDocumentComponent} from "../add-document/add-document.component";
+import {DialogComponent} from "../../task/dialog/dialog.component";
 
 @Component({
   selector: 'app-list-react-docs',
@@ -16,17 +17,20 @@ import {AddDocumentComponent} from "../add-document/add-document.component";
   styleUrls: ['./list-react-docs.component.css']
 })
 export class ListReactDocsComponent implements OnInit {
+  title:string;
+  action:string;
   taskId=1;
   displayedColumns: string[] = ['id', 'name', 'nameFile','note','date'];
-  dataSource: DocumentModel[];
+  dataSource: IDocumentModel[];
   isDataSourceLoaded=false;
   itemDataSource:DocumentModel;
+
   @ViewChild(MatTable) table: MatTable<IDocumentModel>;
 
   user: IUser;
   isUserDataLoaded = false;
   documents: IDocumentModel[];
-  clickedRows = new Set<DocumentModel>();
+  clickedRows = new Set<IDocumentModel>();
 
   constructor(public taskService: TaskService,
               private userService: UserService,
@@ -40,13 +44,6 @@ export class ListReactDocsComponent implements OnInit {
         this.user = data;
         this.isUserDataLoaded = true;
       });
-  }
-
-  setDocuments(documents:IDocumentModel[]){
-
-  }
-
-  ngOnInit(): void {
     // TODO пока для отладки
     this.taskService.getTaskById(this.taskId)
       .subscribe(data=>{
@@ -56,6 +53,15 @@ export class ListReactDocsComponent implements OnInit {
       },error => {
         this.taskService.task=null;
       });
+
+    this.viewDocs();
+  }
+
+  setDocuments(documents:IDocumentModel[]){
+
+  }
+
+  ngOnInit(): void {
   }
   viewDocs(){
     if (this.taskService.task!=null){
@@ -64,10 +70,11 @@ export class ListReactDocsComponent implements OnInit {
           this.dataSource = data;
           this.isDataSourceLoaded=true;
           console.log(this.dataSource);
+          console.log(this.table);
         });
     }
   }
-
+  /** Диалог при добавлении прикрепляемых файлов */
   openEditDialog(): void {
     const dialogAddDocConfig = new MatDialogConfig();
     dialogAddDocConfig.width = '600px';
@@ -83,10 +90,14 @@ export class ListReactDocsComponent implements OnInit {
   }
 
   deleteDocument(id: number): void {
-    this.docService.deleteDocument(id).subscribe(data => {
+    this.docService.deleteDocument(id)
+      .subscribe(data => {
       console.log(data);
       this.notificationService.showSnackBar(data.message);
-    });
+    },error => {
+        console.log(error);
+        this.notificationService.showSnackBar(error.message);
+      });
   }
 
   viewDocument(id: number): void {
@@ -98,11 +109,34 @@ export class ListReactDocsComponent implements OnInit {
   addFromDialog(){
     this.openEditDialog();
   }
-  // TODO в разработке
-  removeData(){
-    // this.dataSource.pop();
-    // this.table.renderRows();
 
+  removeData() {
+    this.dataSource.pop();
+    this.table.renderRows();
+  }
+
+  removeDataItem(id:number, nameFile:string) {
+    console.log(id)
+    this.title=nameFile;
+    this.openDialog(id);
+    // this.dataSource.elements.pop();
+    // this.table.renderRows();
+  }
+  /** Диалог при удалении прикрепляемых файлов */
+  openDialog(id:number): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {title: this.title, action: this.action},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.action = result;
+      if (this.action){
+        // удаляем из БД
+        console.log('удаляем из БД document_id: '+id);
+        this.docService.deleteDocument(id);
+      }
+    });
   }
 
 }

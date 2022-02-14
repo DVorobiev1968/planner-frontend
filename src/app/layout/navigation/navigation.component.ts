@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // проверка на то зашел ди пользователь на сайт
+    // проверка на то зашел ди пользователь на сайт если оставить "!" то происходит зацикливание
     this.isLoggedIn = !!this.tokenService.getToken();
 
     if(this.isLoggedIn) {
