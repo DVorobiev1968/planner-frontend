@@ -39,7 +39,7 @@ export class DocumentUploadService {
     return this.http.post(UPLOAD_API +document.id+ "/upload", uploadData);
   }
 
-  deleteDocument(id:number):Observable<any>{
+  deleteDocument(id:number):any{
     return this.http.get(UPLOAD_API+'delete/'+id);
   }
 

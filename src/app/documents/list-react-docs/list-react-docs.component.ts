@@ -68,6 +68,7 @@ export class ListReactDocsComponent implements OnInit {
       this.docService.getDocumentsToTask(this.taskService.task.id)
         .subscribe(data => {
           this.dataSource = data;
+          this.table.dataSource=this.dataSource;
           this.isDataSourceLoaded=true;
           console.log(this.dataSource);
           console.log(this.table);
@@ -134,7 +135,10 @@ export class ListReactDocsComponent implements OnInit {
       if (this.action){
         // удаляем из БД
         console.log('удаляем из БД document_id: '+id);
-        this.docService.deleteDocument(id);
+        this.deleteDocument(id);
+        //TODO обновление this.table._data(_dataSource)
+        this.viewDocs();
+        this.table.renderRows();
       }
     });
   }
