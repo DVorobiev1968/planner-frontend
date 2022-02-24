@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Conf} from "Conf";
-
-const AUTH_API = Conf.AUTH_API;
+import {Conf} from "./Conf";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  conf:Conf;
   constructor(private http: HttpClient) {
+    this.conf=new Conf();
   }
 
   public login(user: { username: any; password: any; }): Observable<any> {
-    return this.http.post(AUTH_API + 'signin', {
+    return this.http.post(this.conf.AUTH_API + 'signin', {
       username: user.username,
       password: user.password
     });
@@ -30,7 +29,7 @@ export class AuthService {
     password: any;
     confirmPassword: any;
   }): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
+    return this.http.post(this.conf.AUTH_API + 'signup', {
       email: user.email,
       username: user.username,
       firstname: user.firstname,

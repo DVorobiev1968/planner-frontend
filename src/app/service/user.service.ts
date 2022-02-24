@@ -3,16 +3,17 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ERole} from "../models/ERole";
 import {IUser} from "../models/User";
-
-const USER_API = 'http://localhost:8090/api/user/';
+import {Conf} from "./Conf";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   user: IUser;
+  conf:Conf;
 
   constructor(private http: HttpClient) {
+    this.conf=new Conf();
   }
 
   getUser():IUser{
@@ -23,15 +24,15 @@ export class UserService {
     return this.user.lastname+" "+this.user.initial;
   }
   getUserById(id: number): Observable<any> {
-    return this.http.get(USER_API + id);
+    return this.http.get(this.conf.USER_API + id);
   }
 
   getCurrentUser(): Observable<any> {
-    return this.http.get(USER_API);
+    return this.http.get(this.conf.USER_API);
   }
 
   updateUser(user: any): Observable<any> {
-    return this.http.post(USER_API + 'update', user);
+    return this.http.post(this.conf.USER_API + 'update', user);
   }
 
   setUser(user: IUser): void {
@@ -53,6 +54,6 @@ export class UserService {
   }
 
   getAll():Observable<any>{
-    return this.http.get(USER_API+"all")
+    return this.http.get(this.conf.USER_API+"all")
   }
 }

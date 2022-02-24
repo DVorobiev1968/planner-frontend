@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Conf} from "./Conf";
 
-const PRIORITY_API = 'http://localhost:8090/api/priority/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PriorityService {
-
-  constructor(private http:HttpClient) { }
+  conf:Conf;
+  constructor(private http:HttpClient) {
+    this.conf=new Conf();
+  }
   getPriorityById(id: number): Observable<any> {
-    return this.http.get(PRIORITY_API + 'id/' + id);
+    return this.http.get(this.conf.PRIORITY_API + 'id/' + id);
   }
 
   listPriority():Observable<any>{
-    return this.http.get(PRIORITY_API+'all');
+    return this.http.get(this.conf.PRIORITY_API+'all');
   }
 }

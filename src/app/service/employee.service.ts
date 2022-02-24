@@ -2,34 +2,34 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Employee} from "../models/Employee";
-
-const EMPLOYEE_API = 'http://localhost:8090/api/employee/';
+import {Conf} from "./Conf";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-
+  conf:Conf;
   constructor(private http: HttpClient) {
+    this.conf=new Conf();
   }
 
   getEmployeeById(id: number): Observable<any> {
-    return this.http.get(EMPLOYEE_API + 'id/' + id);
+    return this.http.get(this.conf.EMPLOYEE_API + 'id/' + id);
   }
 
   updateEmployee(employee: any): Observable<any> {
-    return this.http.post(EMPLOYEE_API + 'update', employee);
+    return this.http.post(this.conf.EMPLOYEE_API + 'update', employee);
   }
 
   createEmployee(employee: Employee): Observable<any> {
-    return this.http.post(EMPLOYEE_API + 'add', employee);
+    return this.http.post(this.conf.EMPLOYEE_API + 'add', employee);
   }
 
   deleteEmployee(id: number): Observable<any> {
-    return this.http.get(EMPLOYEE_API + 'delete/' + id);
+    return this.http.get(this.conf.EMPLOYEE_API + 'delete/' + id);
   }
 
   listEmployee(): Observable<any> {
-    return this.http.get(EMPLOYEE_API + 'all');
+    return this.http.get(this.conf.EMPLOYEE_API + 'all');
   }
 }
