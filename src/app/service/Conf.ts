@@ -9,18 +9,21 @@ export class Conf{
   TOKEN_KEY:string;
   USER_KEY:string;
   USER_API:string;
+  HOST:string;
 
   constructor() {
-    this.AUTH_API='http://planning-back-end:8090/api/auth/';
-    this.CATEGORY_API='http://planning-back-end:8090/api/category/';
-    this.UPLOAD_API='http://planning-back-end:8090/api/docs/';
-    this.EMPLOYEE_API = 'http://planning-back-end:8090/api/employee/';
-    this.PRIORITY_API = 'http://planning-back-end:8090/api/priority/';
-    this.ROUTE_TASK_API = 'http://planning-back-end:8090/api/route/';
-    this.TASK_API = 'http://planning-back-end:8090/api/task/';
+    this.HOST='http://planning-back-end:8090';
+    // this.HOST='http://localhost:8090';
+    this.AUTH_API=this.HOST+'/api/auth/';
+    this.CATEGORY_API=this.HOST+'/api/category/';
+    this.UPLOAD_API=this.HOST+'/api/docs/';
+    this.EMPLOYEE_API = this.HOST+'/api/employee/';
+    this.PRIORITY_API = this.HOST+'/api/priority/';
+    this.ROUTE_TASK_API = this.HOST+'/api/route/';
+    this.TASK_API = this.HOST+'/api/task/';
     this.TOKEN_KEY = 'auth-token';
     this.USER_KEY = 'auth-user';
-    this.USER_API = 'http://planning-back-end:8090/api/user/';
+    this.USER_API = this.HOST+'/api/user/';
 
   }
 }
