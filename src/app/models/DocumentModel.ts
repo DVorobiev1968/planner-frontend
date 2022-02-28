@@ -9,6 +9,7 @@ export interface IDocumentModel {
   taskId: number;
   employeeId: number;
   note: string;
+  disabled:boolean;
 }
 
 export class DocumentModel implements IDocumentModel {
@@ -31,7 +32,7 @@ export class DocumentModel implements IDocumentModel {
     this.note=value.note;
     this.employeeId=value.employeeId;
     this.taskId=value.taskId;
-    value.date==null ? new Date(): value.date;
+    value.date==undefined ? new Date(): value.date;
     this.disabled=false;
   }
 }

@@ -24,7 +24,8 @@ export class DocumentUploadService {
       date: null,
       taskId: 1,
       employeeId: 1,
-      note: ""});
+      note: "",
+      disabled:false});
     this.previewImgURL=null;
     this.documentImage=null;
     this.conf=new Conf();

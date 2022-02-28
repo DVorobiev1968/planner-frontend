@@ -71,7 +71,8 @@ export class AddDocumentComponent implements OnInit {
       date: null,
       taskId: this.data.docService.docModel.taskId,
       employeeId: this.data.docService.docModel.employeeId,
-      note: this.data.docService.docModel.note
+      note: this.data.docService.docModel.note,
+      disabled: false
     });
     this.data.dataSource.push(itemDataSource);
     this.data.table.renderRows();

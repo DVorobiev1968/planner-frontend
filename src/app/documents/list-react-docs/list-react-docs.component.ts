@@ -25,7 +25,7 @@ export class ListReactDocsComponent implements OnInit {
   isDataSourceLoaded=false;
   itemDataSource:DocumentModel;
 
-  @ViewChild(MatTable) table: MatTable<DocumentModel>;
+  @ViewChild(MatTable) table: MatTable<IDocumentModel>;
 
   user: IUser;
   isUserDataLoaded = false;
@@ -70,8 +70,9 @@ export class ListReactDocsComponent implements OnInit {
           data.forEach(docs=>{
             this.itemDataSource=new DocumentModel(docs);
             this.dataSource.push(this.itemDataSource);
+            this.table.dataSource=data;
           });
-          this.table.dataSource=this.dataSource;
+          // this.table.dataSource=this.dataSource;
           this.isDataSourceLoaded=true;
           console.log(this.dataSource);
           console.log(this.table);
@@ -122,9 +123,9 @@ export class ListReactDocsComponent implements OnInit {
   removeDataItem(id:number, nameFile:string, index:number) {
     console.log(id)
     this.openDialog(id);
-    this.dataSource[index].disabled=true;
+    this.table.dataSource[index-1].disabled=true;
     // this.dataSource.elements.pop();
-    // this.table.renderRows();
+    this.table.renderRows();
 
   }
   /** Диалог при удалении прикрепляемых файлов */
