@@ -12,12 +12,19 @@ export class DocumentUploadService {
   docModel:DocumentModel;
   previewImgURL:any;
   documentImage: File;
-  iDocModel:IDocumentModel;
   conf:Conf;
 
   constructor(private taskService:TaskService,
               private http:HttpClient) {
-    this.docModel=new DocumentModel(1,1,null,"Новый документ","Файл еще не выбран","",1,1);
+    this.docModel=new DocumentModel({
+      id:1,
+      name:"Новый документ",
+      nameFile: "Файл еще не выбран",
+      file: null,
+      date: null,
+      taskId: 1,
+      employeeId: 1,
+      note: ""});
     this.previewImgURL=null;
     this.documentImage=null;
     this.conf=new Conf();

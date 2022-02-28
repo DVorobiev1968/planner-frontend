@@ -1,11 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DocumentModel, IDocumentModel} from "../../models/DocumentModel";
-import {DocumentUploadService} from "../../service/document-upload.service";
-import {UserService} from "../../service/user.service";
+import {DocumentModel} from "../../models/DocumentModel";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
-import {IUser} from "../../models/User";
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
@@ -28,10 +25,17 @@ export class AddDocumentComponent implements OnInit {
               private router: Router) {
   }
 
+  getRandomInt(min, max):number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   ngOnInit(): void {
     this.data.docService.docModel.taskId = this.data.task.id;
     this.data.docService.docModel.employeeId = this.data.task.employeeId;
     this.data.docService.docModel.userId = this.data.user.id;
+    this.data.docService.docModel.name="Новый документ: "+this.getRandomInt(0,10).toString();
     this.data.docService.docModel.note="Примечание к документу ID:";
     this.isDataLoaded = true;
     this._docForm = this._createDocForm();
@@ -59,14 +63,16 @@ export class AddDocumentComponent implements OnInit {
   }
 
   renderTableAdd(){
-    var itemDataSource=new DocumentModel(this.data.docService.docModel.id,
-      this.data.docService.docModel.employeeId,
-      null,
-      this.data.docService.docModel.name,
-      this.data.docService.docModel.nameFile,
-      this.data.docService.docModel.note,
-      this.data.docService.docModel.taskId,
-      this.data.docService.docModel.userId);
+    var itemDataSource=new DocumentModel({
+      id:this.data.docService.docModel.id,
+      name: this.data.docService.docModel.name,
+      nameFile: this.data.docService.docModel.nameFile,
+      file: null,
+      date: null,
+      taskId: this.data.docService.docModel.taskId,
+      employeeId: this.data.docService.docModel.employeeId,
+      note: this.data.docService.docModel.note
+    });
     this.data.dataSource.push(itemDataSource);
     this.data.table.renderRows();
   }

@@ -20,7 +20,7 @@
                 mat-button mat-dialog-close disableRipple>
           Отмена
         </button>
-        <button color="primary" class="w-50" [disabled]="_docForm.invalid" (click)="submit()" mat-button disableRipple>
+        <button color="primary" class="w-50" [disabled]="_docForm.value.name.length < 1" (click)="submit()" mat-button disableRipple>
           Сохранить
         </button>
       </div>

@@ -49,6 +49,11 @@
     <td mat-cell *matCellDef="let element">{{element.date}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell *matCellDef="let element">{{true}}</td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
   <tr
@@ -69,14 +74,15 @@
 </div>
 
 <ul>
-  <li *ngFor="let clickedRow of clickedRows">
+  <li *ngFor="let clickedRow of clickedRows; let i = index">
     Clicked on {{clickedRow.name}}
     <button
       mat-raised-button
-      [disabled]="!dataSource.length"
-      (click)="removeDataItem(clickedRow.id,clickedRow.nameFile)"
+      id="btn"
+      [disabled]="!dataSource.length || !clickedRow.type"
+      (click)="removeDataItem(clickedRow.id,clickedRow.nameFile,i+1)"
       class="docs-button">
-      Delete
+      Удалить
     </button>
   </li>
 </ul>

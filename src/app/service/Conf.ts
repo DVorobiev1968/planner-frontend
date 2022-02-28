@@ -12,8 +12,8 @@ export class Conf{
   HOST:string;
 
   constructor() {
-    this.HOST='http://planning-back-end:8090';
-    // this.HOST='http://localhost:8090';
+    // this.HOST='http://planning-back-end:8090';
+    this.HOST='http://localhost:8090';
     this.AUTH_API=this.HOST+'/api/auth/';
     this.CATEGORY_API=this.HOST+'/api/category/';
     this.UPLOAD_API=this.HOST+'/api/docs/';

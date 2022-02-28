@@ -20,17 +20,17 @@ export class ListReactDocsComponent implements OnInit {
   title:string;
   action:string;
   taskId=1;
-  displayedColumns: string[] = ['id', 'name', 'nameFile','note','date'];
-  dataSource: IDocumentModel[];
+  displayedColumns: string[] = ['id', 'name', 'nameFile','note','date','disabled'];
+  dataSource: Array<DocumentModel>;
   isDataSourceLoaded=false;
   itemDataSource:DocumentModel;
 
-  @ViewChild(MatTable) table: MatTable<IDocumentModel>;
+  @ViewChild(MatTable) table: MatTable<DocumentModel>;
 
   user: IUser;
   isUserDataLoaded = false;
-  documents: IDocumentModel[];
-  clickedRows = new Set<IDocumentModel>();
+  documents: DocumentModel[];
+  clickedRows = new Set<DocumentModel>();
 
   constructor(public taskService: TaskService,
               private userService: UserService,
@@ -53,7 +53,7 @@ export class ListReactDocsComponent implements OnInit {
       },error => {
         this.taskService.task=null;
       });
-
+    this.dataSource=new Array<DocumentModel>();
     this.viewDocs();
   }
 
@@ -67,7 +67,10 @@ export class ListReactDocsComponent implements OnInit {
     if (this.taskService.task!=null){
       this.docService.getDocumentsToTask(this.taskService.task.id)
         .subscribe(data => {
-          this.dataSource = data;
+          data.forEach(docs=>{
+            this.itemDataSource=new DocumentModel(docs);
+            this.dataSource.push(this.itemDataSource);
+          });
           this.table.dataSource=this.dataSource;
           this.isDataSourceLoaded=true;
           console.log(this.dataSource);
@@ -97,7 +100,7 @@ export class ListReactDocsComponent implements OnInit {
       this.notificationService.showSnackBar(data.message);
     },error => {
         console.log(error);
-        this.notificationService.showSnackBar(error.message);
+        this.notificationService.showSnackBar(error);
       });
   }
 
@@ -116,12 +119,13 @@ export class ListReactDocsComponent implements OnInit {
     this.table.renderRows();
   }
 
-  removeDataItem(id:number, nameFile:string) {
+  removeDataItem(id:number, nameFile:string, index:number) {
     console.log(id)
-    this.title=nameFile;
     this.openDialog(id);
+    this.dataSource[index].disabled=true;
     // this.dataSource.elements.pop();
     // this.table.renderRows();
+
   }
   /** Диалог при удалении прикрепляемых файлов */
   openDialog(id:number): void {

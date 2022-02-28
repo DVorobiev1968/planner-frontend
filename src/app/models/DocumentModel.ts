@@ -21,24 +21,17 @@ export class DocumentModel implements IDocumentModel {
   taskId: number;
   userId: number;
   note: string;
+  disabled: boolean;
 
-  constructor(id: number,
-              employeeId: number,
-              file: File,
-              name: string,
-              nameFile: string,
-              note: string,
-              taskId: number,
-              userId: number) {
-    this.id = id;
-    this.employeeId = employeeId;
-    this.file = file;
-    this.name = name;
-    this.nameFile = nameFile;
-    this.note = note;
-    this.taskId = taskId;
-    this.date = new Date();
-    this.userId = userId;
+  constructor(value:IDocumentModel) {
+    this.id=value.id;
+    this.file=value.file;
+    this.name=value.name;
+    this.nameFile=value.nameFile;
+    this.note=value.note;
+    this.employeeId=value.employeeId;
+    this.taskId=value.taskId;
+    value.date==null ? new Date(): value.date;
+    this.disabled=false;
   }
-
 }
