@@ -94,13 +94,14 @@ export class ListReactDocsComponent implements OnInit {
     this.dialog.open(AddDocumentComponent, dialogAddDocConfig);
   }
 
-  findElementArray(docs:Array, id:number):number{
+  findElementArray(docs:any, id:number): number {
     let index=0;
-    docs.forEach(getId(item){
-      if (item.id==id)
+    docs.forEach(docs=>{
+      if (docs.id==id)
         return  index;
       index++;
     });
+    return index;
   }
 
   deleteDocument(id: number): void {
