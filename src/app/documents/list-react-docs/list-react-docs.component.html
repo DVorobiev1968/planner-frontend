@@ -74,13 +74,13 @@
 </div>
 
 <ul>
-  <li *ngFor="let clickedRow of clickedRows; let i = index">
+  <li *ngFor="let clickedRow of clickedRows">
     Clicked on {{clickedRow.name}}
     <button
       mat-raised-button
       id="btn"
       [disabled]="!dataSource.length || clickedRow.disabled"
-      (click)="removeDataItem(clickedRow.id,clickedRow.nameFile,i+1)"
+      (click)="removeDataItem(clickedRow.id,clickedRow.nameFile)"
       class="docs-button">
       Удалить
     </button>

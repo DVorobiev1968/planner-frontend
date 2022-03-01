@@ -94,11 +94,23 @@ export class ListReactDocsComponent implements OnInit {
     this.dialog.open(AddDocumentComponent, dialogAddDocConfig);
   }
 
+  findElementArray(docs:Array, id:number):number{
+    let index=0;
+    docs.forEach(getId(item){
+      if (item.id==id)
+        return  index;
+      index++;
+    });
+  }
+
   deleteDocument(id: number): void {
     this.docService.deleteDocument(id)
       .subscribe(data => {
       console.log(data);
-      this.notificationService.showSnackBar(data.message);
+      this.notificationService.showSnackBar(data);
+      let index=0;
+      index=this.findElementArray(this.table.dataSource, id);
+      console.log(index);
     },error => {
         console.log(error);
         this.notificationService.showSnackBar(error);
@@ -120,14 +132,11 @@ export class ListReactDocsComponent implements OnInit {
     this.table.renderRows();
   }
 
-  removeDataItem(id:number, nameFile:string, index:number) {
+  removeDataItem(id:number, nameFile:string) {
     console.log(id)
     this.openDialog(id);
-    this.table.dataSource[index-1].disabled=true;
-    // this.dataSource.elements.pop();
-    this.table.renderRows();
-
   }
+
   /** Диалог при удалении прикрепляемых файлов */
   openDialog(id:number): void {
     const dialogRef = this.dialog.open(DialogComponent, {
