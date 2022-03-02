@@ -64,31 +64,6 @@ export class ListTaskComponent implements OnInit {
 
   }
 
-  getPriority(tasks: ITask[]): void {
-    tasks.forEach(task => {
-      this.priorityService.getPriorityById(task.priorityId)
-        .subscribe(data => {
-          console.log(data);
-          task.priority = data;
-        })
-    });
-  }
-
-  getInfoTask(tasks: ITask[]): void {
-    tasks.forEach(task => {
-      this.priorityService.getPriorityById(task.priorityId)
-        .subscribe(data => {
-          console.log(data);
-          task.priority = data;
-        });
-      this.employeeService.getEmployeeById(task.employeeId)
-        .subscribe(data => {
-          console.log(data);
-          task.employee = data;
-        });
-    });
-  }
-
   // TODO реализовать отображение pdf
   /** метод реализующий возвращение формата картинки */
   formatImage(img: any): any {
@@ -103,6 +78,13 @@ export class ListTaskComponent implements OnInit {
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
     this.router.navigate(['app-send-task']);
+  }
+
+  setCurrentDocs(index: number, id: number): void {
+    console.log("Set task ID:" + id);
+    this.task = this.tasks[index];
+    this.taskService.setTask(this.task);
+    this.router.navigate(['app-list-documents']);
   }
 
   editTask(index: number, id: number): void {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
-import {IUser} from "../../models/User";
+import {IUser, User} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
 import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
@@ -22,6 +22,10 @@ export class AddTaskComponent implements OnInit {
   isUserDataLoaded = false;
   isEmployeesLoaded = false;
   isPriorityLoaded = false;
+  isUsersLoaded = false;
+  isAdmin = false;
+  isUser = false;
+  isRolesLoaded = false;
 
   user: IUser;
   dateControl: Date;
@@ -29,6 +33,7 @@ export class AddTaskComponent implements OnInit {
   reference: string;
   employees: Employee[];
   priorities: Priority[];
+  users: IUser[];
   note: string;
 
   constructor(private taskService: TaskService,
@@ -60,6 +65,13 @@ export class AddTaskComponent implements OnInit {
         this.priorities=data;
         this.isPriorityLoaded=true;
       });
+
+    this.userService.getAll()
+      .subscribe(data=>{
+        console.log(data);
+        this.users=data;
+        this.isUsersLoaded=true;
+      })
   }
 
   ngOnInit(): void {
@@ -70,10 +82,18 @@ export class AddTaskComponent implements OnInit {
     this._createTaskFormBuilder();
   }
 
+  ngOmLoad(): void {
+    this.userService.setUser(this.user);
+    this.isAdmin = this.userService.isAdmin(this.user.roles);
+    this.isUser = this.userService.isUser(this.user.roles);
+    this.isRolesLoaded = true;
+  }
+
   private _createTaskFormBuilder(){
     this._taskForm=this.fb.group({
       newTask: [this.newTask, Validators.required],
       reference: [this.reference, Validators.required],
+      teamlied: [this.users],
       employee: [this.employees, Validators.required],
       priority: [this.priorities, Validators.required],
       dateControl: [this.dateControl, Validators.required],
@@ -91,7 +111,7 @@ export class AddTaskComponent implements OnInit {
       priorityId: this._taskForm.value.priority,
       categoryId: 1,
       dateControl: this._taskForm.value.dateControl,
-      note:this.note
+      note:this._taskForm.value.note
     }).subscribe(data=>{
       console.log(data);
       this.notificationService.showSnackBar('Данные были успешно записаны');
@@ -102,4 +122,28 @@ export class AddTaskComponent implements OnInit {
       this.notificationService.showSnackBar(error.message);
     });
   }
+
+  submitExtend():void {
+    console.log(this._taskForm.value);
+
+    this.taskService.createTaskExtend({
+      title: this._taskForm.value.newTask,
+      reference:this._taskForm.value.reference,
+      employeeId: this._taskForm.value.employee,
+      priorityId: this._taskForm.value.priority,
+      categoryId: 1,
+      dateControl: this._taskForm.value.dateControl,
+      note:this.note,
+      teamliedId:this._taskForm.value.teamlied
+    }).subscribe(data=>{
+      console.log(data);
+      this.notificationService.showSnackBar('Данные были успешно записаны');
+      this.router.navigate(['tasks']);
+      // window.location.reload();
+    },error => {
+      console.log(error.message);
+      this.notificationService.showSnackBar(error.message);
+    });
+  }
+
 }

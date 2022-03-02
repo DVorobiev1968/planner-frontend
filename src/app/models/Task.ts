@@ -13,13 +13,10 @@ export interface ITask {
   dateControl:Date;
   note:string;
   documents:IDocumentModel[];
-  priorityId:number;
   priority:Priority;
-  employeeId:number;
   employee:Employee;
   category:Category;
-  categoryId:number;
-  user:IUser;
+  teamlieder:string;
 }
 
 export class CurrentTask implements ITask{
@@ -36,10 +33,10 @@ export class CurrentTask implements ITask{
   title: string;
   reference: string;
   completed:number;
-  strDateControl:String;
-  user: IUser;
+  strDateControl:string;
+  teamlieder: string;
 
-  constructor(category: Category, categoryId: number, dateControl: Date, documents: IDocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, user: IUser) {
+  constructor(category: Category, categoryId: number, dateControl: Date, documents: IDocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, teamlieder: string) {
     this.category = category;
     this.categoryId = categoryId;
     this.dateControl = dateControl;
@@ -52,6 +49,6 @@ export class CurrentTask implements ITask{
     this.priorityId = priorityId;
     this.title = title;
     this.reference = reference;
-    this.user = user;
+    this.teamlieder = teamlieder;
   }
 }

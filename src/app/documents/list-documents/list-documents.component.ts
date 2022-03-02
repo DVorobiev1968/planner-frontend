@@ -5,6 +5,7 @@ import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {IUser} from "../../models/User";
+import {TaskService} from "../../service/task.service";
 
 @Component({
   selector: 'app-list-documents',
@@ -17,14 +18,14 @@ export class ListDocumentsComponent implements OnInit {
   docs: IDocumentModel[];
   user: IUser;
   taskId:number;
-  selectedFile: File;
   previewImgURL:any;
 
   constructor(  private docsService: DocumentUploadService,
                 private userService: UserService,
+                public taskService: TaskService,
                 private notificationService: NotificationService,
                 private router: Router) {
-                this.taskId=1;
+                this.taskId=taskService.task.id;
   }
 
   ngOnInit(): void {
@@ -44,4 +45,27 @@ export class ListDocumentsComponent implements OnInit {
                this.notificationService.showSnackBar("Прикрепленные документы отсутствуют");
         });
   }
+
+  viewDoc(id:number){
+    console.log(id);
+    this.docsService.getDocument(id)
+      .subscribe(data=>{
+        this.previewImgURL=data.docBytes;
+      })
+  }
+
+  formatImage(img: any): any {
+    if (img == null) {
+      return null;
+    }
+    return 'data:image/jpeg;base64,' + img;
+  }
+
+  formatPdf(pdf: any): any {
+    if (pdf == null) {
+      return null;
+    }
+    return 'data:pdf/pdf;base64,' + pdf;
+  }
+
 }

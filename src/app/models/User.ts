@@ -9,6 +9,7 @@ export interface IUser {
   patronymic: string;
   initial:string;
   roles?:ERole[];
+  fio:string;
 }
 export class User implements IUser{
   id: number;
@@ -18,6 +19,7 @@ export class User implements IUser{
   lastname: string;
   patronymic: string;
   initial:string;
+  fio:string;
 
   constructor (id:number, email:string, username:string, firstname:string, lastname:string, patronymic:string, initial:string){
     this.id=id;

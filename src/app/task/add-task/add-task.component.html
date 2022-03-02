@@ -1,6 +1,17 @@
+<div *ngIf="!isRolesLoaded">
+  <button mat-button [disabled]="!isUserDataLoaded" (click)="ngOmLoad()">
+    Режим администратора
+  </button>
+</div>
+
 <div *ngIf="isUserDataLoaded" class="task-form">
-  <hi>Создание нового мероприятия</hi>
-  <h2>Инициатор: {{user.lastname}}&nbsp;{{user.initial}}</h2>
+  <hi>Новая задача</hi>
+  <div *ngIf="isAdmin">
+    <p>Работа в режиме Администратора системы, руководитель работ выбирается Администратором </p>
+  </div>
+  <div *ngIf="!isAdmin">
+    <h2>Руководитель(инициатор): {{user.lastname}}&nbsp;{{user.initial}}</h2>
+  </div>
   <form [formGroup]="_taskForm" >
     <mat-form-field class="task-full-width" appearance="fill">
       <mat-label>Наименование мероприятия:</mat-label>
@@ -21,6 +32,18 @@
       <mat-label>Примечание:</mat-label>
       <textarea matInput formControlName="note"></textarea>
     </mat-form-field>
+
+    <div *ngIf="isAdmin">
+      <h5>Укажите руководителя</h5>
+      <mat-form-field>
+        <mat-label>Руководитель</mat-label>
+        <mat-select formControlName="teamlied" disabled={{!isUsersLoaded}}>
+          <mat-option  *ngFor="let teamlied of users" [value]="teamlied.id" >
+            {{teamlied.fio}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <h5>Укажите исполнителя</h5>
     <mat-form-field>
@@ -50,8 +73,13 @@
       <mat-datepicker #dateControl></mat-datepicker>
     </mat-form-field>
     <br>
-    <div class="mat-button">
+    <div *ngIf="!isAdmin" class="mat-button">
       <button mat-button [disabled]="_taskForm.invalid" (click)="submit()">
+        Сохранить
+      </button>
+    </div>
+    <div *ngIf="isAdmin" class="mat-button">
+      <button mat-button [disabled]="_taskForm.invalid" (click)="submitExtend()">
         Сохранить
       </button>
     </div>

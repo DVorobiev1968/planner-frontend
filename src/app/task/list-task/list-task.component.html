@@ -26,6 +26,8 @@
       <th scope="col" width="8%">Руководитель</th>
       <th *ngIf="isAdmin" scope="col" width="5%">Редактирование</th>
       <th scope="col" width="5%">Исполнение</th>
+      <th scope="col" width="5%">Статус</th>
+      <th scope="col" width="5%">Вложения</th>
       <th *ngIf="isAdmin" scope="col" width="5%">Удаление</th>
     </tr>
     </thead>
@@ -38,9 +40,11 @@
       <td width="8%">{{task.category.title}}</td>
       <td width="8%">{{task.employee.fio}}</td>
       <td width="8%">{{task.strDateControl}}</td>
-      <td width="8%">&nbsp;</td>
+      <td width="8%">{{task.teamlieder}}</td>
       <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)">Редактировать</a></td>
       <td class="info" width="5%"><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)" title="Просмотр задачи, отправка на согласование">Отправить</a></td>
+      <td width="8%">{{task.completed}}</td>
+      <td class="info" width="5%"><a class="btn btn-warning"  (click)="setCurrentDocs(i,task.id)" title="Вложенные документы">Вложения</a></td>
       <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"  (click)="openDialog(i, task.id)">Удалить</a></td>
     </tr>
     </tbody>

@@ -92,8 +92,26 @@ export class AddRouteComponent implements OnInit {
       console.log(error.message);
       this.notificationService.showSnackBar(error.message);
     });
+    this.setCompletedTask();
   }
 
+  setCompletedTask():void {
+    this.taskService.updateTask({
+      id: this.taskService.task.id,
+      title:this.taskService.task.title,
+      reference: this.taskService.task.reference,
+      employeeId: this.taskService.task.employee,
+      priorityId: this.taskService.task.priority,
+      categoryId: this.taskService.task.category,
+      dateControl:this.taskService.task.dateControl,
+      note:this.taskService.task.note,
+      completed:this.routeForm.value.state
+    }).subscribe(data=>{
+      console.log(data)
+    },error => {
+      console.log(error);
+    });
+  }
   inputHandler(event:any){
     // var currentDate=new Date();
     var currentDate=this.dateService.date.getValue().format("DD.MM.YYYY");

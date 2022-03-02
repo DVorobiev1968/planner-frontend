@@ -18,6 +18,28 @@ export class TaskService {
     this.conf=new Conf();
   }
 
+  public createTaskExtend(task: {
+    title: any;
+    reference: any;
+    employeeId: any;
+    priorityId: any;
+    categoryId: any;
+    dateControl: any;
+    note: any;
+    teamliedId:any;
+  }): Observable<any> {
+    return this.http.post(this.conf.TASK_API + "add_extend", {
+      title: task.title,
+      reference: task.reference,
+      employeeId: task.employeeId,
+      priorityId: task.priorityId,
+      categoryId: task.categoryId,
+      dateControl: task.dateControl,
+      note: task.note,
+      id:task.teamliedId
+    });
+  }
+
   public createTask(task: {
     title: any;
     reference: any;
@@ -47,6 +69,7 @@ export class TaskService {
     categoryId: any;
     dateControl: any;
     note: any;
+    completed: any;
   }): Observable<any> {
     return this.http.post(this.conf.TASK_API + "update", {
       id: task.id,
@@ -56,7 +79,8 @@ export class TaskService {
       priorityId: task.priorityId,
       categoryId: task.categoryId,
       dateControl: task.dateControl,
-      note: task.note
+      note: task.note,
+      completed: task.completed
     });
   }
 

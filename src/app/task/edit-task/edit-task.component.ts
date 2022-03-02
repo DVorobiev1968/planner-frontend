@@ -104,7 +104,8 @@ export class EditTaskComponent implements OnInit {
       priorityId: this._taskEditForm.value.priority,
       categoryId: this._taskEditForm.value.categoryId,
       dateControl: this._taskEditForm.value.dateControl,
-      note: this._taskEditForm.value.note
+      note: this._taskEditForm.value.note,
+      completed: this.taskService.task.completed
     }).subscribe(data => {
       console.log(data);
       this.notificationService.showSnackBar('Данные обновлены успешно');
