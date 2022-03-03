@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IUser} from "../../models/User";
 import {UserService} from "../../service/user.service";
-import {State} from "../../models/RouteTask";
+import {State, States} from "../../models/RouteTask";
 import {RouteService} from "../../service/route.service";
 import {NotificationService} from "../../service/notification.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -26,7 +26,7 @@ export class AddRouteComponent implements OnInit {
   destUsers: IUser[];
   isUsersDataLoaded: boolean;
   routeForm: FormGroup;
-  states: Array<State>;
+  states: States;
 
   constructor(private userService: UserService,
               public dateService: DateService,
@@ -46,14 +46,7 @@ export class AddRouteComponent implements OnInit {
       this.startUsers = null;
       this.destUsers = null;
     };
-    this.states = [
-      {"id": 0, "title": "В процессе"},
-      {"id": 1, "title": "Направить на согласование"},
-      {"id": 3, "title": "Отклонить"},
-      {"id": 4, "title": "Согласовано"},
-      {"id": 5, "title": "Снять с контроля"},
-      {"id": 6, "title": "Завершить"}
-    ];
+    this.states = new States();
   }
 
   ngOnInit(): void {
@@ -72,7 +65,7 @@ export class AddRouteComponent implements OnInit {
     return this.routeForm = this.fb.group({
       start: [this.startUsers, Validators.required],
       destination: [this.destUsers, Validators.required],
-      state: [this.states, Validators.required],
+      state: [this.states.states, Validators.required],
       note: [this.routeService.routeTask.note]
     })
   }
@@ -85,7 +78,7 @@ export class AddRouteComponent implements OnInit {
       note: this.routeForm.value.note,
       state: this.routeForm.value.state
     }).subscribe(data => {
-      const errMessage = ("Задаче установлен признак: " + this.states[this.routeForm.value.state].title);
+      const errMessage = ("Задаче установлен признак: " + this.states.states[this.routeForm.value.state].title);
       this.notificationService.showSnackBar(errMessage);
       this.router.navigate(['tasks']);
     }, error => {
@@ -96,20 +89,15 @@ export class AddRouteComponent implements OnInit {
   }
 
   setCompletedTask():void {
-    this.taskService.updateTask({
+    this.taskService.updateCompletedTask({
       id: this.taskService.task.id,
-      title:this.taskService.task.title,
-      reference: this.taskService.task.reference,
-      employeeId: this.taskService.task.employee,
-      priorityId: this.taskService.task.priority,
-      categoryId: this.taskService.task.category,
-      dateControl:this.taskService.task.dateControl,
-      note:this.taskService.task.note,
       completed:this.routeForm.value.state
     }).subscribe(data=>{
       console.log(data)
+      this.notificationService.showSnackBar(data);
     },error => {
       console.log(error);
+      this.notificationService.showSnackBar(error.message);
     });
   }
   inputHandler(event:any){
@@ -121,6 +109,13 @@ export class AddRouteComponent implements OnInit {
     this.routeForm.value.note=noteReact;
   }
   getState(id:number):string{
-    return this.states[id].title;
+    let title='';
+    this.states.states.forEach(state=>{
+      if (state.id==id)
+        title=state.title;
+        return title;
+    })
+    return title;
   }
+
 }

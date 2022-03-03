@@ -1,6 +1,14 @@
-<div *ngIf="isUserDataLoaded && isEmployeesLoaded && isPriorityLoaded && isTaskDataLoaded" class="task-form">
-  <hi>Редактирование мероприятия</hi>
-  <h2>Инициатор: {{user.lastname}}&nbsp;{{user.initial}}</h2>
+<h1>Редактирование задачи</h1>
+<div *ngIf="isTaskDataLoaded">
+  <p>{{taskService.task.title}}</p>
+</div>
+<h2>Инициатор: {{user.lastname}}&nbsp;{{user.initial}}</h2>
+<div class="mat-button">
+  <button mat-button [disabled]="isTaskDataLoaded" (click)="ngOmLoad()">
+    Редактировать
+  </button>
+</div>
+<div *ngIf="isTaskDataLoaded" class="task-form">
   <form [formGroup]="_taskEditForm">
     <mat-form-field class="task-full-width" appearance="fill">
       <mat-label>Наименование мероприятия:</mat-label>
@@ -22,6 +30,19 @@
       <textarea matInput formControlName="note"></textarea>
     </mat-form-field>
 
+    <div *ngIf="isAdmin">
+      <h5>Укажите руководителя</h5>
+      <mat-form-field>
+        <mat-label>Руководитель</mat-label>
+        <mat-select formControlName="teamlied" disabled={{!isUsersLoaded}}>
+          <mat-option  *ngFor="let teamlied of users" [value]="teamlied.id" >
+            {{teamlied.fio}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="isEmployeesLoaded">
     <h5>Исполнители:{{taskService.task.employee.fio}}</h5>
     <mat-form-field>
       <mat-label>Новый исполнитель</mat-label>
@@ -31,7 +52,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    </div>
 
+    <div *ngIf="isPriorityLoaded">
     <h5>Приоритет:{{taskService.task.priority.title}}</h5>
     <mat-form-field>
       <mat-label>Приоритет</mat-label>
@@ -41,6 +64,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    </div>
 
     <h5>Задайте контрольную дату</h5>
     <mat-form-field appearance="fill">
@@ -51,7 +75,7 @@
     </mat-form-field>
     <br>
     <div class="mat-button">
-      <button mat-button [disabled]="_taskEditForm.invalid" (click)="submit()">
+      <button mat-button [disabled]="_taskEditForm.invalid" (click)="submit(isAdmin)">
         Сохранить
       </button>
     </div>

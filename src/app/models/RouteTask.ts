@@ -63,8 +63,24 @@ export class State implements IState{
   id:number;
   title:string;
 
+
   constructor(id: number, title: string) {
     this.id = id;
     this.title = title;
+  }
+}
+
+export class States{
+  states:Array<State>;
+
+  constructor() {
+    this.states = [
+      {"id": 0, "title": "В процессе"},
+      {"id": 1, "title": "Направить на согласование"},
+      {"id": 3, "title": "Отклонить"},
+      {"id": 4, "title": "Согласовано"},
+      {"id": 5, "title": "Снять с контроля"},
+      {"id": 6, "title": "Завершить"}
+    ];
   }
 }

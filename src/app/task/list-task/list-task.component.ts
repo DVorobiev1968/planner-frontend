@@ -11,6 +11,7 @@ import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import * as XLSX from "xlsx";
 import {DateService} from "../../service/date.service";
+import {States} from "../../models/RouteTask";
 
 @Component({
   selector: 'list-task',
@@ -30,6 +31,7 @@ export class ListTaskComponent implements OnInit {
   deleteIdTask: number;
   indexTask: number;
   fileNameExcel: string;
+  states: States;
 
   constructor(public dateService: DateService,
               private taskService: TaskService,
@@ -39,6 +41,7 @@ export class ListTaskComponent implements OnInit {
               private notificationService: NotificationService,
               private router: Router,
               public dialog: MatDialog) {
+    this.states=new States();
   }
 
   ngOnInit(): void {
@@ -90,8 +93,7 @@ export class ListTaskComponent implements OnInit {
   editTask(index: number, id: number): void {
     console.log("Edit task ID:" + id);
     this.task = this.tasks[index];
-    this.taskService.setCurrentTaskId(id);
-    this.taskService.getTaskById(this.taskService.currentTaskId);
+    this.taskService.setTask(this.task);
     this.router.navigate(['edit-task']);
   }
 
@@ -125,6 +127,10 @@ export class ListTaskComponent implements OnInit {
   ngOmLoad(): void {
     this.userService.setUser(this.user);
     this.isAdmin = this.userService.isAdmin(this.user.roles);
+    if (!this.isAdmin)
+      this.notificationService.showSnackBar("У Вас отсутствует роль системного администратора");
+    else
+      this.notificationService.showSnackBar("Права системного администратора предоставлены");
     this.isUser = this.userService.isUser(this.user.roles);
     this.isRolesLoaded = true;
   }
@@ -141,4 +147,14 @@ export class ListTaskComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, this.fileNameExcel);
   }
+  getState(id:number):string{
+    let title='';
+    this.states.states.forEach(state=>{
+      if (state.id==id)
+        title=state.title;
+      return title;
+    })
+    return title;
+  }
+
 }

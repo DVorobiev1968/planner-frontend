@@ -84,6 +84,42 @@ export class TaskService {
     });
   }
 
+  public updateTeamliedTask(task: {
+    id: any;
+    title: any;
+    reference: any;
+    employeeId: any;
+    priorityId: any;
+    categoryId: any;
+    dateControl: any;
+    note: any;
+    completed: any;
+    teamliedId: any;
+  }): Observable<any> {
+    return this.http.post(this.conf.TASK_API + "update_teamlied", {
+      id: task.id,
+      title: task.title,
+      reference: task.reference,
+      employeeId: task.employeeId,
+      priorityId: task.priorityId,
+      categoryId: task.categoryId,
+      dateControl: task.dateControl,
+      note: task.note,
+      completed: task.completed,
+      teamliedId:task.teamliedId
+    });
+  }
+
+  public updateCompletedTask(task: {
+    id: any;
+    completed: any;
+  }): Observable<any> {
+    return this.http.post(this.conf.TASK_API + "update_completed", {
+      id: task.id,
+      completed: task.completed
+    });
+  }
+
   listTask(): Observable<any> {
     return this.http.get(this.conf.TASK_API + 'all');
   }

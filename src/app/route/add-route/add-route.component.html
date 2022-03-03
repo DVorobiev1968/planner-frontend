@@ -35,7 +35,7 @@
     <mat-form-field>
       <mat-label>Тип согласования</mat-label>
       <mat-select formControlName="state" (selectionChange)="inputHandler($event)">
-        <mat-option  *ngFor="let state of states" [value]="state.id">
+        <mat-option  *ngFor="let state of states.states" [value]="state.id">
           {{state.title}}
         </mat-option>
       </mat-select>

@@ -28,13 +28,31 @@ export class ListRouteComponent implements OnInit {
       });
   }
 
-  getRouteTask():void{
+  getRouteByStartId():void{
     this.userService.setUser(this.user);
     this.routeService.getRouteTaskByStartId(this.user.id)
       .subscribe(data=>{
-        console.log(data);
         this.routeTaskList=data;
         this.isRouteTaskLoaded=true;
+        console.log(this.routeTaskList);
+      });
+  }
+  getRouteByDestinationId():void{
+    this.userService.setUser(this.user);
+    this.routeService.getRouteTaskByDestinationId(this.user.id)
+      .subscribe(data=>{
+        this.routeTaskList=data;
+        this.isRouteTaskLoaded=true;
+        console.log(this.routeTaskList);
+      });
+  }
+
+  getRouteByTaskId(taskId:number):void{
+    this.routeService.getRouteTaskByTaskId(taskId)
+      .subscribe(data=>{
+        this.routeTaskList=data;
+        this.isRouteTaskLoaded=true;
+        console.log(this.routeTaskList);
       });
   }
 
