@@ -1,24 +1,22 @@
-<div class="menu">
-  <button mat-button [matMenuTriggerFor]="taskMenu">Мероприятия</button>
-  <mat-menu #taskMenu="matMenu" yPosition="above">
-    <button mat-menu-item routerLink="add-task">Добавить</button>
-    <button mat-menu-item routerLink="tasks">Просмотр</button>
-    <button mat-menu-item routerLink="app-list-route">Текущие задания</button>
-  </mat-menu>
+<button mat-button [matMenuTriggerFor]="taskMenu" (click)="getRole()">Мероприятия</button>
+<mat-menu #taskMenu="matMenu" yPosition="above">
+  <button mat-menu-item routerLink="add-task">Добавить</button>
+  <button mat-menu-item routerLink="tasks">Просмотр</button>
+  <button mat-menu-item routerLink="app-list-route">Текущие задания</button>
+</mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="docsMenu">Документы</button>
-  <mat-menu #docsMenu="matMenu" yPosition="below">
-    <button mat-menu-item routerLink="app-add-document">Добавить</button>
-    <button mat-menu-item routerLink="app-list-documents">Просмотр</button>
-    <button mat-menu-item routerLink="app-list-react-docs">Просмотр React</button>
-    <button mat-menu-item routerLink="#">Редактировать</button>
-  </mat-menu>
+<button [disabled]="!isDev" mat-button [matMenuTriggerFor]="docsMenu" (click)="getRole()">Документы</button>
+<mat-menu #docsMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="app-add-document">Добавить</button>
+  <button mat-menu-item routerLink="app-list-documents">Просмотр</button>
+  <button mat-menu-item routerLink="app-list-react-docs">Просмотр React</button>
+  <button mat-menu-item routerLink="#">Редактировать</button>
+</mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="logsMenu">Войти</button>
-  <mat-menu #logsMenu="matMenu" yPosition="below">
-    <button mat-menu-item routerLink="main">На главную</button>
-    <button *ngIf="!isLoggedIn" mat-menu-item routerLink="register">Регистрация</button>
-    <button *ngIf="isLoggedIn" mat-menu-item (click)="logout()">Выход</button>
-    <button *ngIf="!isLoggedIn" mat-menu-item routerLink="app-login">Вход</button>
-  </mat-menu>
-</div>
+<button mat-button [matMenuTriggerFor]="logsMenu">Войти</button>
+<mat-menu #logsMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="main">На главную</button>
+  <button *ngIf="!isLoggedIn" mat-menu-item routerLink="register">Регистрация</button>
+  <button *ngIf="isLoggedIn" mat-menu-item (click)="logout()">Выход</button>
+  <button *ngIf="!isLoggedIn" mat-menu-item routerLink="app-login">Вход</button>
+</mat-menu>

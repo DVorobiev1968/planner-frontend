@@ -62,6 +62,10 @@ export class RouteService {
     return this.http.get(this.conf.ROUTE_TASK_API+"all_to_task/"+id);
   }
 
+  getRouteTaskByUserId(id:number):Observable<any>{
+    return this.http.get(this.conf.ROUTE_TASK_API+"all_to_user/"+id);
+  }
+
   getRouteTaskByStartId(id:number):Observable<any>{
     return this.http.get(this.conf.ROUTE_TASK_API+"all_to_start/"+id);
   }

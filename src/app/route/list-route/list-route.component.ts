@@ -28,6 +28,16 @@ export class ListRouteComponent implements OnInit {
       });
   }
 
+  getRouteByUserId():void{
+    this.userService.setUser(this.user);
+    this.routeService.getRouteTaskByUserId(this.user.id)
+      .subscribe(data=>{
+        this.routeTaskList=data;
+        this.isRouteTaskLoaded=true;
+        console.log(this.routeTaskList);
+      });
+  }
+
   getRouteByStartId():void{
     this.userService.setUser(this.user);
     this.routeService.getRouteTaskByStartId(this.user.id)

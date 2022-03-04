@@ -1,8 +1,11 @@
 <h2>Текущие задания:</h2>
+<button mat-button [disabled]="!isUserDataLoaded" (click)="getRouteByUserId()">
+  Все
+</button>
 <button mat-button [disabled]="!isUserDataLoaded" (click)="getRouteByStartId()">
   Исходящие
 </button>
-<button mat-button [disabled]="!isUserDataLoaded" (click)="getRouteByStartId()">
+<button mat-button [disabled]="!isUserDataLoaded" (click)="getRouteByDestinationId()">
   Входящие
 </button>
 <div *ngIf="isRouteTaskLoaded">

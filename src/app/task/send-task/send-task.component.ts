@@ -17,7 +17,8 @@ import {IDocumentModel} from "../../models/DocumentModel";
 export class SendTaskComponent implements OnInit {
   user: IUser;
   isUserDataLoaded = false;
-  documents: IDocumentModel;
+  documents: IDocumentModel[];
+  previewImgURL:any;
 
   constructor(public taskService: TaskService,
               private userService: UserService,
@@ -41,6 +42,11 @@ export class SendTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  reload(){
+    window.location.reload();
+    console.log("reload():");
+  }
+
   openEditDialog(): void {
     const dialogAddDocConfig = new MatDialogConfig();
     dialogAddDocConfig.width = '600px';
@@ -60,10 +66,26 @@ export class SendTaskComponent implements OnInit {
     this.router.navigate(["app-send-task"]);
   }
 
-  viewDocument(id: number): void {
-    this.docService.getDocument(id).subscribe(data => {
-      console.log(data);
-    })
+  viewDoc(id:number){
+    console.log(id);
+    this.docService.getDocument(id)
+      .subscribe(data=>{
+        this.previewImgURL=data.docBytes;
+      })
+  }
+
+  formatImage(img: any): any {
+    if (img == null) {
+      return null;
+    }
+    return 'data:image/jpeg;base64,' + img;
+  }
+
+  formatPdf(pdf: any): any {
+    if (pdf == null) {
+      return null;
+    }
+    return 'data:pdf/pdf;base64,' + pdf;
   }
 
   sendTask(): void {
