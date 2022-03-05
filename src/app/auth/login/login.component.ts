@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  testHost(){
+    this.authService.testHost();
+  }
+
   submit(): void{
     this.authService.login({
       username: this.loginForm.value.username,

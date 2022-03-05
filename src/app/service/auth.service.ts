@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Conf} from "./Conf";
 
@@ -12,7 +12,25 @@ export class AuthService {
     this.conf=new Conf();
   }
 
+  public testHost(){
+    this.http.get(this.conf.HOST, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .subscribe(res => console.log(res))
+  }
+
   public login(user: { username: any; password: any; }): Observable<any> {
+    return this.http.post(this.conf.AUTH_API + 'signin', {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin':'*'
+      }),
+      username: user.username,
+      password: user.password
+    });
+  }
+  public loginOld(user: { username: any; password: any; }): Observable<any> {
     return this.http.post(this.conf.AUTH_API + 'signin', {
       username: user.username,
       password: user.password

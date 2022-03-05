@@ -1,8 +1,9 @@
 {
-  "/api":
+  "/api/*":
   {
-    "target": "http://planning-back-end:8090",
+    "target": "http://localhost:8090",
     "secure": false,
-    "host": "planning-front-end"
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
