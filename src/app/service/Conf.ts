@@ -10,10 +10,12 @@ export class Conf{
   USER_KEY:string;
   USER_API:string;
   HOST:string;
+  TESTING: string;
 
   constructor() {
     // this.HOST='http://planning-back-end:8090';
     this.HOST='http://localhost:8090';
+    this.TESTING=this.HOST+'/api/auth/test';
     this.AUTH_API=this.HOST+'/api/auth/';
     this.CATEGORY_API=this.HOST+'/api/category/';
     this.UPLOAD_API=this.HOST+'/api/docs/';

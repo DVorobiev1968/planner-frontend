@@ -13,12 +13,12 @@ export class AuthService {
   }
 
   public testHost(){
-    this.http.get(this.conf.HOST, {
+    this.http.get(this.conf.TESTING, {
       headers: {
         'Access-Control-Allow-Origin': '*'
       }
     })
-      .subscribe(res => console.log(res))
+      .subscribe(res => console.log(res));
   }
 
   public login(user: { username: any; password: any; }): Observable<any> {
