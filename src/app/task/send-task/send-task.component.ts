@@ -19,6 +19,8 @@ export class SendTaskComponent implements OnInit {
   isUserDataLoaded = false;
   documents: IDocumentModel[];
   previewImgURL:any;
+  typePreview:string[];
+  isPreview:boolean;
 
   constructor(public taskService: TaskService,
               private userService: UserService,
@@ -37,12 +39,15 @@ export class SendTaskComponent implements OnInit {
         console.log(data);
         this.documents = data;
       });
+    this.isPreview=false;
   }
 
   ngOnInit(): void {
   }
 
   reload(){
+    console.log(this.taskService.task);
+    this.router.navigate(['app-send-task']);
     window.location.reload();
     console.log("reload():");
   }
@@ -66,12 +71,34 @@ export class SendTaskComponent implements OnInit {
     this.router.navigate(["app-send-task"]);
   }
 
+  viewDocExtend(id:number, nameFile:string){
+    console.log(id);
+    this.docService.getDocument(id)
+      .subscribe(data=>{
+        this.previewImgURL=data.docBytes;
+        this.typePreview=nameFile.split(".");
+        this.isPreview=true;
+        console.log(this.typePreview[1]);
+      })
+  }
+
   viewDoc(id:number){
     console.log(id);
     this.docService.getDocument(id)
       .subscribe(data=>{
         this.previewImgURL=data.docBytes;
       })
+  }
+
+  formatUni(obj: any):any{
+    if (this.isPreview){
+      if (this.typePreview[1].includes("pdf"))
+        return this.formatPdf(obj);
+      else
+        return this.formatImage(obj);
+    }
+    else
+      return null;
   }
 
   formatImage(img: any): any {

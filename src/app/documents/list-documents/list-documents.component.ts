@@ -19,6 +19,7 @@ export class ListDocumentsComponent implements OnInit {
   user: IUser;
   taskId:number;
   previewImgURL:any;
+  typePreview:string[];
 
   constructor(  private docsService: DocumentUploadService,
                 private userService: UserService,
@@ -46,14 +47,19 @@ export class ListDocumentsComponent implements OnInit {
         });
   }
 
-  viewDoc(id:number){
+  viewDoc(id:number, nameFile:string){
     console.log(id);
     this.docsService.getDocument(id)
       .subscribe(data=>{
         this.previewImgURL=data.docBytes;
+        this.typePreview=nameFile.split(".");
+        console.log(this.typePreview[-1]);
       })
   }
 
+  formatUni(img:any):any{
+
+  }
   formatImage(img: any): any {
     if (img == null) {
       return null;

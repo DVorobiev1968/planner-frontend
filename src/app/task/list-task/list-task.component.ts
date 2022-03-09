@@ -147,6 +147,7 @@ export class ListTaskComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, this.fileNameExcel);
   }
+
   getState(id:number):string{
     let title='';
     this.states.states.forEach(state=>{

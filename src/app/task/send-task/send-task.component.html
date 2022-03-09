@@ -22,7 +22,7 @@
         <td width="30%">{{document.name}}</td>
         <td width="20%">{{document.nameFile}}</td>
         <td width="10">
-          <button mat-flat-button color="primary" (click)="viewDoc(document.id)">Просмотр</button>
+          <button mat-flat-button color="primary" (click)="viewDocExtend(document.id,document.nameFile)">Просмотр</button>
         </td>
         <td width="10">
           <button mat-flat-button color="warn" (click)="deleteDocument(document.id)">Удалить</button>
@@ -34,7 +34,8 @@
     <button mat-flat-button color="primary" (click)="sendTask()" >Направить на согласование</button>
   </div>
   <h2>Просмотр вложенного документа:</h2>
-  <img class="profile-image" [src]="formatImage(previewImgURL)" alt="Preview loaded document">
-
+  <div *ngIf="isPreview">
+    <img class="profile-image" [src]="formatUni(previewImgURL)" alt="Preview loaded document">
+  </div>
 </div>
 <!--<app-add-route></app-add-route>-->
