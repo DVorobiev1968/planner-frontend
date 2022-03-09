@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {RouteService} from "../../service/route.service";
 import {IUser} from "../../models/User";
+import {TokenStorageService} from "../../service/token-storage.service";
 
 @Component({
   selector: 'app-index',
@@ -21,7 +22,8 @@ export class IndexComponent implements OnInit {
   isRolesLoaded=false;
 
   constructor(private userService: UserService,
-              private routeService: RouteService) {
+              private routeService: RouteService,
+              private tokenStorage: TokenStorageService) {
     this.userService.getCurrentUser()
       .subscribe(data => {
         console.log(data);

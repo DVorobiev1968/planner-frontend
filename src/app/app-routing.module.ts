@@ -29,8 +29,8 @@ const routes: Routes = [
   {path: 'app-list-documents', component: ListDocumentsComponent, canActivate:[AuthGuardService]},
   {path: 'app-list-react-docs', component: ListReactDocsComponent, canActivate:[AuthGuardService]},
   {path: 'app-add-document', component: AddDocumentComponent, canActivate:[AuthGuardService]},
-  {path: 'app-add-route', component: AddRouteComponent},
-  {path: 'app-list-route',component:ListRouteComponent},
+  {path: 'app-add-route', component: AddRouteComponent, canActivate:[AuthGuardService]},
+  {path: 'app-list-route',component:ListRouteComponent, canActivate:[AuthGuardService]},
   {path: '', redirectTo: 'main', pathMatch: 'full'},
   {path: 'logout', redirectTo: 'app-login'}
 ];
