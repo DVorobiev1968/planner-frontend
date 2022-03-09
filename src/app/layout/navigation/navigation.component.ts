@@ -19,13 +19,13 @@ export class NavigationComponent implements OnInit {
   constructor(private tokenService: TokenStorageService,
               private userService: UserService,
               private router: Router) {
-    this.userService.getCurrentUser()
-      .subscribe(data => {
-        console.log(data);
-        this.user = data;
-        this.isUserDataLoaded = true;
-      });
-    console.log("getRole",this.isDev);
+    // this.userService.getCurrentUser()
+    //   .subscribe(data => {
+    //     console.log(data);
+    //     this.user = data;
+    //     this.isUserDataLoaded = true;
+    //   });
+    // console.log("getRole",this.isDev);
   }
   getRole(){
     this.isDev=this.userService.isDev(this.user.roles);
