@@ -17,15 +17,15 @@ export class ListRouteComponent implements OnInit {
 
   constructor(private routeService: RouteService,
               private userService: UserService) {
-   }
-
-  ngOnInit(): void {
     this.userService.getCurrentUser()
       .subscribe(data => {
         console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
+   }
+
+  ngOnInit(): void {
   }
 
   getRouteByUserId():void{
