@@ -56,7 +56,9 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<any> {
-    return this.http.get(this.conf.USER_API);
+    // return this.http.get(this.conf.USER_API);
+    // TODO убрать после отладки
+    return this.http.get(this.conf.AUTH_API);
   }
 
   updateUser(user: any): Observable<any> {
