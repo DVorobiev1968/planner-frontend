@@ -1,7 +1,7 @@
 {
   "/api/*":
   {
-    "target": "http://localhost:8090",
+    "target": "http://testedo.rdturbo.ru:8090",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
