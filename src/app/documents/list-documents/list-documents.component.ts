@@ -6,6 +6,8 @@ import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {IUser} from "../../models/User";
 import {TaskService} from "../../service/task.service";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {AddDocumentComponent} from "../add-document/add-document.component";
 
 @Component({
   selector: 'app-list-documents',
@@ -13,20 +15,32 @@ import {TaskService} from "../../service/task.service";
   styleUrls: ['./list-documents.component.css']
 })
 export class ListDocumentsComponent implements OnInit {
-  isDocsLoaded = false;
-  isUserDataLoaded = false;
+  isDocsLoaded:boolean;
+  isUserDataLoaded:boolean;
+  isPreview:boolean;
   docs: IDocumentModel[];
   user: IUser;
   taskId:number;
   previewImgURL:any;
   typePreview:string[];
+  isImage:boolean;
+  isPDF:boolean;
+  header:string;
 
-  constructor(  private docsService: DocumentUploadService,
+  constructor(  private docService: DocumentUploadService,
                 private userService: UserService,
                 public taskService: TaskService,
                 private notificationService: NotificationService,
+                private dialog: MatDialog,
                 private router: Router) {
                 this.taskId=taskService.task.id;
+    this.isDocsLoaded = false;
+    this.isUserDataLoaded = false;
+    this.isPreview = false;
+    this.isImage=false;
+    this.isPDF=false;
+    this.header="Просмотр вложенных документов:";
+    console.log("taskId:",this.taskId);
   }
 
   ngOnInit(): void {
@@ -36,29 +50,55 @@ export class ListDocumentsComponent implements OnInit {
         this.user = data;
         this.isUserDataLoaded = true;
       });
+    this.loadDocs(this.taskId);
+  }
 
-    this.docsService.getDocumentsToTask(this.taskId)
+  back(){
+    this.router.navigate(['app-send-task']);
+  }
+
+  loadDocs(taskId:number){
+    this.docService.getDocumentsToTask(taskId)
       .subscribe(data =>{
         console.log(data);
         this.docs=data;
         this.isDocsLoaded=true;
         },error => {
-               this.notificationService.showSnackBar("Прикрепленные документы отсутствуют");
+          this.header="Прикрепленные документы отсутствуют";
+          this.notificationService.showSnackBar(this.header);
+          this.isDocsLoaded=true;
         });
   }
 
-  viewDoc(id:number, nameFile:string){
+  viewDocExtend(id:number, nameFile:string){
     console.log(id);
-    this.docsService.getDocument(id)
+    this.isImage=false;
+    this.isPDF=false;
+    this.docService.getDocument(id)
       .subscribe(data=>{
         this.previewImgURL=data.docBytes;
         this.typePreview=nameFile.split(".");
-        console.log(this.typePreview[-1]);
+        this.isPreview=true;
+        this.isPDF=this.typePreview[1].includes("pdf");
+        this.isImage=this.typePreview[1].includes("jpg");
+        console.log(this.typePreview[1]);
       })
   }
 
-  formatUni(img:any):any{
 
+  formatUni(obj: any):any{
+    if (this.isPreview){
+      if (this.typePreview[1].includes("pdf")){
+        this.isPDF=true;
+        return this.formatPdf(obj);
+      }
+      else{
+        this.isImage=true;
+        return this.formatImage(obj);
+      }
+    }
+    else
+      return null;
   }
   formatImage(img: any): any {
     if (img == null) {
@@ -71,7 +111,26 @@ export class ListDocumentsComponent implements OnInit {
     if (pdf == null) {
       return null;
     }
-    return 'data:pdf/pdf;base64,' + pdf;
+    return 'application/pdf,' + pdf;
+  }
+
+  openEditDialog(): void {
+    const dialogAddDocConfig = new MatDialogConfig();
+    dialogAddDocConfig.width = '600px';
+    dialogAddDocConfig.data = {
+      task: this.taskService.task,
+      docService: this.docService,
+      user: this.user
+    };
+    this.dialog.open(AddDocumentComponent, dialogAddDocConfig);
+  }
+
+  deleteDocument(id: number): void {
+    this.docService.deleteDocument(id).subscribe(data => {
+      console.log(data);
+      this.notificationService.showSnackBar(data.message);
+    });
+    this.router.navigate(["app-send-task"]);
   }
 
 }

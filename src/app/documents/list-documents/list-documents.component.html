@@ -1,29 +1,40 @@
 <div  class="document-form">
-  <h1>Вложенные документы</h1>
-  <h2>id task: {{taskId}} </h2>
-  <table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-      <th scope="col" width="3%">N</th>
-      <th scope="col" width="30%">Наименование документа</th>
-      <th scope="col" width="20%">Файл</th>
-      <th scope="col" width="10%">Дата</th>
-      <th scope="col" width="30%">Примечание</th>
-      <th scope="col" width="10%">Просмотр</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let doc of docs; let i = index">
-      <th scope="row" width="3%">{{i+1}}</th>
-      <td width="30%">{{doc.name}}</td>
-      <td width="20%">{{doc.nameFile}}</td>
-      <td width="10%">{{doc.date}}</td>
-      <td width="30%">{{doc.note}}</td>
-      <td width="10%">
-        <a class="btn btn-warning" (click)="viewDoc(doc.id,doc.nameFile)">View</a>
-      </td>
-    </tbody>
-  </table>
-  <img class="profile-image" [src]="formatImage(previewImgURL)" alt="Preview loaded document">
-
+  <h2>Просмотр вложенных документов:</h2>
+  <div class="table-wrapper content button_row">
+    <table id="docs-table" class="table table-hover table-bordered">
+      <thead>
+      <tr>
+        <th scope="col" width="3%">N</th>
+        <th scope="col" width="30%">Наименование</th>
+        <th scope="col" width="20%">Файл</th>
+        <th scope="col" width="5%">Просмотр</th>
+        <th scope="col" width="5%">Удаление</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let doc of docs; let i = index">
+        <th scope="row" width="3%">{{i+1}}</th>
+        <td width="30%">{{doc.name}}</td>
+        <td width="20%">{{doc.nameFile}}</td>
+        <td width="10">
+          <button mat-flat-button color="primary" (click)="viewDocExtend(doc.id,doc.nameFile)">Просмотр</button>
+        </td>
+        <td width="10">
+          <button mat-flat-button color="warn" (click)="deleteDocument(doc.id)">Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button mat-flat-button color="primary" (click)="back()">Назад</button>
+  <button mat-flat-button color="accent" (click)="openEditDialog()" >Добавить</button>
+  <h2>Содержимое документа:</h2>
+  <dif *ngIf="isImage">
+    <img class="document-view" [src]="formatImage(previewImgURL)" alt="Preview loaded document">
+  </dif>
+  <div *ngIf="isPDF">
+    <object [data]="previewImgURL" type="application/pdf"></object>
+<!--    <embed class="document-view" [src]="formatPdf(previewImgURL)">-->
+<!--    <iframe class="document-view" src="https://docs.google.com/gview?formatPdf(previewImgURL)&embedded=true"></iframe>-->
+  </div>
 </div>

@@ -3,39 +3,8 @@
   <h2>Мероприятие:{{taskService.task.title}}</h2>
   <h2>Подробно:{{taskService.task.reference}}</h2>
   <h2>Примечание:{{taskService.task.note}}</h2>
-  <h1>Документы</h1>
-  <button mat-flat-button color="primary" (click)="reload()">Обновить</button>
-  <div class="table-wrapper content button_row">
-    <table id="docs-table" class="table table-hover table-bordered">
-      <thead>
-      <tr>
-        <th scope="col" width="3%">N</th>
-        <th scope="col" width="30%">Наименование</th>
-        <th scope="col" width="20%">Файл</th>
-        <th scope="col" width="5%">Просмотр</th>
-        <th scope="col" width="5%">Удаление</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let document of documents; let i = index">
-        <th scope="row" width="3%">{{i+1}}</th>
-        <td width="30%">{{document.name}}</td>
-        <td width="20%">{{document.nameFile}}</td>
-        <td width="10">
-          <button mat-flat-button color="primary" (click)="viewDocExtend(document.id,document.nameFile)">Просмотр</button>
-        </td>
-        <td width="10">
-          <button mat-flat-button color="warn" (click)="deleteDocument(document.id)">Удалить</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <button mat-flat-button color="accent" (click)="openEditDialog()" >Добавить</button>
-    <button mat-flat-button color="primary" (click)="sendTask()" >Направить на согласование</button>
-  </div>
-  <h2>Просмотр вложенного документа:</h2>
-  <div *ngIf="isPreview">
-    <img class="profile-image" [src]="formatUni(previewImgURL)" alt="Preview loaded document">
-  </div>
+  <h1>Вложения:</h1>
+  <button mat-flat-button color="primary" (click)="listDocs()">Показать/Обновить</button>
+  <button mat-flat-button color="primary" (click)="sendTask()" >Направить на согласование</button>
+  <app-list-documents></app-list-documents>
 </div>
-<!--<app-add-route></app-add-route>-->
