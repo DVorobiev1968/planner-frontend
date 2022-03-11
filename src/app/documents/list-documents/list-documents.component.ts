@@ -8,7 +8,7 @@ import {IUser} from "../../models/User";
 import {TaskService} from "../../service/task.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AddDocumentComponent} from "../add-document/add-document.component";
-
+import * as fileSaver from 'file-saver';
 @Component({
   selector: 'app-list-documents',
   templateUrl: './list-documents.component.html',
@@ -27,6 +27,9 @@ export class ListDocumentsComponent implements OnInit {
   isPDF:boolean;
   isOther:boolean;
   header:string;
+  a:any;
+  objectUrl:any;
+
 
   constructor(  private docService: DocumentUploadService,
                 private userService: UserService,
@@ -91,10 +94,32 @@ export class ListDocumentsComponent implements OnInit {
         });
   }
 
+  downloadToFile(id:number,nameFile:string){
+    this.docService.download(id)
+      .subscribe(blob => {
+        fileSaver.saveAs(blob,nameFile);
+      })
+  }
+
+  downloadToAnchor(id:number,nameFile:string){
+    this.docService.download(id)
+      .subscribe(blob => {
+      this.a = document.createElement('a');
+      this.objectUrl = URL.createObjectURL(blob);
+      this.a.href = this.objectUrl;
+      this.a.download = 'nameFile';
+      this.a.click();
+      URL.revokeObjectURL(this.objectUrl);
+    })
+  }
+
   downloadDoc(id:number, nameFile:string){
     this.docService.getDocument(id)
       .subscribe(data=> {
         this.previewImgURL = data.docBytes;
+        let blob:any = new Blob([data.docBytes], { type: 'application/pdf; charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        fileSaver.saveAs(blob,nameFile);
         this.notificationService.showSnackBar("Файл был загружен успешно");
       },error => {
         this.notificationService.showSnackBar("Файл загрузить не удалось!");

@@ -9,6 +9,7 @@
         <th scope="col" width="20%">Файл</th>
         <th scope="col" width="5%">Просмотр</th>
         <th scope="col" width="5%">Удаление</th>
+        <th scope="col" width="5%">Загрузка</th>
       </tr>
       </thead>
       <tbody>
@@ -21,6 +22,9 @@
         </td>
         <td width="10">
           <button mat-flat-button color="warn" (click)="deleteDocument(doc.id)">Удалить</button>
+        </td>
+        <td width="10">
+          <button mat-flat-button color="primary" (click)="downloadToFile(doc.id,doc.nameFile)">Загрузить</button>
         </td>
       </tr>
       </tbody>

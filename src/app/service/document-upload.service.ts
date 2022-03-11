@@ -48,6 +48,12 @@ export class DocumentUploadService {
     return this.http.post(this.conf.UPLOAD_API +document.id+ "/upload", uploadData);
   }
 
+  download(id:number): Observable<Blob> {
+    return this.http.get(this.conf.UPLOAD_API+id, {
+      responseType: 'blob'
+    });
+  }
+
   deleteDocument(id:number):any{
     return this.http.get(this.conf.UPLOAD_API+'delete/'+id);
   }
