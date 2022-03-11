@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../models/User";
-import {CurrentTask, ITask} from "../../models/Task";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
@@ -11,8 +10,7 @@ import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
 import {PriorityService} from "../../service/priority.service";
 import {CategoryService} from "../../service/category.service";
-import {Observable} from "rxjs";
-import {variable} from "@angular/compiler/src/output/output_ast";
+import {Category} from "../../models/Category";
 
 @Component({
   selector: 'edit-task',
@@ -26,6 +24,7 @@ export class EditTaskComponent implements OnInit {
   isTaskDataLoaded = false;
   isEmployeesLoaded = false;
   isPriorityLoaded = false;
+  isCategoryLoaded = false;
   isUsersLoaded = false;
 
   isLogs = false;
@@ -42,6 +41,7 @@ export class EditTaskComponent implements OnInit {
   dateControl: Date;
   employees: Employee[];
   priorities: Priority[];
+  categories: Category[];
   logs: Object;
 
   constructor(private taskService: TaskService,
@@ -74,6 +74,14 @@ export class EditTaskComponent implements OnInit {
         this.priorities = data;
         this.isPriorityLoaded = true;
       });
+
+    this.categoryService.listCategory()
+      .subscribe(data=>{
+        console.log(data);
+        this.categories=data;
+        this.isCategoryLoaded=true;
+      });
+
     this.userService.getAll()
       .subscribe(data => {
         console.log(data);
@@ -105,7 +113,7 @@ export class EditTaskComponent implements OnInit {
       employeeFio: [this.taskService.task.employee.fio],
       employee: [this.employees, Validators.required],
       priority: [this.priorities, Validators.required],
-      categoryId: 1,
+      category: [this.categories, Validators.required],
       dateControl: [this.taskService.task.dateControl, Validators.required],
       strDateControl: [this.taskService.task.strDateControl],
       note: [this.taskService.task.note],
@@ -125,7 +133,7 @@ export class EditTaskComponent implements OnInit {
         reference: this._taskEditForm.value.reference,
         employeeId: this._taskEditForm.value.employee,
         priorityId: this._taskEditForm.value.priority,
-        categoryId: this._taskEditForm.value.categoryId,
+        categoryId: this._taskEditForm.value.category,
         dateControl: this._taskEditForm.value.dateControl,
         note: this._taskEditForm.value.note,
         completed: this.taskService.task.completed,

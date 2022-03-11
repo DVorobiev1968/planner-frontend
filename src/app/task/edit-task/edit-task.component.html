@@ -42,6 +42,18 @@
       </mat-form-field>
     </div>
 
+    <div *ngIf="isCategoryLoaded">
+    <h5>Отдел:{{taskService.task.category.title}}</h5>
+    <mat-form-field>
+      <mat-label>Новый отдел</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{category.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
     <div *ngIf="isEmployeesLoaded">
     <h5>Исполнители:{{taskService.task.employee.fio}}</h5>
     <mat-form-field>

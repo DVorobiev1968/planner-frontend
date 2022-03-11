@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IDocumentModel } from "../../models/DocumentModel";
+import {Component, OnInit} from '@angular/core';
+import {IDocumentModel} from "../../models/DocumentModel";
 import {DocumentUploadService} from "../../service/document-upload.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
@@ -25,6 +25,7 @@ export class ListDocumentsComponent implements OnInit {
   typePreview:string[];
   isImage:boolean;
   isPDF:boolean;
+  isOther:boolean;
   header:string;
 
   constructor(  private docService: DocumentUploadService,
@@ -33,12 +34,13 @@ export class ListDocumentsComponent implements OnInit {
                 private notificationService: NotificationService,
                 private dialog: MatDialog,
                 private router: Router) {
-                this.taskId=taskService.task.id;
+    this.taskId=taskService.task.id;
     this.isDocsLoaded = false;
     this.isUserDataLoaded = false;
     this.isPreview = false;
     this.isImage=false;
     this.isPDF=false;
+    this.isOther=false;
     this.header="Просмотр вложенных документов:";
     console.log("taskId:",this.taskId);
   }
@@ -81,10 +83,23 @@ export class ListDocumentsComponent implements OnInit {
         this.isPreview=true;
         this.isPDF=this.typePreview[1].includes("pdf");
         this.isImage=this.typePreview[1].includes("jpg");
+        this.isOther=this.isPDF || this.isImage? false:true;
         console.log(this.typePreview[1]);
-      })
+        this.notificationService.showSnackBar("Файл для просмотра загружен успешно");
+      },error => {
+        this.notificationService.showSnackBar("Файл для просмотра загрузить не удалось!");
+        });
   }
 
+  downloadDoc(id:number, nameFile:string){
+    this.docService.getDocument(id)
+      .subscribe(data=> {
+        this.previewImgURL = data.docBytes;
+        this.notificationService.showSnackBar("Файл был загружен успешно");
+      },error => {
+        this.notificationService.showSnackBar("Файл загрузить не удалось!");
+      });
+  }
 
   formatUni(obj: any):any{
     if (this.isPreview){
@@ -132,5 +147,4 @@ export class ListDocumentsComponent implements OnInit {
     });
     this.router.navigate(["app-send-task"]);
   }
-
 }

@@ -22,7 +22,8 @@ export class AddDocumentComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data,
               private notificationService: NotificationService,
               private fb: FormBuilder,
-              private router: Router) {
+              private router: Router
+              ) {
   }
 
   getRandomInt(min, max):number {
@@ -77,6 +78,7 @@ export class AddDocumentComponent implements OnInit {
     this.data.dataSource.push(itemDataSource);
     this.data.table.renderRows();
   }
+
 
   // Заполняем объект для передачи контроллеру
   onUpload(): void {
