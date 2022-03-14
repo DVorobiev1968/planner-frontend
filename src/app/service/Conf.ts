@@ -13,9 +13,9 @@ export class Conf{
   TESTING: string;
 
   constructor() {
-    this.HOST='http://planning-back-end:8090';
+    // this.HOST='http://planning-back-end:8090';
     // this.HOST='http://localhost:8090';
-    // this.HOST='http://testedo.rdturbo.ru:8090';
+    this.HOST='http://testedo.rdturbo.ru:8090';
     this.TESTING=this.HOST+'/api/auth/test';
     this.AUTH_API=this.HOST+'/api/auth/';
     this.CATEGORY_API=this.HOST+'/api/category/';
