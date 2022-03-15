@@ -3,6 +3,10 @@ import {UserService} from "../../service/user.service";
 import {RouteService} from "../../service/route.service";
 import {IUser} from "../../models/User";
 import {IRouteTask} from "../../models/RouteTask";
+import {TaskService} from "../../service/task.service";
+import {Router} from "@angular/router";
+import {ITask} from "../../models/Task";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-list-route',
@@ -14,8 +18,12 @@ export class ListRouteComponent implements OnInit {
   isRouteTaskLoaded = false;
   user:IUser;
   routeTaskList:IRouteTask[];
+  task:ITask;
 
   constructor(private routeService: RouteService,
+              private taskService: TaskService,
+              private router: Router,
+              private notificationService: NotificationService,
               private userService: UserService) {
     this.userService.getCurrentUser()
       .subscribe(data => {
@@ -24,6 +32,17 @@ export class ListRouteComponent implements OnInit {
         this.isUserDataLoaded = true;
       });
    }
+
+  setCurrentTask(id: number): void {
+    console.log("Set task ID:" + id);
+    this.taskService.getTaskById(id).subscribe(data=>{
+      this.taskService.setTask(data);
+      this.router.navigate(['app-send-task']);
+      this.notificationService.showSnackBar("Переход на задачу");
+    },error => {
+      this.notificationService.showSnackBar(error);
+    })
+  }
 
   ngOnInit(): void {
   }

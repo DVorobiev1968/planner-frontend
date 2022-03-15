@@ -77,17 +77,30 @@ export class ListTaskComponent implements OnInit {
   }
 
   setCurrentTask(index: number, id: number): void {
-    console.log("Set task ID:" + id);
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
-    this.router.navigate(['app-send-task']);
+    console.log("employee.FIO" + this.taskService.task.employee.fio);
+    console.log("currentUser.FIO" + this.user.fio);
+    if (this.user.fio==this.taskService.task.employee.fio ||
+      this.userService.isAdmin(this.user.roles))
+      this.router.navigate(['app-send-task']);
+    else
+      this.notificationService.showSnackBar("Направить на согласование может только Исполнитель задачи");
   }
 
   setCurrentDocs(index: number, id: number): void {
     console.log("Set task ID:" + id);
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
-    this.router.navigate(['app-list-documents']);
+    console.log("employee.FIO" + this.taskService.task.employee.fio);
+    console.log("teamlieder" + this.taskService.task.teamlieder);
+    console.log("currentUser.FIO" + this.user.fio);
+    if (this.user.fio==this.taskService.task.employee.fio ||
+      this.user.fio==this.taskService.task.teamlieder ||
+      this.userService.isAdmin(this.user.roles))
+      this.router.navigate(['app-list-documents']);
+    else
+      this.notificationService.showSnackBar("Просматривать вложенные документы может только Исполнитель, или Руководитель задачи");
   }
 
   editTask(index: number, id: number): void {

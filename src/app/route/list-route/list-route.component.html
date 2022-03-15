@@ -25,7 +25,10 @@
       <tbody>
       <tr *ngFor="let routeTask of routeTaskList; let i = index">
         <th scope="row" width="3%">{{i+1}}</th>
-        <td width="20%">{{routeTask.taskTitle}}</td>
+        <td width="20%">
+          <a class="btn btn-warning"  (click)="setCurrentTask(routeTask.taskId)" title="Просмотр задачи, отправка на согласование">
+            {{routeTask.taskTitle}}</a>
+        </td>
         <td width="5%">{{routeTask.date}}</td>
         <td width="10%">{{routeTask.stateMessage}}</td>
         <td width="20%">{{routeTask.startUserFIO}}</td>
