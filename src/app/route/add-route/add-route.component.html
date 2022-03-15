@@ -45,6 +45,7 @@
       <textarea matInput formControlName="note" [value]="routeService.routeTask.note"></textarea>
     </mat-form-field>
     <br>
+    <mat-checkbox class="checkbox" [(ngModel)]="sendEmail">Отправить согласующему уведомление по электронной почте</mat-checkbox>
     <div class="mat-button">
       <button mat-button color="primary" [disabled]="routeForm.invalid" (click)="agreement()">
         Направить

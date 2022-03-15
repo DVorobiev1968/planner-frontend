@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {TaskService} from "../../service/task.service";
 import {DateService} from "../../service/date.service";
+import {Codes} from "../../service/Codes";
 
 @Component({
   selector: 'app-add-route',
@@ -27,6 +28,8 @@ export class AddRouteComponent implements OnInit {
   isUsersDataLoaded: boolean;
   routeForm: FormGroup;
   states: States;
+  sendEmail: boolean;
+  codes:Codes;
 
   constructor(private userService: UserService,
               public dateService: DateService,
@@ -47,6 +50,8 @@ export class AddRouteComponent implements OnInit {
       this.destUsers = null;
     };
     this.states = new States();
+    this.sendEmail=true;
+    this.codes=new Codes();
   }
 
   ngOnInit(): void {
@@ -66,7 +71,8 @@ export class AddRouteComponent implements OnInit {
       start: [this.startUsers, Validators.required],
       destination: [this.destUsers, Validators.required],
       state: [this.states.states, Validators.required],
-      note: [this.routeService.routeTask.note]
+      note: [this.routeService.routeTask.note],
+      sendEmail:[this.sendEmail]
     })
   }
 
@@ -76,14 +82,15 @@ export class AddRouteComponent implements OnInit {
       startId: this.routeForm.value.start,
       destinationId: this.routeForm.value.destination,
       note: this.routeForm.value.note,
-      state: this.routeForm.value.state
+      state: this.routeForm.value.state,
+      sendEmail:this.routeForm.value.sendEmail?this.codes.SEND_EMAIL:this.codes.NO_SEND_EMAIL
     }).subscribe(data => {
       const errMessage = ("Задаче установлен признак: " + this.states.states[this.routeForm.value.state].title);
       this.notificationService.showSnackBar(errMessage);
       this.router.navigate(['tasks']);
     }, error => {
-      console.log(error.message);
-      this.notificationService.showSnackBar(error.message);
+      console.log(error);
+      this.notificationService.showSnackBar(error);
     });
     this.setCompletedTask();
   }
