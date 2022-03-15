@@ -98,6 +98,8 @@ export class ListDocumentsComponent implements OnInit {
     this.docService.download(id)
       .subscribe(blob => {
         fileSaver.saveAs(blob,nameFile);
+      },error => {
+        this.notificationService.showSnackBar("Ошибка при загрузке файла!");
       })
   }
 
