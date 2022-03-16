@@ -82,6 +82,7 @@ export class ListTaskComponent implements OnInit {
     console.log("employee.FIO" + this.taskService.task.employee.fio);
     console.log("currentUser.FIO" + this.user.fio);
     if (this.user.fio==this.taskService.task.employee.fio ||
+      this.user.fio==this.taskService.task.teamlieder ||
       this.userService.isAdmin(this.user.roles))
       this.router.navigate(['app-send-task']);
     else
