@@ -11,6 +11,14 @@
     <button class="btn btn-warning" (click)="exportexcel()">Export to Excel</button>
   </div>
 </header>
+<div>
+  <button mat-button (click)="loadAllTask()">
+    Все
+  </button>
+  <button mat-button (click)="loadAllTaskByEmployee()">
+    Мне на исполнение
+  </button>
+</div>
 <div *ngIf="isTaskLoaded && isUserDataLoaded">
   <div class="table-wrapper content">
     <table id="list-table" class="table table-hover table-bordered">
@@ -33,9 +41,9 @@
     </thead>
     <tbody>
     <tr class="{{task.priority.color}}" *ngFor="let task of tasks; let i = index">
-      <th scope="row" width="3%">{{i+1}}</th>
-      <td width="10%">{{task.title}}</td>
-      <td width="20%">{{task.reference}}</td>
+      <th scope="row" width="3%" class="{{setColor(task.priority.countDay,task.dateControl)}}">{{i+1}}</th>
+      <td width="10%" class="{{setColor(task.priority.countDay,task.dateControl)}}">{{task.title}}</td>
+      <td width="20%" >{{task.reference}}</td>
       <td width="20%">{{task.note}}</td>
       <td width="8%">{{task.category.title}}</td>
       <td width="8%">{{task.employee.fio}}</td>

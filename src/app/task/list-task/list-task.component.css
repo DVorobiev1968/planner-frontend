@@ -17,4 +17,10 @@ thead {
 td {
   text-align: left;
 }
+.red{
 
+  color: red;
+}
+.black{
+  color: black;
+}

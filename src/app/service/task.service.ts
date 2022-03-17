@@ -121,7 +121,17 @@ export class TaskService {
   }
 
   listTask(): Observable<any> {
-    return this.http.get(this.conf.TASK_API + 'all');
+    return this.http.get(this.conf.TASK_API + 'all_tasks_date');
+  }
+
+  listTaskByEmployee(employee:{
+    firstname:any;
+    lastname:any;
+  }): Observable<any> {
+    return this.http.post(this.conf.TASK_API + 'employee',{
+      firstname:employee.firstname,
+      lastname:employee.lastname
+    });
   }
 
   getTaskById(id: number): Observable<any> {

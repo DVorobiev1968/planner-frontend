@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import * as XLSX from "xlsx";
 import {DateService} from "../../service/date.service";
 import {States} from "../../models/RouteTask";
+import {Employee} from "../../models/Employee";
 
 @Component({
   selector: 'list-task',
@@ -32,6 +33,7 @@ export class ListTaskComponent implements OnInit {
   indexTask: number;
   fileNameExcel: string;
   states: States;
+  employee:Employee;
 
   constructor(public dateService: DateService,
               private taskService: TaskService,
@@ -45,6 +47,18 @@ export class ListTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.getCurrentUser()
+      .subscribe(data => {
+        console.log(data);
+        this.user = data;
+        this.isUserDataLoaded = true;
+      })
+    // this.userService.setUser(this.user);
+    // this.isAdmin=this.userService.isAdmin(this.user.roles);
+    this.fileNameExcel = "Plan.xlsx";
+  }
+
+  loadAllTask():void{
     this.taskService.listTask().subscribe(data => {
       console.log(data);
       this.tasks = data;
@@ -55,15 +69,22 @@ export class ListTaskComponent implements OnInit {
       this.isTaskLoaded = true;
     });
 
-    this.userService.getCurrentUser()
+  }
+
+  loadAllTaskByEmployee():void{
+    this.employee.firstname=this.user.firstname;
+    this.employee.lastname=this.user.lastname;
+
+    this.taskService.listTaskByEmployee(this.employee)
       .subscribe(data => {
-        console.log(data);
-        this.user = data;
-        this.isUserDataLoaded = true;
-      })
-    // this.userService.setUser(this.user);
-    // this.isAdmin=this.userService.isAdmin(this.user.roles);
-    this.fileNameExcel = "Plan.xlsx";
+      console.log(data);
+      this.tasks = data;
+      this.taskService.listTask()
+        .subscribe(data => {
+          console.log(data);
+        });
+      this.isTaskLoaded = true;
+    });
 
   }
 
@@ -172,4 +193,13 @@ export class ListTaskComponent implements OnInit {
     return title;
   }
 
+  setColor(day:number, date:any):any{
+    var current=new Date();
+    var control=new Date(date);
+    var delta=control.getTime()-current.getTime();
+    var deltaDay=Math.floor(delta/1000/60/60/24);
+    var color=(deltaDay > day)?"black":"red";
+    console.log("Alert:",color);
+    return color;
+  }
 }
