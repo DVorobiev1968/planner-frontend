@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ITask} from "../../models/Task";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
-import {IUser} from "../../models/User";
+import {IUser, User} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
 import {EmployeeService} from "../../service/employee.service";
 import {DialogComponent} from "../dialog/dialog.component";
@@ -12,7 +12,10 @@ import {Router} from "@angular/router";
 import * as XLSX from "xlsx";
 import {DateService} from "../../service/date.service";
 import {States} from "../../models/RouteTask";
-import {Employee} from "../../models/Employee";
+import {Employee, IEmployee} from "../../models/IEmployee";
+import {Category, ICategory} from "../../models/ICategory";
+import {Priority} from "../../models/Priority";
+import {CategoryService} from "../../service/category.service";
 
 @Component({
   selector: 'list-task',
@@ -25,6 +28,12 @@ export class ListTaskComponent implements OnInit {
   isAdmin = false;
   isUser = false;
   isRolesLoaded = false;
+  isEmployeesLoaded = false;
+  isPriorityLoaded = false;
+  isCategoryLoaded = false;
+  isUsersLoaded = false;
+
+
   public task: ITask;
   tasks: ITask[];
   user: IUser;
@@ -33,17 +42,25 @@ export class ListTaskComponent implements OnInit {
   indexTask: number;
   fileNameExcel: string;
   states: States;
-  employee:Employee;
+  employee: Employee;
+  category: Category;
+  categoryTitle: string;
+  employees: IEmployee[];
+  priorities: Priority[];
+  categories: ICategory[];
+  users: IUser[];
+  teamlied: User;
 
   constructor(public dateService: DateService,
               private taskService: TaskService,
               private employeeService: EmployeeService,
               private priorityService: PriorityService,
+              private categoryService: CategoryService,
               private userService: UserService,
               private notificationService: NotificationService,
               private router: Router,
               public dialog: MatDialog) {
-    this.states=new States();
+    this.states = new States();
   }
 
   ngOnInit(): void {
@@ -56,9 +73,31 @@ export class ListTaskComponent implements OnInit {
     // this.userService.setUser(this.user);
     // this.isAdmin=this.userService.isAdmin(this.user.roles);
     this.fileNameExcel = "Plan.xlsx";
+
+    this.employeeService.listEmployee()
+      .subscribe(data => {
+        console.log(data);
+        this.employees = data;
+        this.isEmployeesLoaded = true;
+      });
+
+    this.priorityService.listPriority()
+      .subscribe(data => {
+        console.log(data);
+        this.priorities = data;
+        this.isPriorityLoaded = true;
+      });
+
+    this.userService.getAll()
+      .subscribe(data => {
+        console.log(data);
+        this.users = data;
+        this.isUsersLoaded = true;
+      })
+    this.getCategory();
   }
 
-  loadAllTask():void{
+  loadAllTask(): void {
     this.taskService.listTask().subscribe(data => {
       console.log(data);
       this.tasks = data;
@@ -71,21 +110,39 @@ export class ListTaskComponent implements OnInit {
 
   }
 
-  loadAllTaskByEmployee():void{
-    this.employee.firstname=this.user.firstname;
-    this.employee.lastname=this.user.lastname;
-
+  loadAllTaskByEmployee(): void {
+    this.employee = new Employee(this.user.firstname, this.user.lastname);
     this.taskService.listTaskByEmployee(this.employee)
       .subscribe(data => {
-      console.log(data);
-      this.tasks = data;
-      this.taskService.listTask()
-        .subscribe(data => {
-          console.log(data);
-        });
-      this.isTaskLoaded = true;
-    });
+        console.log(data);
+        this.tasks = data;
+        this.isTaskLoaded = true;
+      });
+  }
 
+  getCategory(): void {
+    this.categoryService.listCategory()
+      .subscribe(data => {
+        console.log(data);
+        this.categories = data;
+        this.isCategoryLoaded = true;
+      })
+
+  }
+
+  changeEvent(event: any) {
+    this.loadAllTaskByCategory();
+  }
+
+  loadAllTaskByCategory(): void {
+    this.category = new Category(this.categoryTitle);
+    this.category.title = this.categoryTitle
+    this.taskService.listTaskByCategory(this.category)
+      .subscribe(data => {
+        console.log(data);
+        this.tasks = data;
+        this.isTaskLoaded = true;
+      });
   }
 
   // TODO реализовать отображение pdf
@@ -102,8 +159,8 @@ export class ListTaskComponent implements OnInit {
     this.taskService.setTask(this.task);
     console.log("employee.FIO" + this.taskService.task.employee.fio);
     console.log("currentUser.FIO" + this.user.fio);
-    if (this.user.fio==this.taskService.task.employee.fio ||
-      this.user.fio==this.taskService.task.teamlieder ||
+    if (this.user.fio == this.taskService.task.employee.fio ||
+      this.user.fio == this.taskService.task.teamlieder ||
       this.userService.isAdmin(this.user.roles))
       this.router.navigate(['app-send-task']);
     else
@@ -117,8 +174,8 @@ export class ListTaskComponent implements OnInit {
     console.log("employee.FIO" + this.taskService.task.employee.fio);
     console.log("teamlieder" + this.taskService.task.teamlieder);
     console.log("currentUser.FIO" + this.user.fio);
-    if (this.user.fio==this.taskService.task.employee.fio ||
-      this.user.fio==this.taskService.task.teamlieder ||
+    if (this.user.fio == this.taskService.task.employee.fio ||
+      this.user.fio == this.taskService.task.teamlieder ||
       this.userService.isAdmin(this.user.roles))
       this.router.navigate(['app-list-documents']);
     else
@@ -183,23 +240,23 @@ export class ListTaskComponent implements OnInit {
     XLSX.writeFile(wb, this.fileNameExcel);
   }
 
-  getState(id:number):string{
-    let title='';
-    this.states.states.forEach(state=>{
-      if (state.id==id)
-        title=state.title;
+  getState(id: number): string {
+    let title = '';
+    this.states.states.forEach(state => {
+      if (state.id == id)
+        title = state.title;
       return title;
     })
     return title;
   }
 
-  setColor(day:number, date:any):any{
-    var current=new Date();
-    var control=new Date(date);
-    var delta=control.getTime()-current.getTime();
-    var deltaDay=Math.floor(delta/1000/60/60/24);
-    var color=(deltaDay > day)?"black":"red";
-    console.log("Alert:",color);
+  setColor(day: number, date: any): any {
+    var current = new Date();
+    var control = new Date(date);
+    var delta = control.getTime() - current.getTime();
+    var deltaDay = Math.floor(delta / 1000 / 60 / 60 / 24);
+    var color = (deltaDay > day) ? "black" : "red";
+    // console.log("Alert:",color);
     return color;
   }
 }

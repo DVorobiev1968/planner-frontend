@@ -1,5 +1,5 @@
-import {Category} from "./Category";
-import {Employee} from "./Employee";
+import {ICategory} from "./ICategory";
+import {IEmployee} from "./IEmployee";
 import {Priority} from "./Priority";
 import {IDocumentModel} from "./DocumentModel";
 import {IUser} from "./User";
@@ -14,17 +14,17 @@ export interface ITask {
   note:string;
   documents:IDocumentModel[];
   priority:Priority;
-  employee:Employee;
-  category:Category;
+  employee:IEmployee;
+  category:ICategory;
   teamlieder:string;
 }
 
 export class CurrentTask implements ITask{
-  category: Category;
+  category: ICategory;
   categoryId: number;
   dateControl: Date;
   documents: IDocumentModel[];
-  employee: Employee;
+  employee: IEmployee;
   employeeId: number;
   id: number;
   note: string;
@@ -36,7 +36,7 @@ export class CurrentTask implements ITask{
   strDateControl:string;
   teamlieder: string;
 
-  constructor(category: Category, categoryId: number, dateControl: Date, documents: IDocumentModel[], employee: Employee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, teamlieder: string) {
+  constructor(category: ICategory, categoryId: number, dateControl: Date, documents: IDocumentModel[], employee: IEmployee, employeeId: number, id: number, note: string, priority: Priority, priorityId: number, title: string, reference: string, teamlieder: string) {
     this.category = category;
     this.categoryId = categoryId;
     this.dateControl = dateControl;

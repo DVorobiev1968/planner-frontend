@@ -5,7 +5,7 @@ import {IUser, User} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
 import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
-import {Employee} from "../../models/Employee";
+import {IEmployee} from "../../models/IEmployee";
 import {CategoryService} from "../../service/category.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NotificationService} from "../../service/notification.service";
@@ -31,7 +31,7 @@ export class AddTaskComponent implements OnInit {
   dateControl: Date;
   newTask: string;
   reference: string;
-  employees: Employee[];
+  employees: IEmployee[];
   priorities: Priority[];
   users: IUser[];
   note: string;

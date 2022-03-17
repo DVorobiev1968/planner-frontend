@@ -5,12 +5,12 @@ import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
-import {Employee} from "../../models/Employee";
+import {IEmployee} from "../../models/IEmployee";
 import {Priority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
 import {PriorityService} from "../../service/priority.service";
 import {CategoryService} from "../../service/category.service";
-import {Category} from "../../models/Category";
+import {ICategory} from "../../models/ICategory";
 
 @Component({
   selector: 'edit-task',
@@ -39,9 +39,9 @@ export class EditTaskComponent implements OnInit {
   reference: string;
   note: string;
   dateControl: Date;
-  employees: Employee[];
+  employees: IEmployee[];
   priorities: Priority[];
-  categories: Category[];
+  categories: ICategory[];
   logs: Object;
 
   constructor(private taskService: TaskService,

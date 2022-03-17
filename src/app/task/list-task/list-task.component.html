@@ -12,12 +12,20 @@
   </div>
 </header>
 <div>
+  <h2>Определите требуемый фильтр для просмотра:</h2>
   <button mat-button (click)="loadAllTask()">
-    Все
+    Все задачи
   </button>
   <button mat-button (click)="loadAllTaskByEmployee()">
-    Мне на исполнение
+    Только мне на исполнение
   </button>
+  <mat-form-field *ngIf="isCategoryLoaded" appearance="fill">
+  <mat-select (selectionChange)="changeEvent($event)" [(value)]="categoryTitle">
+    <mat-option  *ngFor="let category of categories" [value]="category.title" >
+      {{category.title}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
 </div>
 <div *ngIf="isTaskLoaded && isUserDataLoaded">
   <div class="table-wrapper content">

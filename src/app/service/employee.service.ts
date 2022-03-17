@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Employee} from "../models/Employee";
+import {IEmployee} from "../models/IEmployee";
 import {Conf} from "./Conf";
 
 @Injectable({
@@ -21,7 +21,7 @@ export class EmployeeService {
     return this.http.post(this.conf.EMPLOYEE_API + 'update', employee);
   }
 
-  createEmployee(employee: Employee): Observable<any> {
+  createEmployee(employee: IEmployee): Observable<any> {
     return this.http.post(this.conf.EMPLOYEE_API + 'add', employee);
   }
 

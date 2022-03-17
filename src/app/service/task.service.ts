@@ -134,6 +134,14 @@ export class TaskService {
     });
   }
 
+  listTaskByCategory(category:{
+    title:any;
+  }): Observable<any> {
+    return this.http.post(this.conf.TASK_API + 'category',{
+      title:category.title
+    });
+  }
+
   getTaskById(id: number): Observable<any> {
     return this.http.get(this.conf.TASK_API + 'id/' + id);
   }
