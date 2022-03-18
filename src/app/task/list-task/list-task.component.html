@@ -11,60 +11,93 @@
     <button class="btn btn-warning" (click)="exportexcel()">Export to Excel</button>
   </div>
 </header>
-<div>
-  <h2>Определите требуемый фильтр для просмотра:</h2>
-  <button mat-button (click)="loadAllTask()">
-    Все задачи
-  </button>
-  <button mat-button (click)="loadAllTaskByEmployee()">
-    Только мне на исполнение
-  </button>
-  <mat-form-field *ngIf="isCategoryLoaded" appearance="fill">
-  <mat-select (selectionChange)="changeEvent($event)" [(value)]="categoryTitle">
-    <mat-option  *ngFor="let category of categories" [value]="category.title" >
-      {{category.title}}
-    </mat-option>
-  </mat-select>
-  </mat-form-field>
+<div class="filter">
+  <h4>Определите требуемый фильтр для просмотра:</h4>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Задачи</th>
+      <th>Исполнение</th>
+      <th>Подразделение</th>
+      <th>Руководитель</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+        <button mat-button (click)="loadAllTask()">
+          Все задачи
+        </button>
+      </td>
+      <td>
+        <button mat-button (click)="loadAllTaskByEmployee()">
+          Только мне на исполнение
+        </button>
+      </td>
+      <td>
+        <mat-form-field *ngIf="isCategoryLoaded" appearance="fill">
+          <mat-select (selectionChange)="changeCategorySelect($event)" [(value)]="categoryTitle">
+            <mat-option *ngFor="let category of categories" [value]="category.title">
+              {{category.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field *ngIf="isUsersLoaded" appearance="fill">
+          <mat-select (selectionChange)="changeUserSelect($event)" [(value)]="teamliederId">
+            <mat-option *ngFor="let teamlieder of users" [value]="teamlieder.id">
+              {{teamlieder.fio}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 <div *ngIf="isTaskLoaded && isUserDataLoaded">
   <div class="table-wrapper content">
     <table id="list-table" class="table table-hover table-bordered">
-    <thead>
-    <tr>
-      <th scope="col" width="3%">N</th>
-      <th scope="col" width="10%">Наименование работ</th>
-      <th scope="col" width="20%">Содержание работ</th>
-      <th scope="col" width="20%">Примечание</th>
-      <th scope="col" width="8%">Ответственное подразделение</th>
-      <th scope="col" width="8%">Ответственный исполнитель</th>
-      <th scope="col" width="8%">Срок исполнения</th>
-      <th scope="col" width="8%">Руководитель</th>
-      <th *ngIf="isAdmin" scope="col" width="5%">Редактирование</th>
-      <th scope="col" width="5%">Исполнение</th>
-      <th scope="col" width="5%">Статус</th>
-      <th scope="col" width="5%">Вложения</th>
-      <th *ngIf="isAdmin" scope="col" width="5%">Удаление</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="{{task.priority.color}}" *ngFor="let task of tasks; let i = index">
-      <th scope="row" width="3%" class="{{setColor(task.priority.countDay,task.dateControl)}}">{{i+1}}</th>
-      <td width="10%" class="{{setColor(task.priority.countDay,task.dateControl)}}">{{task.title}}</td>
-      <td width="20%" >{{task.reference}}</td>
-      <td width="20%">{{task.note}}</td>
-      <td width="8%">{{task.category.title}}</td>
-      <td width="8%">{{task.employee.fio}}</td>
-      <td width="8%">{{task.strDateControl}}</td>
-      <td width="8%">{{task.teamlieder}}</td>
-      <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"  (click)="editTask(i,task.id)">Редактировать</a></td>
-      <td class="info" width="5%"><a class="btn btn-warning"  (click)="setCurrentTask(i,task.id)" title="Просмотр задачи, отправка на согласование">Отправить</a></td>
-      <td width="8%">{{getState(task.completed)}}</td>
-      <td class="info" width="5%"><a class="btn btn-warning"  (click)="setCurrentDocs(i,task.id)" title="Вложенные документы">Вложения</a></td>
-      <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"  (click)="openDialog(i, task.id)">Удалить</a></td>
-    </tr>
-    </tbody>
-  </table>
+      <thead>
+      <tr>
+        <th scope="col" width="3%">N</th>
+        <th scope="col" width="10%">Наименование работ</th>
+        <th scope="col" width="20%">Содержание работ</th>
+        <th scope="col" width="20%">Примечание</th>
+        <th scope="col" width="8%">Ответственное подразделение</th>
+        <th scope="col" width="8%">Ответственный исполнитель</th>
+        <th scope="col" width="8%">Срок исполнения</th>
+        <th scope="col" width="8%">Руководитель</th>
+        <th *ngIf="isAdmin" scope="col" width="5%">Редактирование</th>
+        <th scope="col" width="5%">Исполнение</th>
+        <th scope="col" width="5%">Статус</th>
+        <th scope="col" width="5%">Вложения</th>
+        <th *ngIf="isAdmin" scope="col" width="5%">Удаление</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="{{task.priority.color}}" *ngFor="let task of tasks; let i = index">
+        <th scope="row" width="3%" class="{{setColor(task.priority.countDay,task.dateControl)}}">{{i + 1}}</th>
+        <td width="10%" class="{{setColor(task.priority.countDay,task.dateControl)}}">{{task.title}}</td>
+        <td width="20%">{{task.reference}}</td>
+        <td width="20%">{{task.note}}</td>
+        <td width="8%">{{task.category.title}}</td>
+        <td width="8%">{{task.employee.fio}}</td>
+        <td width="8%">{{task.strDateControl}}</td>
+        <td width="8%">{{task.teamlieder}}</td>
+        <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning" (click)="editTask(i,task.id)">Редактировать</a>
+        </td>
+        <td class="info" width="5%"><a class="btn btn-warning" (click)="setCurrentTask(i,task.id)"
+                                       title="Просмотр задачи, отправка на согласование">Отправить</a></td>
+        <td width="8%">{{getState(task.completed)}}</td>
+        <td class="info" width="5%"><a class="btn btn-warning" (click)="setCurrentDocs(i,task.id)"
+                                       title="Вложенные документы">Вложения</a></td>
+        <td class="info" *ngIf="isAdmin" width="5%"><a class="btn btn-warning"
+                                                       (click)="openDialog(i, task.id)">Удалить</a></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 </body>

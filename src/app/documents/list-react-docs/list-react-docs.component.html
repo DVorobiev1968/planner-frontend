@@ -1,4 +1,4 @@
-<dif *ngIf="taskService.task.id">
+<dif *ngIf="isTaskLoaded">
   <h1>{{taskService.task.title}}</h1>
   <h2>{{taskService.task.reference}}</h2>
   <p>{{taskService.task.note}}</p>

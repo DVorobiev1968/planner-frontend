@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../service/auth.service";
 import {NotificationService} from "../../service/notification.service";
+import {Role} from "../../models/ERole";
 
 @Component({
   selector: 'app-register',
@@ -11,12 +12,15 @@ import {NotificationService} from "../../service/notification.service";
 export class RegisterComponent implements OnInit {
 
   public  registerForm:FormGroup;
+  roles:Role
 
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
     private fb: FormBuilder
-  ) { }
+  ) {
+    this.roles=new Role();
+  }
 
   ngOnInit(): void {
     this.registerForm=this.createRegisterForm();
@@ -30,7 +34,8 @@ export class RegisterComponent implements OnInit {
       patronymic: ['', Validators.compose([Validators.required])],
       initial: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
-      confirmPassword: ['', Validators.compose([Validators.required])]
+      confirmPassword: ['', Validators.compose([Validators.required])],
+      roles:[this.roles.roles,Validators.compose([Validators.required])]
     });
   }
 
@@ -52,5 +57,8 @@ export class RegisterComponent implements OnInit {
       }, error => {
         this.notificationService.showSnackBar('Что-то пошло не так при регистрации');
       });
+    }
+    setRole(index:number){
+      this.roles.roles[index].active=!this.roles.roles[index].active;
     }
 }

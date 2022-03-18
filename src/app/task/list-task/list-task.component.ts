@@ -50,6 +50,7 @@ export class ListTaskComponent implements OnInit {
   categories: ICategory[];
   users: IUser[];
   teamlied: User;
+  teamliederId: number;
 
   constructor(public dateService: DateService,
               private taskService: TaskService,
@@ -98,13 +99,10 @@ export class ListTaskComponent implements OnInit {
   }
 
   loadAllTask(): void {
-    this.taskService.listTask().subscribe(data => {
+    this.taskService.listTask()
+      .subscribe(data => {
       console.log(data);
       this.tasks = data;
-      this.taskService.listTask()
-        .subscribe(data => {
-          console.log(data);
-        });
       this.isTaskLoaded = true;
     });
 
@@ -117,6 +115,8 @@ export class ListTaskComponent implements OnInit {
         console.log(data);
         this.tasks = data;
         this.isTaskLoaded = true;
+      },error => {
+        this.isTaskLoaded=false;
       });
   }
 
@@ -126,12 +126,18 @@ export class ListTaskComponent implements OnInit {
         console.log(data);
         this.categories = data;
         this.isCategoryLoaded = true;
-      })
+      },error => {
+        this.isCategoryLoaded=false;
+      });
 
   }
 
-  changeEvent(event: any) {
+  changeCategorySelect(event: any) {
     this.loadAllTaskByCategory();
+  }
+
+  changeUserSelect(event: any) {
+    this.loadAllTaskByTeamlieder();
   }
 
   loadAllTaskByCategory(): void {
@@ -142,6 +148,20 @@ export class ListTaskComponent implements OnInit {
         console.log(data);
         this.tasks = data;
         this.isTaskLoaded = true;
+      }, error => {
+        this.isTaskLoaded = false;
+      });
+  }
+
+  loadAllTaskByTeamlieder(): void {
+    this.teamlied = new User(this.teamliederId, "", "", "", "", "", "");
+    this.taskService.listTaskByTeamlieder(this.teamlied)
+      .subscribe(data => {
+        console.log(data);
+        this.tasks = data;
+        this.isTaskLoaded = true;
+      }, error => {
+        this.isTaskLoaded = false;
       });
   }
 

@@ -15,6 +15,7 @@ export class NavigationComponent implements OnInit {
   isDataLoaded = false;
   user: IUser;
   isDev=false;
+  isAdmin=false;
 
   constructor(private tokenService: TokenStorageService,
               private userService: UserService,
@@ -29,6 +30,7 @@ export class NavigationComponent implements OnInit {
   }
   getRole(){
     this.isDev=this.userService.isDev(this.user.roles);
+    this.isAdmin=this.userService.isAdmin(this.user.roles);
     console.log("getRole",this.isDev);
   }
   ngOnInit(): void {

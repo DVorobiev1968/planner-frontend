@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {CurrentTask, ITask} from "../models/Task";
+import {ITask} from "../models/Task";
 import {Conf} from "./Conf";
 
 @Injectable({
@@ -12,10 +12,11 @@ export class TaskService {
   task: ITask;
   currentTaskId: number;
   isLoadData: boolean;
-  conf:Conf;
+  conf: Conf;
+
   constructor(private http: HttpClient) {
     this.isLoadData = false;
-    this.conf=new Conf();
+    this.conf = new Conf();
   }
 
   public createTaskExtend(task: {
@@ -26,7 +27,7 @@ export class TaskService {
     categoryId: any;
     dateControl: any;
     note: any;
-    teamliedId:any;
+    teamliedId: any;
   }): Observable<any> {
     return this.http.post(this.conf.TASK_API + "add_extend", {
       title: task.title,
@@ -36,7 +37,7 @@ export class TaskService {
       categoryId: task.categoryId,
       dateControl: task.dateControl,
       note: task.note,
-      id:task.teamliedId
+      id: task.teamliedId
     });
   }
 
@@ -106,7 +107,7 @@ export class TaskService {
       dateControl: task.dateControl,
       note: task.note,
       completed: task.completed,
-      teamliedId:task.teamliedId
+      teamliedId: task.teamliedId
     });
   }
 
@@ -124,22 +125,30 @@ export class TaskService {
     return this.http.get(this.conf.TASK_API + 'all_tasks_date');
   }
 
-  listTaskByEmployee(employee:{
-    firstname:any;
-    lastname:any;
+  listTaskByEmployee(employee: {
+    firstname: any;
+    lastname: any;
   }): Observable<any> {
-    return this.http.post(this.conf.TASK_API + 'employee',{
-      firstname:employee.firstname,
-      lastname:employee.lastname
+    return this.http.post(this.conf.TASK_API + 'employee', {
+      firstname: employee.firstname,
+      lastname: employee.lastname
     });
   }
 
-  listTaskByCategory(category:{
-    title:any;
+  listTaskByCategory(category: {
+    title: any;
   }): Observable<any> {
-    return this.http.post(this.conf.TASK_API + 'category',{
-      title:category.title
+    return this.http.post(this.conf.TASK_API + 'category', {
+      title: category.title
     });
+  }
+
+  listTaskByTeamlieder(user: {
+    id: any;
+  }): Observable<any> {
+    return this.http.post(this.conf.TASK_API + 'teamlieder', {
+      id: user.id
+    })
   }
 
   getTaskById(id: number): Observable<any> {

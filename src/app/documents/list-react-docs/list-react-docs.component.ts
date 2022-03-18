@@ -19,10 +19,11 @@ import {DialogComponent} from "../../task/dialog/dialog.component";
 export class ListReactDocsComponent implements OnInit {
   title:string;
   action:string;
-  taskId=1;
+  taskId=90
   displayedColumns: string[] = ['id', 'name', 'nameFile','note','date','disabled'];
   dataSource: Array<DocumentModel>;
   isDataSourceLoaded=false;
+  isTaskLoaded=false;
   itemDataSource:DocumentModel;
 
   @ViewChild(MatTable) table: MatTable<IDocumentModel>;
@@ -50,8 +51,10 @@ export class ListReactDocsComponent implements OnInit {
         console.log(data);
         this.taskService.task=data;
         this.taskService.setCurrentTaskId(this.taskId);
+        this.isTaskLoaded=true;
       },error => {
         this.taskService.task=null;
+        this.isTaskLoaded=true;
       });
     this.dataSource=new Array<DocumentModel>();
     this.viewDocs();

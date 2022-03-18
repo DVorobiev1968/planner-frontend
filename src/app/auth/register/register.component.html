@@ -1,68 +1,78 @@
 <div class="register-page">
-  <h2>Register</h2>
-  <p>Already have an account?  <a routerLink="/app-login">Sign in</a></p>
+  <h2>Регистрация нового пользователя</h2>
+  <p>У Вас уже есть учетная запись?  <a routerLink="/app-login">Войти</a></p>
   <form [formGroup]="registerForm">
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Email Address</mat-label>
+        <mat-label>Email</mat-label>
         <input matInput
                formControlName="email">
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
+        <mat-label>Имя пользователя в системе</mat-label>
         <input matInput
                formControlName="username">
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>First name</mat-label>
+        <mat-label>Имя</mat-label>
         <input matInput
                formControlName="firstname">
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Last name</mat-label>
+        <mat-label>Фамилия</mat-label>
         <input matInput
                formControlName="lastname">
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Patronymic</mat-label>
+        <mat-label>Отчество</mat-label>
         <input matInput
                formControlName="patronymic">
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Initial</mat-label>
-        <input matInput
+        <mat-label>Инициалы (Имя. Отчество.)</mat-label>
+        <input matInput [maxLength]=4
                formControlName="initial">
+        <mat-hint>(Имя. Отчество.)</mat-hint>
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>Пароль</mat-label>
         <input type="password" matInput
                formControlName="password">
       </mat-form-field>
     </div>
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
-        <mat-label>Confirm password</mat-label>
+        <mat-label>Подтверждение пароля</mat-label>
         <input type="password" matInput
                formControlName="confirmPassword">
       </mat-form-field>
     </div>
+    <div class="roles_area">
+      <mat-form-field appearance="fill">
+        <mat-label>Роли в системе</mat-label>
+        <mat-select formControlName="roles" multiple>
+          <mat-option *ngFor="let role of roles.roles; let i=index"
+                      [value]="role.active">
+            {{role.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <button style="width: 5rem" [disabled]="registerForm.invalid" (click)="submit()" mat-flat-button color="primary">
-      Register
+    <button [disabled]="registerForm.invalid" (click)="submit()" mat-flat-button color="primary">
+      Регистрация
     </button>
-
   </form>
 </div>
 

@@ -1,11 +1,11 @@
-<button mat-button [matMenuTriggerFor]="taskMenu" (click)="getRole()">Мероприятия</button>
+<button mat-button [matMenuTriggerFor]="taskMenu">Мероприятия</button>
 <mat-menu #taskMenu="matMenu" yPosition="above">
   <button mat-menu-item routerLink="add-task">Добавить</button>
   <button mat-menu-item routerLink="tasks">Просмотр</button>
   <button mat-menu-item routerLink="app-list-route">Текущие задания</button>
 </mat-menu>
 
-<button [disabled]="!isDev" mat-button [matMenuTriggerFor]="docsMenu" (click)="getRole()">Документы</button>
+<button [disabled]="!isDev" mat-button [matMenuTriggerFor]="docsMenu">Документы</button>
 <mat-menu #docsMenu="matMenu" yPosition="below">
   <button mat-menu-item routerLink="app-add-document">Добавить</button>
   <button mat-menu-item routerLink="app-list-documents">Просмотр</button>
@@ -13,7 +13,12 @@
   <button mat-menu-item routerLink="#">Редактировать</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="logsMenu">Войти</button>
+<button [disabled]="!isAdmin" mat-button [matMenuTriggerFor]="classifMenu">Классификатор</button>
+<mat-menu #classifMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="register">Руководители</button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="logsMenu" (click)="getRole()">Войти</button>
 <mat-menu #logsMenu="matMenu" yPosition="below">
   <button mat-menu-item routerLink="main">На главную</button>
   <button *ngIf="!isLoggedIn" mat-menu-item routerLink="register">Регистрация</button>
