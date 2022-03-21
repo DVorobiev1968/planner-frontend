@@ -110,6 +110,9 @@ export class UserService {
   }
 
   getAll():Observable<any>{
-    return this.http.get(this.conf.USER_API+"all")
+    return this.http.get(this.conf.USER_API+"all");
+  }
+  delete(id:number):Observable<any>{
+    return this.http.get(this.conf.USER_API+"delete/"+id);
   }
 }

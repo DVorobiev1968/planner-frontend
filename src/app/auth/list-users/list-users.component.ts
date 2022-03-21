@@ -43,5 +43,30 @@ export class ListUsersComponent implements OnInit {
       });
   }
 
+  //TODO удалить после отладки
+  setRoles():void{
+    if (this.isUsersLoaded){
+      this.userService.getRoles();
+      this.isUser=this.userService.isUserRole;
+      this.isTeamlieder_1=this.userService.isTeamlied_1Role;
+      this.isTeamlieder_2=this.userService.isTeamlied_2Role;
+      this.isTeamlieder_3=this.userService.isTeamlied_3Role;
+      this.isAdministrator=this.userService.isAdminRole;
+
+    }
+
+  }
+  deleteUser(id:number):void{
+    this.userService.delete(id)
+      .subscribe(data=>{
+        this.notificationService.showSnackBar(data);
+      },error => {
+        this.notificationService.showSnackBar(error);
+      });
+  }
+
+  editUser(id:number):void{
+    this.notificationService.showSnackBar("В разработке");
+  }
 
 }
