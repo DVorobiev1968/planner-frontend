@@ -27,6 +27,8 @@ import { SendTaskComponent } from './task/send-task/send-task.component';
 import { AddRouteComponent } from './route/add-route/add-route.component';
 import { ListRouteComponent } from './route/list-route/list-route.component';
 import { ListReactDocsComponent } from './documents/list-react-docs/list-react-docs.component';
+import { RegisterWithRolesComponent } from './auth/register-with-roles/register-with-roles.component';
+import { ListUsersComponent } from './auth/list-users/list-users.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ListReactDocsComponent } from './documents/list-react-docs/list-react-d
     SendTaskComponent,
     AddRouteComponent,
     ListRouteComponent,
-    ListReactDocsComponent
+    ListReactDocsComponent,
+    RegisterWithRolesComponent,
+    ListUsersComponent
   ],
   imports: [
     AppRoutingModule,

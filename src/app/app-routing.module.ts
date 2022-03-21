@@ -15,10 +15,14 @@ import { SendTaskComponent } from "./task/send-task/send-task.component";
 import { AddRouteComponent } from "./route/add-route/add-route.component";
 import { ListRouteComponent } from './route/list-route/list-route.component';
 import {ListReactDocsComponent} from "./documents/list-react-docs/list-react-docs.component";
+import {RegisterWithRolesComponent} from "./auth/register-with-roles/register-with-roles.component";
+import {ListUsersComponent} from "./auth/list-users/list-users.component";
 
 const routes: Routes = [
   {path: 'app-login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'app-register-with-roles',component:RegisterWithRolesComponent, canActivate:[AuthGuardService]},
+  {path:'app-list-users',component:ListUsersComponent,canActivate:[AuthGuardService]},
   {path: 'main', component: IndexComponent, canActivate: [AuthGuardService]},
   {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuardService]},
   {path: 'edit-task', component: EditTaskComponent, canActivate: [AuthGuardService]},

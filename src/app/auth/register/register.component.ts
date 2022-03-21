@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
       initial: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       confirmPassword: ['', Validators.compose([Validators.required])],
-      roles:[this.roles.roles,Validators.compose([Validators.required])]
     });
   }
 
@@ -57,8 +56,5 @@ export class RegisterComponent implements OnInit {
       }, error => {
         this.notificationService.showSnackBar('Что-то пошло не так при регистрации');
       });
-    }
-    setRole(index:number){
-      this.roles.roles[index].active=!this.roles.roles[index].active;
     }
 }

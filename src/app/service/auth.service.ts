@@ -64,5 +64,28 @@ export class AuthService {
       confirmPassword: user.confirmPassword
     });
   }
+  public registerWithRoles(user: {
+    email: any;
+    username: any;
+    firstname: any;
+    lastname: any;
+    patronymic: any;
+    initial: any;
+    password: any;
+    confirmPassword: any;
+    roles:any;
+  }): Observable<any> {
+    return this.http.post(this.conf.AUTH_API + 'signup_roles', {
+      email: user.email,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      patronymic: user.patronymic,
+      initial: user.initial,
+      password: user.password,
+      confirmPassword: user.confirmPassword,
+      roles:user.roles
+    });
+  }
 
 }

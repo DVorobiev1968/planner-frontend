@@ -94,7 +94,7 @@ export class ListTaskComponent implements OnInit {
         console.log(data);
         this.users = data;
         this.isUsersLoaded = true;
-      })
+      });
     this.getCategory();
   }
 

@@ -1,6 +1,5 @@
 <div class="register-page">
   <h2>Регистрация нового пользователя</h2>
-  <p>У Вас уже есть учетная запись?  <a routerLink="/app-login">Войти</a></p>
   <form [formGroup]="registerForm">
     <div class="justify-content-center">
       <mat-form-field appearance="outline">
@@ -59,10 +58,19 @@
                formControlName="confirmPassword">
       </mat-form-field>
     </div>
+    <div class="roles_area">
+      <mat-form-field appearance="fill">
+        <mat-label>Роли в системе</mat-label>
+        <mat-select formControlName="roles" multiple>
+          <mat-option *ngFor="let role of roles.roles; let i=index"
+                      [value]="role.id">
+            {{role.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <button [disabled]="registerForm.invalid" (click)="submit()" mat-flat-button color="primary">
       Регистрация
     </button>
   </form>
 </div>
-
