@@ -1,0 +1,30 @@
+<div *ngIf="isUsersLoaded">
+  <h1>Перечень зарегистрированных пользователей</h1>
+  <div *ngIf="isAdmin">
+    <p>Добваить пользователя</p>
+    <a class="btn btn-warning" routerLink="app-register-with-roles">Добавить</a>
+  </div>
+  <div class="table-wrapper content">
+    <table id="list-table" class="table table-hover table-bordered">
+      <thead>
+      <tr>
+        <th scope="col" width="3%">N</th>
+        <th scope="col" width="20%">ФИО</th>
+        <th scope="col" width="5%">E-mail</th>
+        <th scope="col" width="5%">Руководитель уровеня 1</th>
+        <th scope="col" width="5%">Руководитель уровеня 2</th>
+        <th scope="col" width="5%">Руководитель уровеня 3</th>
+        <th scope="col" width="5%">Администратор</th>
+        <th *ngIf="isAdmin" scope="col" width="5%">Редактирование</th>
+        <th *ngIf="isAdmin" scope="col" width="5%">Удаление</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users; let i=index">
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
