@@ -31,4 +31,11 @@ export class Role{
     this.roles[4].active=eRole.indexOf("ROLE_ADMIN") > -1;
     this.roles[5].active=eRole.indexOf("ROLE_DEV") > -1;
   }
+  public setSelectItems():string[]{
+    let selectItems:string[]=[];
+    this.roles.forEach(item=>{
+      if (item.active) selectItems.push(item.title);
+    });
+    return selectItems;
+  }
 }

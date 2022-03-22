@@ -3,6 +3,7 @@ import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {IUser, UserRoles} from "../../models/User";
+import {error} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-list-users',
@@ -68,7 +69,14 @@ export class ListUsersComponent implements OnInit {
   }
 
   editUser(id:number):void{
-    this.notificationService.showSnackBar("В разработке");
+    this.userService.getUserById(id)
+      .subscribe(data=>{
+        this.userService.setUser(data);
+        this.router.navigate(['app-edit-user']);
+      },error=>{
+        this.notificationService.showSnackBar(error);
+      });
+
   }
 
 }

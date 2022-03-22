@@ -1,0 +1,40 @@
+.h1 {
+  font-size: 14px;
+}
+
+.h2 {
+  font-size: 13px;
+}
+
+.h3 {
+  font-size: 12px;
+}
+
+.h4 {
+  font-size: 11px;
+}
+
+.p {
+  font-size: 10px;
+}
+
+.register-page {
+  min-width: 400px;
+  max-width: 600px;
+  width: 100%;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 1px dashed black;
+  padding: 1rem 1rem;
+  text-align: left;
+}
+
+mat-form-field {
+  width: 50%;
+}
+
+.roles_area{
+  border: 1px dashed black;
+  padding: 1rem 1rem;
+}

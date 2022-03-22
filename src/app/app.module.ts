@@ -29,6 +29,7 @@ import { ListRouteComponent } from './route/list-route/list-route.component';
 import { ListReactDocsComponent } from './documents/list-react-docs/list-react-docs.component';
 import { RegisterWithRolesComponent } from './auth/register-with-roles/register-with-roles.component';
 import { ListUsersComponent } from './auth/list-users/list-users.component';
+import { EditUserComponent } from './auth/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ListUsersComponent } from './auth/list-users/list-users.component';
     ListRouteComponent,
     ListReactDocsComponent,
     RegisterWithRolesComponent,
-    ListUsersComponent
+    ListUsersComponent,
+    EditUserComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,63 @@
+<div class="register-page">
+  <h2>Редактирование учетных данных пользователя</h2>
+  <form [formGroup]="registerForm">
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput
+               formControlName="email">
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Имя пользователя в системе</mat-label>
+        <input matInput
+               formControlName="username">
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Имя</mat-label>
+        <input matInput
+               formControlName="firstname">
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Фамилия</mat-label>
+        <input matInput
+               formControlName="lastname">
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Отчество</mat-label>
+        <input matInput
+               formControlName="patronymic">
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Инициалы (Имя. Отчество.)</mat-label>
+        <input matInput [maxLength]=4
+               formControlName="initial">
+        <mat-hint>(Имя. Отчество.)</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="roles_area">
+      <mat-form-field appearance="fill">
+        <mat-label>Роли в системе</mat-label>
+        <mat-select [(value)]="selectItems" formControlName="roles" multiple>
+          <mat-option *ngFor="let role of roles.roles; let i=index"
+                      [value]="role.id">
+            {{role.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button [disabled]="registerForm.invalid" (click)="submit()" mat-flat-button color="primary">
+      Обновить
+    </button>
+  </form>
+  <a class="btn btn-warning" routerLink="/app-list-users">Назад</a>
+</div>

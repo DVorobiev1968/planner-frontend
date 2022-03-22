@@ -7,12 +7,13 @@ import {Conf} from "./Conf";
   providedIn: 'root'
 })
 export class AuthService {
-  conf:Conf;
+  conf: Conf;
+
   constructor(private http: HttpClient) {
-    this.conf=new Conf();
+    this.conf = new Conf();
   }
 
-  public testHost(){
+  public testHost() {
     this.http.get(this.conf.TESTING, {
       // headers: {
       //   'Access-Control-Allow-Origin': '*'
@@ -20,6 +21,7 @@ export class AuthService {
     })
       .subscribe(res => console.log(res));
   }
+
   // public login(user: { username: any; password: any; }): Observable<any> {
   //   return this.http.post(this.conf.AUTH_API + 'signin', {
   //     username: user.username,
@@ -30,12 +32,13 @@ export class AuthService {
   public login(user: { username: any; password: any; }): Observable<any> {
     return this.http.post(this.conf.AUTH_API + 'signin', {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin':'*'
+        'Access-Control-Allow-Origin': '*'
       }),
       username: user.username,
       password: user.password
     });
   }
+
   public loginOld(user: { username: any; password: any; }): Observable<any> {
     return this.http.post(this.conf.AUTH_API + 'signin', {
       username: user.username,
@@ -64,6 +67,7 @@ export class AuthService {
       confirmPassword: user.confirmPassword
     });
   }
+
   public registerWithRoles(user: {
     email: any;
     username: any;
@@ -73,7 +77,7 @@ export class AuthService {
     initial: any;
     password: any;
     confirmPassword: any;
-    roles:any;
+    roles: any;
   }): Observable<any> {
     return this.http.post(this.conf.AUTH_API + 'signup_roles', {
       email: user.email,
@@ -84,8 +88,29 @@ export class AuthService {
       initial: user.initial,
       password: user.password,
       confirmPassword: user.confirmPassword,
-      roles:user.roles
+      roles: user.roles
     });
   }
 
+  public updateUser(user: {
+    id: any;
+    email: any;
+    username: any;
+    firstname: any;
+    lastname: any;
+    patronymic: any;
+    initial: any;
+    roles: any;
+  }): Observable<any> {
+    return this.http.post(this.conf.USER_API + 'update', {
+      id:user.id,
+      email: user.email,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      patronymic: user.patronymic,
+      initial: user.initial,
+      roles: user.roles
+    });
+  }
 }

@@ -29,6 +29,7 @@ export class UserService {
     this.isTeamlied_1Role = false;
     this.isTeamlied_2Role = false;
     this.isTeamlied_3Role = false;
+    this.user=new User(0,null,null,null,null,null,null);
   }
 
   getRolesCurrentUser() {
@@ -67,8 +68,19 @@ export class UserService {
     return this.http.post(this.conf.USER_API + 'update', user);
   }
 
+  setUserId(id: number): void {
+    this.user.id = id;
+  }
+
   setUser(user: IUser): void {
     this.iUser = user;
+    this.user=new User(this.iUser.id,
+      this.iUser.email,
+      this.iUser.username,
+      this.iUser.firstname,
+      this.iUser.lastname,
+      this.iUser.patronymic,
+      this.iUser.initial);
   }
 
   isDev(roles: any): boolean {
@@ -131,10 +143,10 @@ export class UserService {
     return this.http.get(this.conf.USER_API + "delete/" + id);
   }
 
-  createUsersRoles(iuser:IUser[]):UserRoles[]{
-    let usersRoles:UserRoles[]=[];
-    iuser.forEach(item=>{
-      usersRoles.push(new UserRoles(item.id,item.email,item.username,item.firstname,item.lastname,item.patronymic,item.initial,item.roles));
+  createUsersRoles(iuser: IUser[]): UserRoles[] {
+    let usersRoles: UserRoles[] = [];
+    iuser.forEach(item => {
+      usersRoles.push(new UserRoles(item.id, item.email, item.username, item.firstname, item.lastname, item.patronymic, item.initial, item.roles));
     })
     return usersRoles;
   }
