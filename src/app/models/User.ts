@@ -1,4 +1,4 @@
-import {ERole} from "./ERole";
+import {ERole, IRole, Role} from "./ERole";
 
 export interface IUser {
   id: number;
@@ -29,5 +29,14 @@ export class User implements IUser{
     this.lastname=lastname;
     this.patronymic=patronymic;
     this.initial=initial;
+  }
+}
+export class UserRoles extends User{
+  public roles:Role;
+  constructor(id: number, email: string, username: string, firstname: string, lastname: string, patronymic: string, initial: string, eRole:any) {
+    super(id, email, username, firstname, lastname, patronymic, initial);
+    this.roles=new Role();
+    this.roles.setRoles(eRole);
+    super.fio=lastname+" "+initial;
   }
 }

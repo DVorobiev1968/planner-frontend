@@ -24,4 +24,11 @@ export class Role{
       {id:5,title:"Разработчик",active:false}
     ]
   }
+  public setRoles(eRole:any):void{
+    this.roles[1].active=eRole.indexOf("ROLE_LEVEL_1") > -1;
+    this.roles[2].active=eRole.indexOf("ROLE_LEVEL_2") > -1;
+    this.roles[3].active=eRole.indexOf("ROLE_LEVEL_3") > -1;
+    this.roles[4].active=eRole.indexOf("ROLE_ADMIN") > -1;
+    this.roles[5].active=eRole.indexOf("ROLE_DEV") > -1;
+  }
 }

@@ -1,7 +1,7 @@
 <div *ngIf="isUsersLoaded">
   <h1>Перечень зарегистрированных пользователей</h1>
   <div *ngIf="isAdmin">
-    <p>Добваить пользователя</p>
+    <p>Добавить пользователя</p>
     <a class="btn btn-warning" routerLink="/app-register-with-roles">Добавить</a>
   </div>
   <div class="table-wrapper content">
@@ -20,21 +20,21 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users; let i=index">
+      <tr *ngFor="let user of usersRoles; let i=index">
         <th scope="row">{{i+1}}</th>
         <td>{{user.fio}}</td>
         <td>{{user.email}}</td>
         <td>
-          <mat-checkbox ngModel="{{userService.isTeamlied_1(user.roles)}}" disabled="true"></mat-checkbox>
+          <mat-checkbox ngModel="{{user.roles.roles[1].active}}" disabled="true"></mat-checkbox>
         </td>
         <td>
-          <mat-checkbox ngModel="{{userService.isTeamlied_2(user.roles)}}" disabled="true"></mat-checkbox>
+          <mat-checkbox ngModel="{{user.roles.roles[2].active}}" disabled="true"></mat-checkbox>
         </td>
         <td>
-          <mat-checkbox ngModel="{{userService.isTeamlied_3(user.roles)}}" disabled="true"></mat-checkbox>
+          <mat-checkbox ngModel="{{user.roles.roles[3].active}}" disabled="true"></mat-checkbox>
         </td>
         <td>
-          <mat-checkbox ngModel="{{userService.isAdmin(user.roles)}}" disabled="true"></mat-checkbox>
+          <mat-checkbox ngModel="{{user.roles.roles[4].active}}" disabled="true"></mat-checkbox>
         </td>
         <td><a class="btn btn-warning"
                (click)="deleteUser(user.id)">Удалить</a></td>

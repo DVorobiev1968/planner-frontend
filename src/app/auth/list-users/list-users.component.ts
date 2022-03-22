@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
-import {IUser} from "../../models/User";
+import {IUser, UserRoles} from "../../models/User";
 
 @Component({
   selector: 'app-list-users',
@@ -11,6 +11,7 @@ import {IUser} from "../../models/User";
 })
 export class ListUsersComponent implements OnInit {
   users:IUser[];
+  usersRoles:UserRoles[];
   isUsersLoaded:boolean;
   isAdmin:boolean;
   isUser:boolean;
@@ -34,9 +35,10 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getAll()
       .subscribe(data => {
-        console.log(data);
         this.users = data;
+        this.usersRoles=this.userService.createUsersRoles(data);
         this.isUsersLoaded = true;
+        console.log(this.usersRoles);
       },error => {
         this.notificationService.showSnackBar("Пользователей не зарегистрировано");
         this.isUsersLoaded = false;
@@ -46,7 +48,7 @@ export class ListUsersComponent implements OnInit {
   //TODO удалить после отладки
   setRoles():void{
     if (this.isUsersLoaded){
-      this.userService.getRoles();
+      this.userService.getRolesCurrentUser();
       this.isUser=this.userService.isUserRole;
       this.isTeamlieder_1=this.userService.isTeamlied_1Role;
       this.isTeamlieder_2=this.userService.isTeamlied_2Role;
