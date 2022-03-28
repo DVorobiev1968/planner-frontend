@@ -92,3 +92,65 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 sudo npm cache clean -f
 sudo npm install -g n
 sudo n stable
+
+<h1>Развертывание приложения</h1>
+<p></p>
+<ol>Архитектура развертывания предусматривает, что приложения:
+<li>создаем виртуальную машину с именем хоста: testedo.rdturbo.ru. Как вариант WSL2
+(/etc/hosts:192.168.0.7: testedo.rdturdo.ru: )</li>
+<li>mysql: устанавливается отдельно чтобы не изменять БД, при обновлении релизов. 
+Как вариант оставить его Windows, но пробросить клиента на внешний адрес: 192.168.0.7 (hosts:192.168.0.7: testedo.rdturdo.ru: )</li>
+<li>back-end</li>
+<li>front-end</li></ol>
+<p>Упаковываются как docker image. Для этого необходимо выполнить следующие действия:</p>
+<h2>Настройка проекта:</h2>
+<h3>package.json</h3>
+<pre>
+  "name": "planning-front-end",
+  "version": "0.0.0",
+  "scripts": {
+  ...
+  "start": "ng serve --proxy-config proxy.conf.json --host testedo.rdturbo.ru",
+  ...
+  },
+</pre>
+<h3>proxy.conf.json</h3>
+<pre>
+  "/api/*":
+  {
+    "target": "http://testedo.rdturbo:8090",
+    "secure": false,
+    "logLevel": "warn",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/": ""
+    }
+  }
+</pre>
+<h3>Conf.ts</h3>
+<pre>
+....
+    this.HOST='http://testedo.rdturbo.ru:8090';
+....
+</pre>
+<h3> Формирование Dockerfile</h3>
+<pre>
+# syntax=docker/dockerfile:1
+FROM node:14.19
+ENV NODE_ENV=production
+WORKDIR /usr/app/planning-front-end
+EXPOSE 4200
+COPY ["package.json", "package-lock.json*", "./"]
+RUN npm install --production
+COPY . .
+CMD ["npm", "start"]
+</pre>
+<h3>Сборка и запись образа:</h3>
+<pre>
+docker build -t dvorobiev1968/planning-front-end .
+docker push dvorobiev1968/planning-front-end
+</pre>
+<h3>Запуск контейнера:</h3>
+<pre>
+docker run dvorobiev1968/planning-front-end
+</pre>

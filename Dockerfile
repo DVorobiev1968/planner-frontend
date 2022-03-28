@@ -5,5 +5,8 @@ WORKDIR /usr/app/planning-front-end
 EXPOSE 4200
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install --production
+RUN npm install -g @angular/cli
+RUN ng -v
 COPY . .
-CMD ["npm", "start"]
+#CMD ["ng", "serve", "--proxy-config proxy.conf.product.json", "--host planning-front-end"," --disable-host-check"]
+CMD ["npm","start"]
