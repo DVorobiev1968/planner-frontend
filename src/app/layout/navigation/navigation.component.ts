@@ -20,18 +20,10 @@ export class NavigationComponent implements OnInit {
   constructor(private tokenService: TokenStorageService,
               private userService: UserService,
               private router: Router) {
-    // this.userService.getCurrentUser()
-    //   .subscribe(data => {
-    //     console.log(data);
-    //     this.user = data;
-    //     this.isUserDataLoaded = true;
-    //   });
-    // console.log("getRole",this.isDev);
   }
   getRole(){
     this.isDev=this.userService.isDev(this.user.roles);
     this.isAdmin=this.userService.isAdmin(this.user.roles);
-    console.log("getRole",this.isDev);
   }
   ngOnInit(): void {
     // проверка на то зашел ди пользователь на сайт если оставить "!" то происходит зацикливание

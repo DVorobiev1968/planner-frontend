@@ -40,7 +40,6 @@ export class AddRouteComponent implements OnInit {
               private router: Router) {
     this.userService.getAll()
       .subscribe(data => {
-        console.log(data);
         this.startUsers = data;
         this.destUsers = this.startUsers.slice();
         this.isUsersDataLoaded = true;
@@ -89,7 +88,6 @@ export class AddRouteComponent implements OnInit {
       this.notificationService.showSnackBar(errMessage);
       this.router.navigate(['tasks']);
     }, error => {
-      console.log(error);
       this.notificationService.showSnackBar(error);
     });
     this.setCompletedTask();
@@ -100,10 +98,8 @@ export class AddRouteComponent implements OnInit {
       id: this.taskService.task.id,
       completed:this.routeForm.value.state
     }).subscribe(data=>{
-      console.log(data)
       this.notificationService.showSnackBar(data);
     },error => {
-      console.log(error);
       this.notificationService.showSnackBar(error.message);
     });
   }

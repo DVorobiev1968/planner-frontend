@@ -27,7 +27,6 @@ export class RouteService {
     state: any;
     sendEmail: any;
   }):Observable<any>{
-    console.log(routeTask);
     return this.http.post(this.conf.ROUTE_TASK_API+"add",{
       startId:routeTask.startId,
       destinationId:routeTask.destinationId,

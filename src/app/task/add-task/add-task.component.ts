@@ -47,28 +47,24 @@ export class AddTaskComponent implements OnInit {
               ) {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
 
     this.employeeService.listEmployee()
       .subscribe(data =>{
-        console.log(data);
         this.employees=data;
         this.isEmployeesLoaded=true;
       });
 
     this.priorityService.listPriority()
       .subscribe(data =>{
-        console.log(data);
         this.priorities=data;
         this.isPriorityLoaded=true;
       });
 
     this.userService.getAll()
       .subscribe(data=>{
-        console.log(data);
         this.users=data;
         this.isUsersLoaded=true;
       })
@@ -102,7 +98,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   submit():void {
-    console.log(this._taskForm.value);
 
     this.taskService.createTask({
       title: this._taskForm.value.newTask,
@@ -113,18 +108,15 @@ export class AddTaskComponent implements OnInit {
       dateControl: this._taskForm.value.dateControl,
       note:this._taskForm.value.note
     }).subscribe(data=>{
-      console.log(data);
       this.notificationService.showSnackBar('Данные были успешно записаны');
       this.router.navigate(['tasks']);
       // window.location.reload();
     },error => {
-      console.log(error.message);
       this.notificationService.showSnackBar(error.message);
     });
   }
 
   submitExtend():void {
-    console.log(this._taskForm.value);
 
     this.taskService.createTaskExtend({
       title: this._taskForm.value.newTask,
@@ -136,12 +128,10 @@ export class AddTaskComponent implements OnInit {
       note:this.note,
       teamliedId:this._taskForm.value.teamlied
     }).subscribe(data=>{
-      console.log(data);
       this.notificationService.showSnackBar('Данные были успешно записаны');
       this.router.navigate(['tasks']);
       // window.location.reload();
     },error => {
-      console.log(error.message);
       this.notificationService.showSnackBar(error.message);
     });
   }

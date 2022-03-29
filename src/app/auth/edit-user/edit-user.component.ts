@@ -23,12 +23,7 @@ export class EditUserComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) {
-    console.log("Entering user:",userService.user);
     this.roles=new Role();
-    // пока не понятно как будет инициализироваться значение в форме поэтму уберу
-    // this.roles.setRoles(this.userService.iUser.roles);
-    // this.selectItems=this.roles.setSelectItems();
-
   }
 
   ngOnInit(): void {
@@ -52,13 +47,11 @@ export class EditUserComponent implements OnInit {
     })
   }
   setRole(index:number){
-    // this.roles.roles[index].active=!this.roles.roles[index].active;
     this.roles.roles[index].active=true;
   }
 
   submit(): void {
     this.setRoles();
-    console.log("roles",this.roles.roles);
 
     this.authService.updateUser({
       id:this.userService.user.id,
@@ -70,7 +63,6 @@ export class EditUserComponent implements OnInit {
       initial:this.registerForm.value.initial,
       roles:this.roles.roles
     }).subscribe(data => {
-      console.log(data);
       this.notificationService.showSnackBar(data.message);
     }, error => {
       this.notificationService.showSnackBar('Что-то пошло не так при регистрации'+error.message);

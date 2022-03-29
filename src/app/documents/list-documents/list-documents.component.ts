@@ -45,13 +45,11 @@ export class ListDocumentsComponent implements OnInit {
     this.isPDF=false;
     this.isOther=false;
     this.header="Просмотр вложенных документов:";
-    console.log("taskId:",this.taskId);
   }
 
   ngOnInit(): void {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
@@ -65,7 +63,6 @@ export class ListDocumentsComponent implements OnInit {
   loadDocs(taskId:number){
     this.docService.getDocumentsToTask(taskId)
       .subscribe(data =>{
-        console.log(data);
         this.docs=data;
         this.isDocsLoaded=true;
         },error => {
@@ -76,7 +73,6 @@ export class ListDocumentsComponent implements OnInit {
   }
 
   viewDocExtend(id:number, nameFile:string){
-    console.log(id);
     this.isImage=false;
     this.isPDF=false;
     this.docService.getDocument(id)
@@ -87,7 +83,6 @@ export class ListDocumentsComponent implements OnInit {
         this.isPDF=this.typePreview[1].includes("pdf");
         this.isImage=this.typePreview[1].includes("jpg");
         this.isOther=this.isPDF || this.isImage? false:true;
-        console.log(this.typePreview[1]);
         this.notificationService.showSnackBar("Файл для просмотра загружен успешно");
       },error => {
         this.notificationService.showSnackBar("Файл для просмотра загрузить не удалось!");
@@ -169,7 +164,6 @@ export class ListDocumentsComponent implements OnInit {
 
   deleteDocument(id: number): void {
     this.docService.deleteDocument(id).subscribe(data => {
-      console.log(data);
       this.notificationService.showSnackBar(data.message);
     });
     this.router.navigate(["app-send-task"]);

@@ -50,7 +50,6 @@ export class RegisterWithRolesComponent implements OnInit {
 
   submit(): void {
     this.setRoles();
-    console.log("roles",this.roles.roles);
 
     this.authService.registerWithRoles({
       email: this.registerForm.value.email,
@@ -63,7 +62,6 @@ export class RegisterWithRolesComponent implements OnInit {
       confirmPassword: this.registerForm.value.confirmPassword,
       roles:this.roles.roles
     }).subscribe(data => {
-      console.log(data);
       this.notificationService.showSnackBar('Регистрация прошла успешно!');
     }, error => {
       this.notificationService.showSnackBar('Что-то пошло не так при регистрации');

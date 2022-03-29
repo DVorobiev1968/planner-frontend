@@ -26,7 +26,6 @@ export class IndexComponent implements OnInit {
               private tokenStorage: TokenStorageService) {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
@@ -47,7 +46,6 @@ export class IndexComponent implements OnInit {
   getRouteTask():void{
     this.routeService.getRouteTaskByStartId(this.user.id)
     .subscribe(data=>{
-      console.log(data);
       this.isRouteTaskLoaded=true;
     })
 

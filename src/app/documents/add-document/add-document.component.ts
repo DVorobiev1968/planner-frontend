@@ -87,7 +87,6 @@ export class AddDocumentComponent implements OnInit {
       this.data.docService.docModel.file = this.selectedFile;
       this._docForm.value.nameFile = this.selectedFile.name;
       this.nameFile = this.selectedFile.name;
-      console.log(this.data.docService.docModel);
       this.data.docService.uploadDocument(this.data.docService.docModel)
         .subscribe((data) => {
           this.notificationService.showSnackBar('Файл'+this.data.docService.docModel.nameFile+' загружен успешно');
@@ -95,7 +94,6 @@ export class AddDocumentComponent implements OnInit {
           this.renderTableAdd();
           // this.router.navigate(['app-send-task']);
         }, error => {
-          console.log(error.message);
           this.notificationService.showSnackBar(error.message);
         });
     }
@@ -106,7 +104,6 @@ export class AddDocumentComponent implements OnInit {
     this.data.docService.docModel.note=this._docForm.value.note;
     this.data.docService.addDocument(this.data.docService.docModel)
       .subscribe(data => {
-        console.log(data);
         this.data.docService.docModel.id=data.id;
         this.notificationService.showSnackBar('Данные вложенного документа были внесены успешно (id:'
           +this.data.docService.docModel.id+'). Выберите нужный файл.');

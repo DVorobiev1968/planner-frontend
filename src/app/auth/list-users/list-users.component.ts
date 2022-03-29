@@ -39,7 +39,6 @@ export class ListUsersComponent implements OnInit {
         this.users = data;
         this.usersRoles=this.userService.createUsersRoles(data);
         this.isUsersLoaded = true;
-        console.log(this.usersRoles);
       },error => {
         this.notificationService.showSnackBar("Пользователей не зарегистрировано");
         this.isUsersLoaded = false;

@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
   }
 
     submit(): void {
-      console.log(this.registerForm.value);
 
       this.authService.register({
         email: this.registerForm.value.email,
@@ -51,7 +50,6 @@ export class RegisterComponent implements OnInit {
         password: this.registerForm.value.password,
         confirmPassword: this.registerForm.value.confirmPassword
       }).subscribe(data => {
-        console.log(data);
         this.notificationService.showSnackBar('Регистрация прошла успешно!');
       }, error => {
         this.notificationService.showSnackBar('Что-то пошло не так при регистрации');

@@ -27,14 +27,12 @@ export class ListRouteComponent implements OnInit {
               private userService: UserService) {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
    }
 
   setCurrentTask(id: number): void {
-    console.log("Set task ID:" + id);
     this.taskService.getTaskById(id).subscribe(data=>{
       this.taskService.setTask(data);
       this.router.navigate(['app-send-task']);
@@ -53,7 +51,6 @@ export class ListRouteComponent implements OnInit {
       .subscribe(data=>{
         this.routeTaskList=data;
         this.isRouteTaskLoaded=true;
-        console.log(this.routeTaskList);
       });
   }
 
@@ -63,7 +60,6 @@ export class ListRouteComponent implements OnInit {
       .subscribe(data=>{
         this.routeTaskList=data;
         this.isRouteTaskLoaded=true;
-        console.log(this.routeTaskList);
       });
   }
   getRouteByDestinationId():void{
@@ -72,7 +68,6 @@ export class ListRouteComponent implements OnInit {
       .subscribe(data=>{
         this.routeTaskList=data;
         this.isRouteTaskLoaded=true;
-        console.log(this.routeTaskList);
       });
   }
 
@@ -81,7 +76,6 @@ export class ListRouteComponent implements OnInit {
       .subscribe(data=>{
         this.routeTaskList=data;
         this.isRouteTaskLoaded=true;
-        console.log(this.routeTaskList);
       });
   }
 

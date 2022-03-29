@@ -41,14 +41,12 @@ export class ListReactDocsComponent implements OnInit {
               private router: Router) {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
     // TODO пока для отладки
     this.taskService.getTaskById(this.taskId)
       .subscribe(data=>{
-        console.log(data);
         this.taskService.task=data;
         this.taskService.setCurrentTaskId(this.taskId);
         this.isTaskLoaded=true;
@@ -77,8 +75,6 @@ export class ListReactDocsComponent implements OnInit {
           });
           // this.table.dataSource=this.dataSource;
           this.isDataSourceLoaded=true;
-          console.log(this.dataSource);
-          console.log(this.table);
         });
     }
   }
@@ -110,13 +106,10 @@ export class ListReactDocsComponent implements OnInit {
   deleteDocument(id: number): void {
     this.docService.deleteDocument(id)
       .subscribe(data => {
-      console.log(data);
       this.notificationService.showSnackBar(data);
       let index=0;
       index=this.findElementArray(this.table.dataSource, id);
-      console.log(index);
     },error => {
-        console.log(error);
         this.notificationService.showSnackBar(error);
       });
   }
@@ -137,7 +130,6 @@ export class ListReactDocsComponent implements OnInit {
   }
 
   removeDataItem(id:number, nameFile:string) {
-    console.log(id)
     this.openDialog(id);
   }
 

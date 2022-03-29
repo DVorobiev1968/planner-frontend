@@ -56,35 +56,30 @@ export class EditTaskComponent implements OnInit {
     this.note = "";
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });
 
     this.employeeService.listEmployee()
       .subscribe(data => {
-        console.log(data);
         this.employees = data;
         this.isEmployeesLoaded = true;
       });
 
     this.priorityService.listPriority()
       .subscribe(data => {
-        console.log(data);
         this.priorities = data;
         this.isPriorityLoaded = true;
       });
 
     this.categoryService.listCategory()
       .subscribe(data=>{
-        console.log(data);
         this.categories=data;
         this.isCategoryLoaded=true;
       });
 
     this.userService.getAll()
       .subscribe(data => {
-        console.log(data);
         this.users = data;
         this.isUsersLoaded = true;
       })
@@ -92,9 +87,6 @@ export class EditTaskComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.taskService.task);
-    // this.isTaskDataLoaded = this.taskService.isLoadData;
-    // this._editTaskFormBuilder();
     this.logs = "Loggin back-enf request..."
   }
 
@@ -120,11 +112,9 @@ export class EditTaskComponent implements OnInit {
       teamlied: [this.users]
     });
     this.isTaskDataLoaded = this.taskService.isLoadData;
-    console.log(this.isTaskDataLoaded);
   }
 
   submit(isAdmin:boolean): void {
-    console.log(this._taskEditForm.value);
     this.logs = this._taskEditForm.value;
     if (isAdmin){
       this.taskService.updateTeamliedTask({
@@ -139,11 +129,9 @@ export class EditTaskComponent implements OnInit {
         completed: this.taskService.task.completed,
         teamliedId:this._taskEditForm.value.teamlied
       }).subscribe(data => {
-        console.log(data);
         this.notificationService.showSnackBar('Данные обновлены успешно');
         window.location.reload();
       }, error => {
-        console.log(error.message);
         this.notificationService.showSnackBar(error.message);
       });
 
@@ -160,11 +148,9 @@ export class EditTaskComponent implements OnInit {
         note: this._taskEditForm.value.note,
         completed: this.taskService.task.completed
       }).subscribe(data => {
-        console.log(data);
         this.notificationService.showSnackBar('Данные обновлены успешно');
         window.location.reload();
       }, error => {
-        console.log(error.message);
         this.notificationService.showSnackBar(error.message);
       });
     }

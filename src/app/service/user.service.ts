@@ -98,7 +98,6 @@ export class UserService {
   }
 
   isTeamlied_1(roles: any): boolean {
-    console.log("user.service roles:", roles);
     if (roles != null)
       return roles.indexOf("ROLE_LEVEL_1") > -1;
     else
@@ -107,7 +106,6 @@ export class UserService {
 
   // TODO убрать после отладки
   isTeamlied_1_test(roles: any, index: number): boolean {
-    console.log("user.service roles:", roles, index);
     if (roles != null)
       return roles.indexOf("ROLE_LEVEL_1") > -1;
     else

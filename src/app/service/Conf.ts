@@ -13,20 +13,17 @@ export class Conf{
   TESTING: string;
 
   constructor() {
-    // this.HOST='http://planning-back-end:8090';
-    // this.HOST='http://localhost:8090';
-    this.HOST='http://testedo.rdturbo.ru:8090';
-    this.TESTING=this.HOST+'/api/auth/test';
-    this.AUTH_API=this.HOST+'/api/auth/';
-    this.CATEGORY_API=this.HOST+'/api/category/';
-    this.UPLOAD_API=this.HOST+'/api/docs/';
-    this.EMPLOYEE_API = this.HOST+'/api/employee/';
-    this.PRIORITY_API = this.HOST+'/api/priority/';
-    this.ROUTE_TASK_API = this.HOST+'/api/route/';
-    this.TASK_API = this.HOST+'/api/task/';
+    this.TESTING='/api/auth/test';
+    this.AUTH_API='/api/auth/';
+    this.CATEGORY_API='/api/category/';
+    this.UPLOAD_API='/api/docs/';
+    this.EMPLOYEE_API ='/api/employee/';
+    this.PRIORITY_API ='/api/priority/';
+    this.ROUTE_TASK_API ='/api/route/';
+    this.TASK_API ='/api/task/';
     this.TOKEN_KEY = 'auth-token';
     this.USER_KEY = 'auth-user';
-    this.USER_API = this.HOST+'/api/user/';
+    this.USER_API ='/api/user/';
 
   }
 }

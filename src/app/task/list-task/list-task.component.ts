@@ -67,7 +67,6 @@ export class ListTaskComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       })
@@ -77,21 +76,18 @@ export class ListTaskComponent implements OnInit {
 
     this.employeeService.listEmployee()
       .subscribe(data => {
-        console.log(data);
         this.employees = data;
         this.isEmployeesLoaded = true;
       });
 
     this.priorityService.listPriority()
       .subscribe(data => {
-        console.log(data);
         this.priorities = data;
         this.isPriorityLoaded = true;
       });
 
     this.userService.getAll()
       .subscribe(data => {
-        console.log(data);
         this.users = data;
         this.isUsersLoaded = true;
       });
@@ -101,7 +97,6 @@ export class ListTaskComponent implements OnInit {
   loadAllTask(): void {
     this.taskService.listTask()
       .subscribe(data => {
-      console.log(data);
       this.tasks = data;
       this.isTaskLoaded = true;
     });
@@ -112,7 +107,6 @@ export class ListTaskComponent implements OnInit {
     this.employee = new Employee(this.user.firstname, this.user.lastname);
     this.taskService.listTaskByEmployee(this.employee)
       .subscribe(data => {
-        console.log(data);
         this.tasks = data;
         this.isTaskLoaded = true;
       },error => {
@@ -123,7 +117,6 @@ export class ListTaskComponent implements OnInit {
   getCategory(): void {
     this.categoryService.listCategory()
       .subscribe(data => {
-        console.log(data);
         this.categories = data;
         this.isCategoryLoaded = true;
       },error => {
@@ -145,7 +138,6 @@ export class ListTaskComponent implements OnInit {
     this.category.title = this.categoryTitle
     this.taskService.listTaskByCategory(this.category)
       .subscribe(data => {
-        console.log(data);
         this.tasks = data;
         this.isTaskLoaded = true;
       }, error => {
@@ -157,7 +149,6 @@ export class ListTaskComponent implements OnInit {
     this.teamlied = new User(this.teamliederId, "", "", "", "", "", "");
     this.taskService.listTaskByTeamlieder(this.teamlied)
       .subscribe(data => {
-        console.log(data);
         this.tasks = data;
         this.isTaskLoaded = true;
       }, error => {
@@ -177,8 +168,6 @@ export class ListTaskComponent implements OnInit {
   setCurrentTask(index: number, id: number): void {
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
-    console.log("employee.FIO" + this.taskService.task.employee.fio);
-    console.log("currentUser.FIO" + this.user.fio);
     if (this.user.fio == this.taskService.task.employee.fio ||
       this.user.fio == this.taskService.task.teamlieder ||
       this.userService.isAdmin(this.user.roles))
@@ -188,12 +177,8 @@ export class ListTaskComponent implements OnInit {
   }
 
   setCurrentDocs(index: number, id: number): void {
-    console.log("Set task ID:" + id);
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
-    console.log("employee.FIO" + this.taskService.task.employee.fio);
-    console.log("teamlieder" + this.taskService.task.teamlieder);
-    console.log("currentUser.FIO" + this.user.fio);
     if (this.user.fio == this.taskService.task.employee.fio ||
       this.user.fio == this.taskService.task.teamlieder ||
       this.userService.isAdmin(this.user.roles))
@@ -203,7 +188,6 @@ export class ListTaskComponent implements OnInit {
   }
 
   editTask(index: number, id: number): void {
-    console.log("Edit task ID:" + id);
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
     this.router.navigate(['edit-task']);
@@ -212,7 +196,6 @@ export class ListTaskComponent implements OnInit {
   openDialog(index: number, id: number): void {
     this.indexTask = index;
     this.deleteIdTask = id;
-    console.log("Delete task ID:" + this.deleteIdTask.toString());
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '450px',
       data: {title: this.tasks[index].title, action: this.action},
@@ -223,11 +206,9 @@ export class ListTaskComponent implements OnInit {
       if (this.action) {
         this.taskService.deleteTask(this.deleteIdTask)
           .subscribe(data => {
-            console.log(data);
             this.notificationService.showSnackBar('Данные были успешно удалены');
             window.location.reload();
           }), error => {
-          console.log(error.message);
           this.notificationService.showSnackBar(error.message);
         }
         console.log(this.tasks[index].title + 'was deleted');

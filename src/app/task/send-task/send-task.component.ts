@@ -23,7 +23,6 @@ export class SendTaskComponent implements OnInit {
               private router: Router) {
     this.userService.getCurrentUser()
       .subscribe(data => {
-        console.log(data);
         this.user = data;
         this.isUserDataLoaded = true;
       });

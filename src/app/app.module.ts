@@ -20,7 +20,6 @@ import { DeleteTaskComponent } from './task/delete-task/delete-task.component';
 import { DialogComponent } from './task/dialog/dialog.component';
 import { MomentPipe } from './shared/moment.pipe';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
-import { StickyDirective } from './directive/sticky.directive';
 import { ListDocumentsComponent } from './documents/list-documents/list-documents.component';
 import { AddDocumentComponent } from './documents/add-document/add-document.component';
 import { SendTaskComponent } from './task/send-task/send-task.component';
@@ -44,7 +43,6 @@ import { EditUserComponent } from './auth/edit-user/edit-user.component';
     DialogComponent,
     MomentPipe,
     EditTaskComponent,
-    StickyDirective,
     ListDocumentsComponent,
     AddDocumentComponent,
     MomentPipe,
