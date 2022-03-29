@@ -6,7 +6,7 @@ import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {IEmployee} from "../../models/IEmployee";
-import {Priority} from "../../models/Priority";
+import {IPriority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
 import {PriorityService} from "../../service/priority.service";
 import {CategoryService} from "../../service/category.service";
@@ -40,7 +40,7 @@ export class EditTaskComponent implements OnInit {
   note: string;
   dateControl: Date;
   employees: IEmployee[];
-  priorities: Priority[];
+  priorities: IPriority[];
   categories: ICategory[];
   logs: Object;
 

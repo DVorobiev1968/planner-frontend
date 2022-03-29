@@ -1,0 +1,33 @@
+<div *ngIf="isAdmin">
+  <h1>Перечень возможных приоритетов задач</h1>
+  <div class="table-wrapper content">
+    <table id="list-table" class="table table-hover table-bordered">
+      <thead>
+      <tr>
+        <th scope="col" width="3%">N</th>
+        <th scope="col" width="20%">Тип</th>
+        <th scope="col" width="5%">Кол-во дней до сигнализации</th>
+        <th *ngIf="isAdmin" scope="col" width="5%">Удаление</th>
+        <th *ngIf="isAdmin" scope="col" width="5%">Редактирование</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let priority of priorities; let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{priority.title}}</td>
+        <td>{{priority.countDay}}</td>
+        <td><a class="btn btn-warning"
+               (click)="deleteUser(user.id)">Удалить</a></td>
+        <td><a class="btn btn-info"
+               (click)="editUser(user.id)">Редактировать</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="isAdmin">
+    <p>Добавить пользователя</p>
+    <a class="btn btn-warning" routerLink="/app-register-with-roles">Добавить</a>
+  </div>
+
+</div>
+

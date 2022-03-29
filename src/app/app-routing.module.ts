@@ -18,6 +18,7 @@ import {ListReactDocsComponent} from "./documents/list-react-docs/list-react-doc
 import {RegisterWithRolesComponent} from "./auth/register-with-roles/register-with-roles.component";
 import {ListUsersComponent} from "./auth/list-users/list-users.component";
 import {EditUserComponent} from "./auth/edit-user/edit-user.component";
+import {ListPriorityComponent} from "./priority/list-priority/list-priority.component";
 
 const routes: Routes = [
   {path: 'app-login', component: LoginComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: 'app-add-document', component: AddDocumentComponent, canActivate: [AuthGuardService]},
   {path: 'app-add-route', component: AddRouteComponent, canActivate: [AuthGuardService]},
   {path: 'app-list-route', component: ListRouteComponent, canActivate: [AuthGuardService]},
+  {path: 'app-list-priority', component: ListPriorityComponent, canActivate: [AuthGuardService]},
   {path: '', redirectTo: 'main', pathMatch: 'full'},
   {path: 'logout', redirectTo: 'app-login'}
 ];

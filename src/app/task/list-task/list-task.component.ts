@@ -14,7 +14,7 @@ import {DateService} from "../../service/date.service";
 import {States} from "../../models/RouteTask";
 import {Employee, IEmployee} from "../../models/IEmployee";
 import {Category, ICategory} from "../../models/ICategory";
-import {Priority} from "../../models/Priority";
+import {IPriority} from "../../models/Priority";
 import {CategoryService} from "../../service/category.service";
 
 @Component({
@@ -46,7 +46,7 @@ export class ListTaskComponent implements OnInit {
   category: Category;
   categoryTitle: string;
   employees: IEmployee[];
-  priorities: Priority[];
+  priorities: IPriority[];
   categories: ICategory[];
   users: IUser[];
   teamlied: User;

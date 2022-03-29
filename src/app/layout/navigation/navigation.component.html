@@ -16,6 +16,7 @@
 <button [disabled]="!isAdmin" mat-button [matMenuTriggerFor]="classifMenu">Классификатор</button>
 <mat-menu #classifMenu="matMenu" yPosition="below">
   <button mat-menu-item routerLink="app-list-users">Пользователи</button>
+  <button mat-menu-item routerLink="app-list-priority">Приоритеты заданий</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="logsMenu" (click)="getRole()">Войти</button>

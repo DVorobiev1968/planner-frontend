@@ -29,6 +29,7 @@ import { ListReactDocsComponent } from './documents/list-react-docs/list-react-d
 import { RegisterWithRolesComponent } from './auth/register-with-roles/register-with-roles.component';
 import { ListUsersComponent } from './auth/list-users/list-users.component';
 import { EditUserComponent } from './auth/edit-user/edit-user.component';
+import { ListPriorityComponent } from './priority/list-priority/list-priority.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { EditUserComponent } from './auth/edit-user/edit-user.component';
     ListReactDocsComponent,
     RegisterWithRolesComponent,
     ListUsersComponent,
-    EditUserComponent
+    EditUserComponent,
+    ListPriorityComponent
   ],
   imports: [
     AppRoutingModule,

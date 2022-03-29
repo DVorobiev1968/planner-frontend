@@ -3,7 +3,7 @@ import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
 import {IUser, User} from "../../models/User";
 import {PriorityService} from "../../service/priority.service";
-import {Priority} from "../../models/Priority";
+import {IPriority} from "../../models/Priority";
 import {EmployeeService} from "../../service/employee.service";
 import {IEmployee} from "../../models/IEmployee";
 import {CategoryService} from "../../service/category.service";
@@ -32,7 +32,7 @@ export class AddTaskComponent implements OnInit {
   newTask: string;
   reference: string;
   employees: IEmployee[];
-  priorities: Priority[];
+  priorities: IPriority[];
   users: IUser[];
   note: string;
 
