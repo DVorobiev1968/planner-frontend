@@ -36,7 +36,10 @@ export class UserService {
     this.getCurrentUser()
       .subscribe(data => {
         this.iUser = data;
+      },error => {
+        console.log("Error userService.getRolesCurrentUser():",error.messages);
       });
+    console.log("userService.getRolesCurrentUser():",this.iUser);
     this.setUser(this.iUser);
     this.isAdminRole = this.isAdmin(this.iUser.roles);
     this.isUserRole = this.isUser(this.iUser.roles);
@@ -59,8 +62,6 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<any> {
-    // return this.http.get(this.conf.USER_API);
-    // TODO убрать после отладки
     return this.http.get(this.conf.AUTH_API);
   }
 
@@ -73,6 +74,7 @@ export class UserService {
   }
 
   setUser(user: IUser): void {
+    console.log("userService.setUser:",user);
     this.iUser = user;
     this.user=new User(this.iUser.id,
       this.iUser.email,
