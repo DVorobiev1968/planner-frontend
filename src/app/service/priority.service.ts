@@ -23,6 +23,10 @@ export class PriorityService {
     return this.http.get(this.conf.PRIORITY_API + 'all');
   }
 
+  listPriorityByDay(): Observable<any> {
+    return this.http.get(this.conf.PRIORITY_API + 'all_dayDesc');
+  }
+
   addPriority(priority: IPriority): Observable<any> {
     return this.http.post(this.conf.PRIORITY_API + 'add', priority);
   }

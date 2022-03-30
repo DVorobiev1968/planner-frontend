@@ -5,7 +5,7 @@ import {NotificationService} from "../../service/notification.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {IUser} from "../../models/User";
-import {IPriority, Priority} from "../../models/Priority";
+import {IPriority, Priority, TypesPriority} from "../../models/Priority";
 import {MatTable} from "@angular/material/table";
 
 @Component({
@@ -24,6 +24,8 @@ export class ListPriorityComponent implements OnInit {
   public _priorityForm: FormGroup;
   updateAction = false;
   addAction = false;
+  typesPriority:TypesPriority;
+  alarmColor:string;
 
   @ViewChild(MatTable) table: MatTable<IPriority>;
 
@@ -43,6 +45,8 @@ export class ListPriorityComponent implements OnInit {
     this.title = "";
     this.countDay = 0;
     this.dataSource = new Array<Priority>();
+    this.typesPriority=new TypesPriority();
+    this.alarmColor=null;
 
   }
 
@@ -66,7 +70,7 @@ export class ListPriorityComponent implements OnInit {
   }
 
   viewPriorities(): void {
-    this.priorityService.listPriority()
+    this.priorityService.listPriorityByDay()
       .subscribe(data => {
         data.forEach(item => {
           this.itemDataSource = new Priority(item);
@@ -76,6 +80,11 @@ export class ListPriorityComponent implements OnInit {
         this.isPriorityLoaded = true;
       });
 
+  }
+
+  selectAlarmColor(event:any){
+    console.log("selectHandler:",event);
+    this.alarmColor=event.value;
   }
 
   deletePriority(index: number): void {
@@ -88,8 +97,34 @@ export class ListPriorityComponent implements OnInit {
     this.updateAction = true;
   }
 
-  submitUpdate(): void {
-    console.log("submitUpdate()", this._priorityForm.value)
+  submitUpdateOld(priority:IPriority): void {
+    console.log("submitUpdate()", priority);
+  }
+
+  submitUpdate(priority:IPriority, title:string, countDay:any): void {
+    let submitAction=false;
+    let iCountDay=Number(countDay);
+    if (priority.title!=title){
+      priority.title=title;
+      submitAction=true;
+    }
+    if(priority.countDay!=iCountDay){
+      priority.countDay=iCountDay;
+      submitAction=true;
+    }
+    if(this.alarmColor!=null){
+      priority.color=this.alarmColor;
+      submitAction=true;
+      this.alarmColor=null;
+    }
+    if (submitAction){
+      this.priorityService.updatePriority(priority)
+        .subscribe(data=>{
+          this.notificationService.showSnackBar(data.message);
+        },error => {
+          this.notificationService.showSnackBar(error.message);
+        })
+    }
   }
 
   submitAdd(): void {
