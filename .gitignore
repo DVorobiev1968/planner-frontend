@@ -46,6 +46,6 @@ testem.log
 Thumbs.db
 
 # Local Settings
-package.json
-proxy.conf.json
-./src/app/service/Conf.ts
+#package.json
+#proxy.conf.json
+#./src/app/service/Conf.ts

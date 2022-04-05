@@ -9,4 +9,5 @@ RUN npm install -g @angular/cli
 RUN ng -v
 COPY . .
 #CMD ["ng", "serve", "--proxy-config proxy.conf.product.json", "--host planning-front-end"," --disable-host-check"]
-CMD ["npm","start"]
+#CMD ["npm","start"]
+CMD ["sh"]
