@@ -1,0 +1,20 @@
+version: '3.7'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  planning-front-end:
+    image: dvorobiev1968/planning-front-end:latest
+    container_name: planning-front-end
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    networks:
+      app-network:
+    ports:
+      - 4200:80
+    volumes:
+      - /$PWD/dist/planning-front-end://usr/share/nginx/html:ro
+      - /$PWD/nginx.conf://etc/nginx/nginx.conf:ro
