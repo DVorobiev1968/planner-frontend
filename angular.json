@@ -68,7 +68,7 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "development"
@@ -77,10 +77,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "planning-front-end:build:production"
+              "browserTarget": "planning-front-end:build:production",
+              "proxyConfig": "proxy.conf.product.json"
             },
             "development": {
-              "browserTarget": "planning-front-end:build:development"
+              "browserTarget": "planning-front-end:build:development",
+              "proxyConfig": "proxy.conf.dev.json"
             }
           },
           "defaultConfiguration": "development",
