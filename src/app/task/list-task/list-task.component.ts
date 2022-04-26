@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ITask} from "../../models/Task";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
@@ -22,7 +22,7 @@ import {CategoryService} from "../../service/category.service";
   templateUrl: './list-task.component.html',
   styleUrls: ['./list-task.component.css']
 })
-export class ListTaskComponent implements OnInit {
+export class ListTaskComponent implements OnInit{
   isTaskLoaded = false;
   isUserDataLoaded = false;
   isAdmin = false;
@@ -63,6 +63,7 @@ export class ListTaskComponent implements OnInit {
               public dialog: MatDialog) {
     this.states = new States();
   }
+
 
   ngOnInit(): void {
     this.userService.getCurrentUser()
