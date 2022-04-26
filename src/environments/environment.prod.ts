@@ -18,7 +18,8 @@ export const environment = {
         "with": "src/environments/environment.prod.ts"
       }
     ],
-    "outputHashing": "all"
+    "outputHashing": "all",
+    "proxyConfig": "proxy.conf.dev.json"
   },
   development: {
     "buildOptimizer": false,
