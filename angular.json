@@ -60,7 +60,9 @@
               "sourceMap": false,
               "namedChunks": false,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "proxyConfig": "proxy.conf.product.json"
+
             },
             "development": {
               "buildOptimizer": false,
@@ -68,7 +70,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "proxyConfig": "proxy.conf.dev.json"
             }
           },
           "defaultConfiguration": "development"
