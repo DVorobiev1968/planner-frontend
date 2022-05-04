@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
       this.tokenStorage.saveUser(data);
 
       this.notificationService.showSnackBar('Успешно зашли на сайт');
-      this.router.navigate(['/']);
-      window.location.reload();
+      this.router.navigate(['main']);
+      // window.location.reload();
     }, error => {
       this.notificationService.showSnackBar(error);
     });
