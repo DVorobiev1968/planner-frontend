@@ -3,10 +3,10 @@ server {
 
         listen 80;
         listen [::]:80;
+        index index.html index.htm;
 
-
-	location / {
-        	root /var/www/testedo.rdturbo.ru/html;
+	location /planning-front-end/ {
+        	root /var/www/testedo.rdturbo.ru/html/planning-front-end;
 	}
 
 	location /api/ {
@@ -30,18 +30,18 @@ server {
                 	add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
 	        }
 
-
+	
         	if ($request_method = 'GET') {
 	               	add_header 'Access-Control-Allow-Origin' '*' always;
         	        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
                 	add_header 'Access-Control-Allow-Headers' 'Origin,Referer,DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
 	                add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
         	}
-
+		
 		proxy_set_header Host $host;
 		proxy_set_header X-Real-IP $remote_addr;
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_pass https://testedo.rdturbo.ru:8090/;
+		proxy_pass http://testedo.rdturbo.ru:8090/api/;
 		proxy_read_timeout 120s;
 	}
 
