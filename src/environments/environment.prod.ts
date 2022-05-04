@@ -19,7 +19,7 @@ export const environment = {
       }
     ],
     "outputHashing": "all",
-    "proxyConfig": "proxy.conf.dev.json"
+    "proxyConfig": "proxy.conf.product.json"
   },
   development: {
     "buildOptimizer": false,
