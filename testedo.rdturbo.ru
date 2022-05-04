@@ -4,10 +4,12 @@ server {
         listen 80;
         listen [::]:80;
 
-        root /var/www/testedo.rdturbo.ru/html;
-        index index.html index.htm index.nginx-debian.html;
 
-	location /api/* {
+	location / {
+        	root /var/www/testedo.rdturbo.ru/html;
+	}
+
+	location /api/ {
 		client_max_body_size 32M;
 
         	if ($request_method = 'OPTIONS') {
