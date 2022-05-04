@@ -5,7 +5,7 @@ server {
         listen [::]:80;
         index index.html index.htm;
 
-	location /planning-front-end/ {
+	location / {
         	root /var/www/testedo.rdturbo.ru/html/planning-front-end;
 	}
 
