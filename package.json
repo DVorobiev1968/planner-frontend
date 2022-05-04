@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --host testedo.rdturbo.ru",
-    "build": "ng build --configuration=production",
+    "build": "ng build --configuration=production --base-href /planning-front-end/ --deploy-url /planning-front-end/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
