@@ -1,6 +1,8 @@
 # 1. Создаем приложение Angular
 FROM node:14.19 as builder
-WORKDIR /usr/app/ems-api
+LABEL maintainer="DVorobiev1968@mail.ru"
+
+WORKDIR /usr/app/planning-front-end
 COPY package.json package-lock.json ./
 ENV CI=1
 RUN npm -v
@@ -13,10 +15,14 @@ RUN npm run build -- --prod --output-path=/dist
 FROM nginx:alpine
 
 # Заменяем дефолтную страницу nginx соответствующей веб-приложению
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /dist /usr/share/nginx/html
+RUN mkdir -p "/var/www/testedo.rdturbo.ru/html/planning-front-end"
+COPY $PWD/dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front-end
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# копируем конфигурацию nginx
+COPY $PWD/nginx/ /etc/nginx/
+RUN ln -s /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
+
 EXPOSE 80
+VOLUME ["/var/log/nginx"]
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
