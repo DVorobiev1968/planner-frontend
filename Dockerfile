@@ -27,6 +27,7 @@ RUN ls -laR /etc/nginx
 EXPOSE 80
 VOLUME ["/var/log/nginx"]
 
-USER www-data
+RUN echo www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin >> /etc/passwd
+# USER www-data
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
