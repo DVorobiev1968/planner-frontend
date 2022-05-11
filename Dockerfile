@@ -16,10 +16,10 @@ FROM nginx:alpine
 
 # Заменяем дефолтную страницу nginx соответствующей веб-приложению
 RUN mkdir -p "/var/www/testedo.rdturbo.ru/html/planning-front-end"
-COPY $PWD/dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front-end
+COPY ./dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front-end
 
 # копируем конфигурацию nginx
-COPY $PWD/nginx/ /etc/nginx/
+COPY ./nginx/ /etc/nginx/
 RUN ln -s /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
 
 EXPOSE 80
