@@ -27,6 +27,6 @@ RUN ls -laR /etc/nginx
 EXPOSE 80
 VOLUME ["/var/log/nginx"]
 
-RUN useradd www-data
+USER www-data
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
