@@ -358,14 +358,19 @@ FROM nginx:alpine
 
 # Заменяем дефолтную страницу nginx соответствующей веб-приложению
 RUN mkdir -p "/var/www/testedo.rdturbo.ru/html/planning-front-end"
-COPY $PWD/dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front-end
+COPY ./dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front-end
 
 # копируем конфигурацию nginx
-COPY $PWD/nginx/ /etc/nginx/
-RUN ln -s /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
+COPY nginx /etc/nginx
+RUN ln -sf /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
+# просмотр что имеем:
+RUN ls -laR /etc/nginx
 
 EXPOSE 80
 VOLUME ["/var/log/nginx"]
+
+RUN echo www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin >> /etc/passwd
+# USER www-data
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 </pre>
@@ -395,5 +400,17 @@ volumes:
 <pre>
 $ docker build -t dvorobiev1968/planning-front-end .
 </pre>
+<p>Создание и запуск контенера</p>
+<pre>
+$docker-compose up -d
+</pre>
+<p>Проверка запуска</p>
+<pre>
+user@user:~/IdeaProjects/planning-front-end$ docker ps
+CONTAINER ID   IMAGE                                     COMMAND                  CREATED             STATUS         PORTS                                       NAMES
+fbadd67c4d34   dvorobiev1968/planning-front-end:latest   "nginx -g 'daemon of…"   About an hour ago   Up 4 seconds   0.0.0.0:8081->80/tcp, :::8081->80/tcp       planning-front-end
+cb0c393dde93   dvorobiev1968/planning-back-end:latest    "./mvnw spring-boot:…"   12 days ago         Up 7 days      0.0.0.0:8090->8090/tcp, :::8090->8090/tcp   planning-back-end
+</pre>
+
 
 
