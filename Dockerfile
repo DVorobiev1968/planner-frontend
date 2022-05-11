@@ -20,7 +20,7 @@ COPY ./dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front
 
 # копируем конфигурацию nginx
 COPY nginx /etc/nginx
-RUN ln -s /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
+RUN ln -sf /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
 # просмотр что имеем:
 RUN ls -laR /etc/nginx
 
