@@ -392,5 +392,8 @@ volumes:
 - /var/log/nginx:/var/log
 </pre>
 <p>Создаем docker-образ</p>
+<pre>
+$ docker build -t dvorobiev1968/planning-front-end .
+</pre>
 
 
