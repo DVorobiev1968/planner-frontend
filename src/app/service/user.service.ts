@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ERole} from "../models/ERole";
 import {IUser, User, UserRoles} from "../models/User";
 import {Conf} from "./Conf";
-import {dashCaseToCamelCase} from "@angular/compiler/src/util";
 
 @Injectable({
   providedIn: 'root'
@@ -36,17 +34,17 @@ export class UserService {
     this.getCurrentUser()
       .subscribe(data => {
         this.iUser = data;
+        this.setUser(this.iUser);
+        this.isAdminRole = this.isAdmin(this.iUser.roles);
+        this.isUserRole = this.isUser(this.iUser.roles);
+        this.isDevRole = this.isDev(this.iUser.roles);
+        this.isTeamlied_1Role = this.isTeamlied_1(this.iUser.roles);
+        this.isTeamlied_2Role = this.isTeamlied_2(this.iUser.roles);
+        this.isTeamlied_3Role = this.isTeamlied_3(this.iUser.roles);
       },error => {
         console.log("Error userService.getRolesCurrentUser():",error.messages);
       });
     console.log("userService.getRolesCurrentUser():",this.iUser);
-    this.setUser(this.iUser);
-    this.isAdminRole = this.isAdmin(this.iUser.roles);
-    this.isUserRole = this.isUser(this.iUser.roles);
-    this.isDevRole = this.isDev(this.iUser.roles);
-    this.isTeamlied_1Role = this.isTeamlied_1(this.iUser.roles);
-    this.isTeamlied_2Role = this.isTeamlied_2(this.iUser.roles);
-    this.isTeamlied_3Role = this.isTeamlied_3(this.iUser.roles);
   }
 
   getUser(): IUser {

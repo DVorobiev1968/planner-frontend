@@ -5,6 +5,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private notificationService: NotificationService,
     private router: Router,
+    private userService:UserService,
     private fb: FormBuilder) {
     if (this.tokenStorage.getUser()) {
       this.router.navigate(['main']);
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
 
       this.tokenStorage.saveToken(data.token);
       this.tokenStorage.saveUser(data);
-
+      this.userService.getRolesCurrentUser();
       this.notificationService.showSnackBar('Успешно зашли на сайт');
       this.router.navigate(['main']);
       // window.location.reload();

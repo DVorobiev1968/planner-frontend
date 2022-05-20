@@ -22,6 +22,10 @@ export class NavigationComponent implements OnInit {
               private router: Router) {
   }
   getRole(){
+    this.isDev=this.userService.isDevRole;
+    this.isAdmin=this.userService.isAdminRole;
+  }
+  getRoleOld(){
     this.isDev=this.userService.isDev(this.user.roles);
     this.isAdmin=this.userService.isAdmin(this.user.roles);
   }
@@ -29,13 +33,13 @@ export class NavigationComponent implements OnInit {
     // проверка на то зашел ди пользователь на сайт если оставить "!" то происходит зацикливание
     this.isLoggedIn = !!this.tokenService.getToken();
 
-    if(this.isLoggedIn) {
-      this.userService.getCurrentUser()
-        .subscribe(data => {
-          this.user = data;
-          this.isDataLoaded = true;
-        })
-    }
+    // if(this.isLoggedIn) {
+    //   this.userService.getCurrentUser()
+    //     .subscribe(data => {
+    //       this.user = data;
+    //       this.isDataLoaded = true;
+    //     })
+    // }
   }
   logout(): void {
     this.tokenService.logOut();
