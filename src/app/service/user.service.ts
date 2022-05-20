@@ -17,6 +17,7 @@ export class UserService {
   isTeamlied_1Role: boolean;
   isTeamlied_2Role: boolean;
   isTeamlied_3Role: boolean;
+  isAuth:boolean;
 
 
   constructor(private http: HttpClient) {
@@ -27,6 +28,7 @@ export class UserService {
     this.isTeamlied_1Role = false;
     this.isTeamlied_2Role = false;
     this.isTeamlied_3Role = false;
+    this.isAuth=false;
     this.user=new User(0,null,null,null,null,null,null);
   }
 
@@ -41,6 +43,7 @@ export class UserService {
         this.isTeamlied_1Role = this.isTeamlied_1(this.iUser.roles);
         this.isTeamlied_2Role = this.isTeamlied_2(this.iUser.roles);
         this.isTeamlied_3Role = this.isTeamlied_3(this.iUser.roles);
+        this.isAuth=true;
       },error => {
         console.log("Error userService.getRolesCurrentUser():",error.messages);
       });

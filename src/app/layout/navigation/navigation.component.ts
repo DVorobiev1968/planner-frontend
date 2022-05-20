@@ -24,6 +24,7 @@ export class NavigationComponent implements OnInit {
   getRole(){
     this.isDev=this.userService.isDevRole;
     this.isAdmin=this.userService.isAdminRole;
+    this.isLoggedIn=this.userService.isAuth;
   }
   getRoleOld(){
     this.isDev=this.userService.isDev(this.user.roles);
