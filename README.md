@@ -265,7 +265,6 @@ cp -r $PWD/dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-f
 <pre>
 server {
         server_name testedo.rdturbo.ru www.testedo.rdturbo.ru;
-
         listen 80;
         listen [::]:80;
         index index.html index.htm;
@@ -410,6 +409,35 @@ user@user:~/IdeaProjects/planning-front-end$ docker ps
 CONTAINER ID   IMAGE                                     COMMAND                  CREATED             STATUS         PORTS                                       NAMES
 fbadd67c4d34   dvorobiev1968/planning-front-end:latest   "nginx -g 'daemon of…"   About an hour ago   Up 4 seconds   0.0.0.0:8081->80/tcp, :::8081->80/tcp       planning-front-end
 cb0c393dde93   dvorobiev1968/planning-back-end:latest    "./mvnw spring-boot:…"   12 days ago         Up 7 days      0.0.0.0:8090->8090/tcp, :::8090->8090/tcp   planning-back-end
+</pre>
+<h2>Сопровождение frontend</h2>
+<p>Поскольку frontend находится в отладочном режиме целесообразно предусмотреть процедуру его быстрог деплоя на nginx.
+С этой целью реализован соответствующий скрипт deployToNginx.sh где производится сборка проекта в каталоге: /var/www/testedo.rdturbo.ru/html/planning-front-end
+</p>
+<pre>
+user@user:~/IdeaProjects/planning-front-end$ git pull
+user@user:~/IdeaProjects/planning-front-end$ ./deployToNginx.sh 
+> planning-front-end@0.0.0 build
+> ng build --configuration=production --base-href /  "--configuration" "production" "--output-path=/var/www/testedo.rdturbo.ru/html/planning-front-end"
+
+✔ Browser application bundle generation complete.
+✔ Copying assets complete.
+✔ Index html generation complete.
+
+Initial Chunk Files           | Names         | Raw Size | Estimated Transfer Size
+main.99685dcb58de58a6.js      | main          |  2.40 MB |               444.18 kB
+styles.c1debaf5875a12bf.css   | styles        | 72.76 kB |                 7.60 kB
+polyfills.5700ed2d22374eda.js | polyfills     | 36.22 kB |                11.53 kB
+runtime.a6501f7bf2f23103.js   | runtime       |  1.16 kB |               641 bytes
+
+                              | Initial Total |  2.51 MB |               463.94 kB
+
+Build at: 2022-05-20T06:56:38.738Z - Hash: 68e25b37309e3b5c - Time: 27977ms
+
+Warning: /home/user/IdeaProjects/planning-front-end/src/app/task/list-task/list-task.component.ts depends on 'xlsx'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: bundle initial exceeded maximum budget. Budget 2.40 MB was not met by 109.27 kB with a total of 2.51 MB.
 </pre>
 
 
