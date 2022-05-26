@@ -439,6 +439,38 @@ For more info see: https://angular.io/guide/build#configuring-commonjs-dependenc
 
 Warning: bundle initial exceeded maximum budget. Budget 2.40 MB was not met by 109.27 kB with a total of 2.51 MB.
 </pre>
+<h1>Настройка безопасного соединения</h1>
+<h2>Генерация SSL сертификата для nginx (openssl)</h2>
+<pre>
+sudo mkdir /etc/nginx/ssl
+sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+</pre>
+<h2>Установка сертификата в /etc/nginx/nginx.conf</h2>
+<pre>
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
 
+        listen 443 ssl http2;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        server_name your_domain.com;
+        ssl_certificate /etc/nginx/ssl/nginx.crt;
+        ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+</pre>
+<h3>проверка конфигурации и применение настроек</h3>
+<pre>
+# запускаем проверку конфигурации средствами самого nginx 
+nginx -t
+# проверяем, чтобы тест прошёл успешно и применяем изменения
+service nginx reload
+</pre>
 
 
