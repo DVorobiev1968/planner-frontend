@@ -12,15 +12,14 @@ COPY . .
 RUN npm run build -- --prod --output-path=/dist
 
 # 2. Развертываем приложение Angular на NGINX
-FROM nginx:alpine
+FROM nginx:1.14.2
 
 # Заменяем дефолтную страницу nginx соответствующей веб-приложению
-RUN mkdir -p "/var/www/testedo.rdturbo.ru/html/planning-front-end"
-COPY ./dist/planning-front-end/* /var/www/testedo.rdturbo.ru/html/planning-front-end
+RUN mkdir -p "/var/www/www.rdturbo.ru/html/planning-front-end"
+COPY ./dist/planning-front-end/* /var/www/www.rdturbo.ru/html/planning-front-end
 
 # копируем конфигурацию nginx
 COPY nginx /etc/nginx
-RUN ln -sf /etc/nginx/sites-available/testedo.rdturbo.ru /etc/nginx/sites-enabled/testedo.rdturbo.ru
 # просмотр что имеем:
 RUN ls -laR /etc/nginx
 
