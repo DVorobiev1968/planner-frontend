@@ -1,3 +1,3 @@
 #!/bin/sh
-mkdir -p "/var/www/www.rdturbo.ru/html/planning-front-end"
-npm run build -- --configuration production --output-path=/var/www/www.rdturbo.ru/html/planning-front-end
+mkdir -p "/var/www/www.pc26.ru/planning-front-end"
+npm run build -- --configuration production --output-path=/var/www/www.pc26.ru/planning-front-end

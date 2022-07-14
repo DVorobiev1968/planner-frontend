@@ -472,5 +472,24 @@ nginx -t
 # проверяем, чтобы тест прошёл успешно и применяем изменения
 service nginx reload
 </pre>
+<h1>Генерация пароля для admin</h1>
+<h2>Установка утилиты apache2-utils</h2>
+<pre>
+sudo apt install apache2-utils
+</pre>
+<h2>Генерация пароля</h2>
+<pre>
+sudo htpasswd -c /etc/nginx/.htpasswd имя_пользователя
+</pre>
+<h2>Включение в /etc/nginx/nginx.conf</h2>
+<pre>
+...
+    location =/admin {
+        auth_basic "Restricted Contenet";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        try_files $uri/ =404;
+    }
+...
+</pre>
 
 
