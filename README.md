@@ -491,5 +491,10 @@ sudo htpasswd -c /etc/nginx/.htpasswd имя_пользователя
     }
 ...
 </pre>
+<h1>Production</h1>
+<h2>pc26.rdturbo.ru</h2>
+<p>Рабочая ветка с изменениями pc26</p>
+<h2>testedo.rdturbo.ru</h2>
+<p>Рабочая ветка с изменениями development</p>
 
 
