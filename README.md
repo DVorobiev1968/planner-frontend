@@ -16,6 +16,14 @@ source ~/.bashrc
 nvm install node
 # Для данного проекта:
 nvm install 14.18.1
+# Просмотр доступных версий
+nvm list-remote
+# Просмотр установленных версий
+nvm list
+# ИНсталируем lts/fermium
+nvm install lts/fermium
+# Переключиться между установленными версиями
+nvm use версия
 </pre>
 
 ## Step 2 – Installing Angular CLI
