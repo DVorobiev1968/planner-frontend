@@ -1,13 +1,23 @@
 # Install for Ubuntu
-## Step 1 – Installing Node.js
-NVM is a command line tool for installing and managing node.js on Linux system. So first we need to install nvm on our system. Login to system with user for which you need to install Node.js, then execute below command to install nvm:
+## Step 1 – Установка Node с помощью Node Version Manager
+Еще одним способом установки Node.js, который является достаточно гибким, является использование nvm, или Node Version Manager. Это программное обеспечение позволяет устанавливать и поддерживать несколько разных независимых версий Node.js и связанных с ними пакетов Node.
 
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-After that, you can install any version of node on your system. You can also install multiple node versions on single system. Execute below commands to load environment and install latest node.js version:
+Чтобы установить NVM на ваш сервер Ubuntu 20.04, откройте страницу проекта на GitHub. Скопируйте команду curl из файла README, отображаемого на главной странице. Она позволит получить самую последнюю версию скрипта установки.
 
+Прежде чем передавать команду в bash, рекомендуется проверить скрипт, чтобы убедиться, что он не делает ничего, с чем вы не согласны. Вы можете сделать это, удалив сегмент | bash в конце команды curl:
+<pre>
+git clone https://github.com/nvm-sh/nvm.git .nvm
+cd ~/.nvm and check out the latest version with git checkout v0.39.1
+# Активируем команду nvm:
+activate nvm by sourcing it from your shell: . ./nvm.sh
+# Активируем переменные окружения
 source ~/.bashrc
+# Если нужно последнюю версию, то: 
 nvm install node
-The above command will display the version of node and npm installed on your system.
+# Для данного проекта:
+nvm install 14.18.1
+</pre>
+
 ## Step 2 – Installing Angular CLI
 After installing the node.js and npm on your system, use following commands to install Angular cli tool on your system.
 ### latest version
