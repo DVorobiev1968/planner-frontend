@@ -6,6 +6,8 @@ npm-build:
   script:
     - echo "Deploying application ${CI_PROJECT_NAME} from brahch ${CI_COMMIT_BRANCH} to ${CI_SERVER_NAME}:/var/www/drplatform.ru/html/planning-front-end." >> ~/deploy.txt
     - source /home/gitlab-runner/.bashrc
+    - npm install
+    - npm audit fix
     - npm run build -- --configuration production --output-path=/var/www/drplatform.ru/html/planning-front-end
   tags:
     - "dev-build"
