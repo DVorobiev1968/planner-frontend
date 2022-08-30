@@ -27,13 +27,16 @@ nvm use версия
 </pre>
 
 ## Step 2 – Installing Angular CLI
-After installing the node.js and npm on your system, use following commands to install Angular cli tool on your system.
+После установки node.js и npm в вашей системе используйте следующие команды для установки инструмента Angular cli в вашей системе.
+
 ### latest version
 npm install -g @angular/cli
 ### previous version
 npm install -g @angular/cli@8        #Angular 8
 npm install -g @angular/cli@9        #Angular 9
 npm install -g @angular/cli@10       #Angular 10
+### текущий проект
+npm install -g @angular/cli@13.1.2
 
 # Install for Windows
 Instruction <https://ccbill.com/kb/install-angular-on-windows>
