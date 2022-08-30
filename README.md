@@ -1,21 +1,68 @@
 # Install for Ubuntu
-## Step 1 – Installing Node.js
-NVM is a command line tool for installing and managing node.js on Linux system. So first we need to install nvm on our system. Login to system with user for which you need to install Node.js, then execute below command to install nvm:
+## Step 1 – Установка Node с помощью Node Version Manager
+Еще одним способом установки Node.js, который является достаточно гибким, является использование nvm, или Node Version Manager. Это программное обеспечение позволяет устанавливать и поддерживать несколько разных независимых версий Node.js и связанных с ними пакетов Node.
 
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-After that, you can install any version of node on your system. You can also install multiple node versions on single system. Execute below commands to load environment and install latest node.js version:
+Чтобы установить NVM на ваш сервер Ubuntu 20.04, откройте страницу проекта на GitHub. Скопируйте команду curl из файла README, отображаемого на главной странице. Она позволит получить самую последнюю версию скрипта установки.
 
+Прежде чем передавать команду в bash, рекомендуется проверить скрипт, чтобы убедиться, что он не делает ничего, с чем вы не согласны. Вы можете сделать это, удалив сегмент | bash в конце команды curl:
+<pre>
+git clone https://github.com/nvm-sh/nvm.git .nvm
+cd ~/.nvm and check out the latest version with git checkout v0.39.1
+# Активируем команду nvm:
+activate nvm by sourcing it from your shell: . ./nvm.sh
+# Активируем переменные окружения
 source ~/.bashrc
+# Если нужно последнюю версию, то: 
 nvm install node
-The above command will display the version of node and npm installed on your system.
+# Для данного проекта:
+nvm install 14.18.1
+# Просмотр доступных версий
+nvm list-remote
+# Просмотр установленных версий
+nvm list
+# ИНсталируем lts/fermium
+nvm install lts/fermium
+# Переключиться между установленными версиями
+nvm use версия
+</pre>
+
 ## Step 2 – Installing Angular CLI
-After installing the node.js and npm on your system, use following commands to install Angular cli tool on your system.
+После установки node.js и npm в вашей системе используйте следующие команды для установки инструмента Angular cli в вашей системе.
+
 ### latest version
 npm install -g @angular/cli
 ### previous version
 npm install -g @angular/cli@8        #Angular 8
 npm install -g @angular/cli@9        #Angular 9
 npm install -g @angular/cli@10       #Angular 10
+### текущий проект
+npm install -g @angular/cli@13.1.2
+### Возможные проблемы:
+<p> При запуске job npm-build: Возможно сообщение об ошибке, оно может быть связано 
+с тем что не удалось собрать собрать проект из-за отсутствия необходимых зависимостей, а не только пути к npm. Поэтому пробуем запустить вручную:
+как прописано в скрипте. После чего читаем журналы и сообщения об ошибках. 
+<ol> Возможные решения:
+<li> Инсталяция недостающих зависимостей.
+<p>Перейти в домашнюю директорию проекта, поскольку зависимости должны располагаться внутри проекта, затем выполнить установку.</p>
+<pre>
+#Проверить версию Angular
+ng version
+# Предварительно прозведем обновление модулей
+npm update
+# в случае выявления уязвимостей:
+npm audit fix
+npm install --save-dev @angular-devkit/build-angular
+# в случае если при сборке выйдет ошибка типа:
+# SyntaxError: The requested module '@angular/compiler' does not provide an export named 'isSyntaxError'
+# то обновляем Angular
+ng update
+# почистить кэш
+npm cache clean --force
+</pre>
+</li>
+
+</ol>
+
 
 # Install for Windows
 Instruction <https://ccbill.com/kb/install-angular-on-windows>
@@ -439,62 +486,6 @@ For more info see: https://angular.io/guide/build#configuring-commonjs-dependenc
 
 Warning: bundle initial exceeded maximum budget. Budget 2.40 MB was not met by 109.27 kB with a total of 2.51 MB.
 </pre>
-<h1>Настройка безопасного соединения</h1>
-<h2>Генерация SSL сертификата для nginx (openssl)</h2>
-<pre>
-sudo mkdir /etc/nginx/ssl
-sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
-</pre>
-<h2>Установка сертификата в /etc/nginx/nginx.conf</h2>
-<pre>
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
 
-        listen 443 ssl http2;
-
-        root /usr/share/nginx/html;
-        index index.html index.htm;
-
-        server_name your_domain.com;
-        ssl_certificate /etc/nginx/ssl/nginx.crt;
-        ssl_certificate_key /etc/nginx/ssl/nginx.key;
-
-        location / {
-                try_files $uri $uri/ =404;
-        }
-}
-</pre>
-<h3>проверка конфигурации и применение настроек</h3>
-<pre>
-# запускаем проверку конфигурации средствами самого nginx 
-nginx -t
-# проверяем, чтобы тест прошёл успешно и применяем изменения
-service nginx reload
-</pre>
-<h1>Генерация пароля для admin</h1>
-<h2>Установка утилиты apache2-utils</h2>
-<pre>
-sudo apt install apache2-utils
-</pre>
-<h2>Генерация пароля</h2>
-<pre>
-sudo htpasswd -c /etc/nginx/.htpasswd имя_пользователя
-</pre>
-<h2>Включение в /etc/nginx/nginx.conf</h2>
-<pre>
-...
-    location =/admin {
-        auth_basic "Restricted Contenet";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-        try_files $uri/ =404;
-    }
-...
-</pre>
-<h1>Production</h1>
-<h2>pc26.rdturbo.ru</h2>
-<p>Рабочая ветка с изменениями pc26</p>
-<h2>testedo.rdturbo.ru</h2>
-<p>Рабочая ветка с изменениями development</p>
 
 
