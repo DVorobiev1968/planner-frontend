@@ -4,7 +4,7 @@ stages:
 npm-build:
   stage: deploy
   script:
-    - echo "Deploying application ${CI_PROJECT_NAME} from brahch ${CI_COMMIT_BRANCH} to ${CI_SERVER_NAME}:/var/www/drplatform.ru/html/planning-front-end." >> ~/deploy.txt
-    - cp dist/ /var/www/drplatform.ru/html/planning-front-end/
+    - echo "Deploying application ${CI_PROJECT_NAME} from ${PWD}/dist:/var/www/drplatform.ru/html/planning-front-end." >> ~/deploy.txt
+#    - cp dist/ /var/www/drplatform.ru/html/planning-front-end/
   tags:
     - "dev-deploy"
