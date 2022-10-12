@@ -47,8 +47,8 @@ export class RegisterComponent implements OnInit {
         lastname: this.registerForm.value.lastname,
         patronymic:this.registerForm.value.patronymic,
         initial:this.registerForm.value.initial,
-        password: this.registerForm.value.password,
-        confirmPassword: this.registerForm.value.confirmPassword
+        password: this.registerForm.value.password.toLowerCase(),
+        confirmPassword: this.registerForm.value.confirmPassword.toLowerCase()
       }).subscribe(data => {
         this.notificationService.showSnackBar('Регистрация прошла успешно!');
       }, error => {
