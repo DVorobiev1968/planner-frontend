@@ -5,7 +5,7 @@ npm-build:
   stage: deploy
   script:
     - echo "Deploying application ${CI_PROJECT_NAME} from ${PWD}/dist:/var/www/drplatform.ru/html/planning-front-end." >> ~/deploy.txt
-    - rm -R /var/www/drplatform.ru/html/planning-front-end
+    - rm -fR /var/www/drplatform.ru/html/planning-front-end/
     - cp -r dist/planning-front-end/* /var/www/drplatform.ru/html/planning-front-end
   tags:
     - "dev-deploy"
