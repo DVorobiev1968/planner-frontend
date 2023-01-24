@@ -9,7 +9,7 @@
 git clone https://github.com/nvm-sh/nvm.git .nvm
 cd ~/.nvm and check out the latest version with git checkout v0.39.1
 # Активируем команду nvm:
-activate nvm by sourcing it from your shell: . ./nvm.sh
+chmod a+x .nvm/nvm.sh
 # Активируем переменные окружения
 source ~/.bashrc
 # Если нужно последнюю версию, то: 
