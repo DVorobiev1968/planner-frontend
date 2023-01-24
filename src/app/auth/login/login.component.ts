@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   submit(): void{
     this.authService.login({
       username: this.loginForm.value.username,
-      password: this.loginForm.value.password
+      password: this.loginForm.value.password.toLowerCase()
     }).subscribe(data => {
 
       this.tokenStorage.saveToken(data.token);
@@ -58,6 +58,10 @@ export class LoginComponent implements OnInit {
     }, error => {
       this.notificationService.showSnackBar(error);
     });
+  }
+  inputHandler(event:any){
+    const value=event.target.value;
+    console.log(value)
   }
 
 }
