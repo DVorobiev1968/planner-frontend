@@ -23,6 +23,6 @@
 <mat-menu #logsMenu="matMenu" yPosition="below">
   <button mat-menu-item routerLink="main">На главную</button>
   <button *ngIf="!isLoggedIn" mat-menu-item routerLink="register">Регистрация</button>
-  <button *ngIf="isLoggedIn" mat-menu-item (click)="logout()">Выход</button>
+  <button mat-menu-item (click)="logout()">Выход</button>
   <button *ngIf="!isLoggedIn" mat-menu-item routerLink="app-login">Вход</button>
 </mat-menu>
