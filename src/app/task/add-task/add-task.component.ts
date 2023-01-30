@@ -112,7 +112,7 @@ export class AddTaskComponent implements OnInit {
       this.router.navigate(['tasks']);
       // window.location.reload();
     },error => {
-      this.notificationService.showSnackBar(error.message);
+      this.notificationService.showSnackBar("Ошибка при добавлении мероприятия: "+error.message);
     });
   }
 

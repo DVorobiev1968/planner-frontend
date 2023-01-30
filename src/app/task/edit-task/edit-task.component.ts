@@ -104,13 +104,13 @@ export class EditTaskComponent implements OnInit {
       title: new FormControl({value: this.taskService.task.title, disabled: false}, Validators.required),
       reference: new FormControl({value: this.taskService.task.reference, disabled: false}, Validators.required),
       employeeFio: new FormControl({value: this.taskService.task.employee.fio}, Validators.required),
-      employee: new FormControl({value: this.employees, disabled: !this.isEmployeesLoaded}, Validators.required),
-      priority: new FormControl({value: this.priorities, disabled: !this.isPriorityLoaded}, Validators.required),
-      category: new FormControl({value: this.categories, disabled: !this.isCategoryLoaded}, Validators.required),
-      dateControl: new FormControl({value: this.taskService.task.dateControl}, Validators.required),
+      employee: new FormControl({value: this.taskService.task.employee.id, disabled: !this.isEmployeesLoaded}, Validators.required),
+      priority: new FormControl({value: this.taskService.task.priority.id, disabled: !this.isPriorityLoaded}, Validators.required),
+      category: new FormControl({value: this.taskService.task.category.id, disabled: !this.isCategoryLoaded}, Validators.required),
+      dateControl: new FormControl({value: this.taskService.task.dateControl, disabled:false}, Validators.required),
       strDateControl: this.taskService.task.strDateControl,
       note: new FormControl({value: this.taskService.task.note, disabled: false}),
-      teamlied: new FormControl({value: this.users}, Validators.required)
+      teamlied: new FormControl({value: this.userService.user.id, disabled:false}, Validators.required)
     });
     this.isTaskDataLoaded = this.taskService.isLoadData;
   }
