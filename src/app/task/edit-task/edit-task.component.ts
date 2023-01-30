@@ -102,7 +102,7 @@ export class EditTaskComponent implements OnInit {
     this._taskEditForm = this.fb.group({
       title: [this.taskService.task.title, Validators.required],
       reference: [this.taskService.task.reference, Validators.required],
-      employeeFio: [this.taskService.task.employee.fio],
+      employeeFio: [this.taskService.task.employee.fio,Validators.required],
       employee: [this.employees, Validators.required],
       priority: [this.priorities, Validators.required],
       category: [this.categories, Validators.required],
@@ -130,7 +130,7 @@ export class EditTaskComponent implements OnInit {
         teamliedId:this._taskEditForm.value.teamlied
       }).subscribe(data => {
         this.notificationService.showSnackBar('Данные обновлены успешно');
-        window.location.reload();
+        this.router.navigate(['main']);
       }, error => {
         this.notificationService.showSnackBar(error.message);
       });
