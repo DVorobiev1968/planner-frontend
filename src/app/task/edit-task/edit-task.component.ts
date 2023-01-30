@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {IUser} from "../../models/User";
 import {TaskService} from "../../service/task.service";
 import {UserService} from "../../service/user.service";
@@ -73,9 +73,9 @@ export class EditTaskComponent implements OnInit {
       });
 
     this.categoryService.listCategory()
-      .subscribe(data=>{
-        this.categories=data;
-        this.isCategoryLoaded=true;
+      .subscribe(data => {
+        this.categories = data;
+        this.isCategoryLoaded = true;
       });
 
     this.userService.getAll()
@@ -87,7 +87,7 @@ export class EditTaskComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.logs = "Loggin back-enf request..."
+    this.logs = "Loggin back-enf request...";
   }
 
   ngOmLoad(): void {
@@ -96,27 +96,28 @@ export class EditTaskComponent implements OnInit {
     this.isUser = this.userService.isUser(this.user.roles);
     this.isRolesLoaded = true;
     this._editTaskFormBuilder();
+    console.log(this._taskEditForm.invalid);
   }
 
   _editTaskFormBuilder() {
     this._taskEditForm = this.fb.group({
-      title: [this.taskService.task.title, Validators.required],
-      reference: [this.taskService.task.reference, Validators.required],
-      employeeFio: [this.taskService.task.employee.fio,Validators.required],
-      employee: [this.employees, Validators.required],
-      priority: [this.priorities, Validators.required],
-      category: [this.categories, Validators.required],
-      dateControl: [this.taskService.task.dateControl, Validators.required],
-      strDateControl: [this.taskService.task.strDateControl],
-      note: [this.taskService.task.note],
-      teamlied: [this.users]
+      title: new FormControl({value: this.taskService.task.title, disabled: false}, Validators.required),
+      reference: new FormControl({value: this.taskService.task.reference, disabled: false}, Validators.required),
+      employeeFio: new FormControl({value: this.taskService.task.employee.fio}, Validators.required),
+      employee: new FormControl({value: this.employees, disabled: !this.isEmployeesLoaded}, Validators.required),
+      priority: new FormControl({value: this.priorities, disabled: !this.isPriorityLoaded}, Validators.required),
+      category: new FormControl({value: this.categories, disabled: !this.isCategoryLoaded}, Validators.required),
+      dateControl: new FormControl({value: this.taskService.task.dateControl}, Validators.required),
+      strDateControl: this.taskService.task.strDateControl,
+      note: new FormControl({value: this.taskService.task.note, disabled: false}),
+      teamlied: new FormControl({value: this.users}, Validators.required)
     });
     this.isTaskDataLoaded = this.taskService.isLoadData;
   }
 
-  submit(isAdmin:boolean): void {
+  submit(isAdmin: boolean): void {
     this.logs = this._taskEditForm.value;
-    if (isAdmin){
+    if (isAdmin) {
       this.taskService.updateTeamliedTask({
         id: this.taskService.task.id,
         title: this._taskEditForm.value.title,
@@ -127,16 +128,16 @@ export class EditTaskComponent implements OnInit {
         dateControl: this._taskEditForm.value.dateControl,
         note: this._taskEditForm.value.note,
         completed: this.taskService.task.completed,
-        teamliedId:this._taskEditForm.value.teamlied
+        teamliedId: this._taskEditForm.value.teamlied
       }).subscribe(data => {
         this.notificationService.showSnackBar('Данные обновлены успешно');
-        this.router.navigate(['main']);
+        this.router.navigate(['tasks']);
       }, error => {
         this.notificationService.showSnackBar(error.message);
+        this.router.navigate(['main']);
       });
 
-    }
-    else {
+    } else {
       this.taskService.updateTask({
         id: this.taskService.task.id,
         title: this._taskEditForm.value.title,
@@ -156,4 +157,7 @@ export class EditTaskComponent implements OnInit {
     }
   }
 
+  back():void{
+    this.router.navigate(['tasks']);
+  }
 }
