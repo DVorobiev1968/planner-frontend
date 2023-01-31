@@ -15,3 +15,25 @@
 .h2{
   font-size: 12px;
 }
+.mat-button{
+  margin-right: 8px;
+  background: lawngreen;
+  color: black;
+  alignment: right;
+  justify-content: right;
+  justify-items: right;
+  font-size: 16px;
+  text-decoration-color: aliceblue;
+  border-width: 1px;
+  border: black;
+}
+.mat-button-back{
+  margin-right: 8px;
+  color: black;
+  alignment: right;
+  justify-content: right;
+  justify-items: right;
+  font-size: 16px;
+  border-width: 1px;
+  border: black;
+}

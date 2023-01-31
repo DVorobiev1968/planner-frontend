@@ -157,15 +157,6 @@ export class ListTaskComponent implements OnInit{
       });
   }
 
-  // TODO реализовать отображение pdf
-  /** метод реализующий возвращение формата картинки */
-  formatImage(img: any): any {
-    if (img == null) {
-      return null;
-    }
-    return 'data:image/jpeg;base64,' + img;
-  }
-
   setCurrentTask(index: number, id: number): void {
     this.task = this.tasks[index];
     this.taskService.setTask(this.task);
