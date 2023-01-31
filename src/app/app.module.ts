@@ -30,6 +30,7 @@ import { RegisterWithRolesComponent } from './auth/register-with-roles/register-
 import { ListUsersComponent } from './auth/list-users/list-users.component';
 import { EditUserComponent } from './auth/edit-user/edit-user.component';
 import { ListPriorityComponent } from './priority/list-priority/list-priority.component';
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ListPriorityComponent } from './priority/list-priority/list-priority.co
   ],
   providers: [
     authInterceptorProviders,
-    authErrorInterceptorProviders
+    authErrorInterceptorProviders,
+    {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
   ],
 
   bootstrap: [AppComponent]

@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
       this.userService.getRolesCurrentUser();
       this.notificationService.showSnackBar('Успешно зашли на сайт');
       this.router.navigate(['main']);
-      // window.location.reload();
     }, error => {
       this.notificationService.showSnackBar(error);
     });
