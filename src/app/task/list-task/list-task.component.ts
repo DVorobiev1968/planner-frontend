@@ -199,7 +199,7 @@ export class ListTaskComponent implements OnInit{
         this.taskService.deleteTask(this.deleteIdTask)
           .subscribe(data => {
             this.notificationService.showSnackBar('Данные были успешно удалены');
-            window.location.reload();
+            this.router.navigate(['main']);
           }), error => {
           this.notificationService.showSnackBar(error.message);
         }
